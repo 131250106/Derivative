@@ -1,9 +1,12 @@
 package data;
 
+import java.io.Serializable;
+
 /**
  * Created by Nifury on 8/13/2015.
  */
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
 	private String id;				//用户唯一标识符
 	private String name;			//用户姓名
 	private String user;			//用户账号
