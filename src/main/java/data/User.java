@@ -4,9 +4,31 @@ package data;
  * Created by Nifury on 8/13/2015.
  */
 public class User {
-	private String id;				//ÓÃ»§Î¨Ò»±êÊ¶·û
-	private String name;			//ÓÃ»§ÐÕÃû
-	private String user;			//ÓÃ»§ÕËºÅ
-	private String password; 	//ÓÃ»§ÃÜÂë
-	
+	private String id;				//ï¿½Ã»ï¿½Î¨Ò»ï¿½ï¿½Ê¶ï¿½ï¿½
+	private String name;			//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String user;			//ï¿½Ã»ï¿½ï¿½Ëºï¿½
+	private String password; 	//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	public User(String id, String name, String user, String password) {
+		this.id = id;
+		this.name = name;
+		this.user = user;
+		this.password = password;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
 }
