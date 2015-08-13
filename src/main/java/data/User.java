@@ -2,6 +2,8 @@ package data;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+
 /**
  * Created by Nifury on 8/13/2015.
  */
@@ -11,16 +13,26 @@ public class User implements Serializable {
 	private String name;			//用户姓名
 	private String user;			//用户账号
 	private String password; 	//用户密码
+	
+	private ArrayList<Order> listofOrders;			//用户所持有的所有订单
 
-	public User(String id, String name, String user, String password) {
+	
+	public User(String id, String name, String user, String password,
+			ArrayList<Order> listofOrders) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.user = user;
 		this.password = password;
+		this.listofOrders = listofOrders;
 	}
 
 	public String getId() {
 		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
