@@ -1,7 +1,9 @@
 package data;
 
-public class Option {			//ÆÚÈ¨Àà
-	private String className;  		//ÆÚÈ¨ÀàĞÍ
-	private EorA eora;					//Å·Ê½»òÃÀÊ½
+public class Option {									//æœŸæƒ
+	private String firstClassName;					//ç¬¬ä¸€å¤§åˆ†ç±»;  		
+	private String secondClassName;				//ç¬¬äºŒå¤§åˆ†ç±»;  
+	private EorA eora;									//æ¬§å¼æˆ–ç¾å¼
+	private upORdown upordown;					//çœ‹æ¶¨æˆ–çœ‹è·Œ
 	
 }
