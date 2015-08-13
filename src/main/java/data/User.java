@@ -14,17 +14,14 @@ public class User implements Serializable {
 	private String user;			//用户账号
 	private String password; 	//用户密码
 	
-	private ArrayList<Order> listofOrders;			//用户所持有的所有订单
-
+	private ArrayList<Order> listofOrders = new ArrayList<>();			//用户所持有的所有订单
 	
-	public User(String id, String name, String user, String password,
-			ArrayList<Order> listofOrders) {
+	public User(String id, String name, String user, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.user = user;
 		this.password = password;
-		this.listofOrders = listofOrders;
 	}
 
 	public String getId() {
