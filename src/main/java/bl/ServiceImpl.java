@@ -16,9 +16,8 @@ public class ServiceImpl implements Service {
     private Map<String, User> userData = new HashMap<>();
 
     @Override
-    public boolean login(String username, String password) throws RemoteException {
-        User user = userData.get(username);
-        return user != null && user.getPassword().equals(password);
+    public User login(String username, String password) throws RemoteException {
+        return userData.get(username);
     }
 
     @Override
