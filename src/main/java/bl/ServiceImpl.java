@@ -6,6 +6,7 @@ import data.User;
 import dataTool.DataTool;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -33,22 +34,24 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public double[] getPurchasePrice(double executeprice, double rate, double deadline) throws RemoteException {
+    public double[] getPurchasePrice(double executeprice, double rate, double deadline,String ClientID) throws RemoteException {
         return new double[2];
     }
 
     @Override
-    public boolean purchaseOption(Option option, int number) throws RemoteException {
+    public boolean purchaseOption(Option option, int number, String ClientID,
+			Date deadline, double executeprice, double dealprice) throws RemoteException {
         return false;
     }
 
     @Override
-    public boolean sellOption(Option option, int number) throws RemoteException {
+    public boolean sellOption(Option option, int number, String ClientID,
+			Date deadline, double executeprice, double dealprice) throws RemoteException {
         return false;
     }
 
     @Override
-    public double getPresentPriceByOption(Option option) throws RemoteException {
+    public double getPresentPriceByOption(Option option,String ClientID) throws RemoteException {
         return dataTool.getHuShen300Price();
     }
 
