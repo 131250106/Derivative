@@ -30,8 +30,4 @@ public class ServiceImpl implements Service {
         return "success";
     }
 
-    @Override
-    public void placeholder() throws RemoteException {
-
-    }
 }
