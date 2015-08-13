@@ -7,9 +7,9 @@ public class Option implements Serializable {									//期权
     private String firstClassName;					//第一大分类;
 	private String secondClassName;				//第二大分类;  
 	private EorA eora;									//欧式或美式
-	private UpOrDown upordown;					//看涨或看跌
+	private upORdown upordown;					//看涨或看跌
 
-    public Option(String firstClassName, String secondClassName, EorA eora, UpOrDown upordown) {
+    public Option(String firstClassName, String secondClassName, EorA eora, upORdown upordown) {
         this.firstClassName = firstClassName;
         this.secondClassName = secondClassName;
         this.eora = eora;
@@ -28,7 +28,7 @@ public class Option implements Serializable {									//期权
         return eora;
     }
 
-    public UpOrDown getUpordown() {
+    public upORdown getUpordown() {
         return upordown;
     }
 }
