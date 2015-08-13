@@ -59,6 +59,7 @@ public class DataTool
 			{
 				result += temp;
 			}
+			 br.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
