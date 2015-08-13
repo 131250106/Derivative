@@ -1,7 +1,9 @@
 package bl;
 
 import blservice.Service;
+import data.Option;
 import data.User;
+import dataTool.DataTool;
 
 import java.rmi.RemoteException;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import java.util.UUID;
 public class ServiceImpl implements Service {
 
     private Map<String, User> userData = new HashMap<>();
+    private DataTool dataTool = new DataTool();
 
     @Override
     public User login(String username, String password) throws RemoteException {
@@ -27,6 +30,26 @@ public class ServiceImpl implements Service {
             return "Username already exists.";
         userData.put(username, new User(UUID.randomUUID().toString(), name, username, password));
         return "success";
+    }
+
+    @Override
+    public double[] getPurchasePrice(double executeprice, double rate, double deadline) throws RemoteException {
+        return new double[2];
+    }
+
+    @Override
+    public boolean purchaseOption(Option option, int number) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean sellOption(Option option, int number) throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public double getPresentPriceByOption(Option option) throws RemoteException {
+        return dataTool.getHuShen300Price();
     }
 
 }
