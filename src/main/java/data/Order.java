@@ -9,7 +9,6 @@ public class Order implements Serializable {
 	private Option option;			//期权
 	private Date deadline;			//到期时间
 	private double executeprice;			//执行价格
-	private double presentprice;			//当前价格
 	private double dealprice;					//买卖价格，买价为正，卖价为负。
 	private int number;				//数量,相对于客户为负的
 	private double delta;
@@ -17,13 +16,12 @@ public class Order implements Serializable {
 	private double theta;
 	private double vega;
 
-    public Order(String clientid, Option option, Date deadline, double executeprice, double presentprice, double
+    public Order(String clientid, Option option, Date deadline, double executeprice, double
             dealprice, int number, double delta, double gamma, double theta, double vega) {
         Clientid = clientid;
         this.option = option;
         this.deadline = deadline;
         this.executeprice = executeprice;
-        this.presentprice = presentprice;
         this.dealprice = dealprice;
         this.number = number;
         this.delta = delta;
@@ -46,10 +44,6 @@ public class Order implements Serializable {
 
     public double getExecuteprice() {
         return executeprice;
-    }
-
-    public double getPresentprice() {
-        return presentprice;
     }
 
     public double getDealprice() {
