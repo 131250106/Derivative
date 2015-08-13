@@ -8,5 +8,6 @@ import java.rmi.RemoteException;
  */
 public interface Service extends Remote {
     boolean login(String username, String password) throws RemoteException;
+
     void placeholder() throws RemoteException;
 }
