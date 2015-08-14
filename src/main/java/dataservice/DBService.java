@@ -17,6 +17,8 @@ public interface DBService {
        public boolean addOrder (Order order);
        //获得所有订单
        public Order[] getAllOrder();
-       //通过客户编号查找所有订单
+       //通过客户编号查找所有订单 不作为查找条件的参数，传null
        public Order[] findOrder (String account, Date date, Date ddl);
+       //根据单据编号查找
+       public Order findOrderById (String id);
 }

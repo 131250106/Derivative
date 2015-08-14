@@ -31,4 +31,8 @@ public class Option implements Serializable {									//期权
     public upORdown getUpordown() {
         return upordown;
     }
+    public String toString()
+    {
+    	return "firstClassName:\t"+firstClassName+"\tsecondClassName:\t"+secondClassName+"\teora:\t"+eora+"\tupordown:\t"+upordown+"\t";
+    }
 }
