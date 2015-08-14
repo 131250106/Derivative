@@ -152,7 +152,7 @@ public class DBTool implements DBService {
 
 	public Order[] findOrder(String account, Date date, Date ddl) {
 		String sql = "select * from `order` where ";
-		String sql1 = " client_account = ? ";
+		String sql1 = " claccount = ? ";
 		String sql2 = " date = ? ";
 		String sql3 = " deadLine = ? ";
 		String join = " and ";
@@ -261,7 +261,7 @@ public class DBTool implements DBService {
 			}
 			if (count != -1) {
 				orderId = dateStr;
-				orderId += String.valueOf(count);
+				orderId += String.valueOf(count+1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
