@@ -23,7 +23,7 @@ import GUI.myswing.MyColor;
 public class MenuPanel extends JPanel implements ActionListener{
 	private String panelCategory;
 	protected int whereTo;
-	private JButton buttonOption;
+	private JButton buttonOption,buttonView;;
 	
 	private JButton pvoption,lboption,boption,baroption,asianoption;
 	private JButton mini,close,back;
@@ -68,9 +68,21 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonOption.setFocusPainted(false);
 		buttonOption.setBorderPainted(false);
 		buttonOption.setFont(font);
-		//buttonOption.addActionListener(this);
+		buttonOption.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
+			}
+		});
 		this.add(buttonOption);
 		
+		buttonView = new JButton("查看");
+		buttonView.setBounds(110,30, 110,45);
+		buttonView.setForeground(MyColor.white);
+		buttonView.setBackground(MyColor.deepblue);
+		buttonView.setFocusPainted(false);
+		buttonView.setBorderPainted(false);
+		buttonView.setFont(font);
+		this.add(buttonView);
 		
 		pvoption = new JButton("普通期权");
 		pvoption.setSize(170, 50);

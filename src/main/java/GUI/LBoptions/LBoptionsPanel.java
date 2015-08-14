@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
+import GUI.GraphicController;
 import GUI.MenuPanel;
 import GUI.myswing.MyColor;
 
@@ -28,7 +29,7 @@ public class LBoptionsPanel extends MenuPanel{
 		fixedoption.setFont(font);
 		fixedoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				//GraphicController.changeToPanel(new fixedoptionsPanel("fixedoptions"));
+				GraphicController.changeToPanel(new FixedPanel("Fixed"));
 			}
 		});
 		this.add(fixedoption);
@@ -43,7 +44,7 @@ public class LBoptionsPanel extends MenuPanel{
 		floatoption.setFont(font);
 		floatoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				//GraphicController.changeToPanel(new fixedoptionsPanel("fixedoptions"));
+				GraphicController.changeToPanel(new FloatPanel("Float"));
 			}
 		});
 		this.add(floatoption);

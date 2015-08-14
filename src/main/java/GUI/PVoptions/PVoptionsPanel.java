@@ -29,7 +29,7 @@ public class PVoptionsPanel extends MenuPanel{
 		pvoption.setFont(font);
 		pvoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				//GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
+				GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
 			}
 		});
 		this.add(pvoption);

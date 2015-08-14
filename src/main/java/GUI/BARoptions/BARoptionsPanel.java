@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
+import GUI.GraphicController;
 import GUI.MenuPanel;
 import GUI.myswing.MyColor;
 
@@ -28,6 +29,7 @@ public class BARoptionsPanel extends MenuPanel{
 		downandoutoption.setFont(font);
 		downandoutoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new DownAndOutPanel("DownAndOut"));
 			}
 		});
 		this.add(downandoutoption);
@@ -42,6 +44,7 @@ public class BARoptionsPanel extends MenuPanel{
 		downandinoption.setFont(font);
 		downandinoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new DownAndInPanel("DownAndIn"));
 			}
 		});
 		this.add(downandinoption);
@@ -56,6 +59,7 @@ public class BARoptionsPanel extends MenuPanel{
 		upandoutoption.setFont(font);
 		upandoutoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new UpAndOutPanel("UpAndOut"));
 			}
 		});
 		this.add(upandoutoption);
@@ -70,6 +74,7 @@ public class BARoptionsPanel extends MenuPanel{
 		upandinoption.setFont(font);
 		upandinoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new UpAndInPanel("UpAndIn"));
 			}
 		});
 		this.add(upandinoption);
@@ -84,6 +89,7 @@ public class BARoptionsPanel extends MenuPanel{
 		doublebaroption.setFont(font);
 		doublebaroption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new DoubleBARPanel("DoubleBAR"));
 			}
 		});
 		this.add(doublebaroption);
@@ -100,6 +106,7 @@ public class BARoptionsPanel extends MenuPanel{
 		multileveloption.setFont(font);
 		multileveloption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new MultiLevelPanel("MultiLevel"));
 			}
 		});
 		this.add(multileveloption);

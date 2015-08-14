@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
+import GUI.GraphicController;
 import GUI.MenuPanel;
 import GUI.myswing.MyColor;
 
@@ -27,6 +28,7 @@ public class AsianoptionsPanel extends MenuPanel{
 		avgexcpriceoption.setFont(font);
 		avgexcpriceoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new AvgExcPricePanel("AvgExcPrice"));
 			}
 		});
 		this.add(avgexcpriceoption);
@@ -43,6 +45,7 @@ public class AsianoptionsPanel extends MenuPanel{
 		avgpriceoption.setFont(font);
 		avgpriceoption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new AvgPricePanel("AvgPrice"));
 			}
 		});
 		this.add(avgpriceoption);
