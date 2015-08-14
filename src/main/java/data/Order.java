@@ -69,4 +69,10 @@ public class Order implements Serializable {
     public double getVega() {
         return vega;
     }
+    
+    public String toString()
+    {
+    	return "\tClientid:\t"+Clientid+"\toption:\t"+option+"\tdeadline:\t"+deadline+"\texecuteprice:\t"+executeprice+"\tdealprice:\t"+dealprice+"\tnumber:\t"+number+"\tdelta:\t"+delta+"\tgamma:\t"+gamma+"\ttheta:\t"+theta+"\tvega:\t"+vega+"\t";
+    }
+    
 }
