@@ -33,7 +33,7 @@ public class AsianoptionsPanel extends MenuPanel{
 		});
 		this.add(avgexcpriceoption);
 		
-		font = new Font("΢���ź�",Font.PLAIN,20);
+		font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		avgpriceoption = new JButton("平均价格期权");
 		avgpriceoption.setSize(175, 70);

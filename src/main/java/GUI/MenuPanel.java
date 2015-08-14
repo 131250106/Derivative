@@ -34,7 +34,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		panelCategory = name;
 		
 
-		Font font = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,20);
+		Font font = new Font("å¾®è½¯é›…é»‘",Font.PLAIN,18);
 		
 		mini = new JButton("");
 		mini.setBounds(890,0,34,30);
@@ -60,7 +60,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		back.addActionListener(this);
 		this.add(back);
 		
-		buttonOption = new JButton("¹ºÂò");
+		buttonOption = new JButton("ä¹°å–æœŸæƒ");
 		buttonOption.setBounds(0, 30, 110,45);
 		//buttonOption.setContentAreaFilled(false);
 		buttonOption.setForeground(MyColor.white);
@@ -75,7 +75,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		});
 		this.add(buttonOption);
 		
-		buttonView = new JButton("²é¿´");
+		buttonView = new JButton("äº¤æ˜“è®°å½•");
 		buttonView.setBounds(110,30, 110,45);
 		buttonView.setForeground(MyColor.white);
 		buttonView.setBackground(MyColor.deepblue);
@@ -84,7 +84,9 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonView.setFont(font);
 		this.add(buttonView);
 		
-		pvoption = new JButton("ÆÕÍ¨ÆÚÈ¨");
+		font = new Font("å¾®è½¯é›…é»‘",Font.PLAIN,20);
+		
+		pvoption = new JButton("æ™®é€šæœŸæƒ");
 		pvoption.setSize(170, 50);
 		pvoption.setLocation(0,76);
 		pvoption.setBackground(MyColor.lightblue);
@@ -99,7 +101,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		});
 		this.add(pvoption);
 		
-		lboption = new JButton("»ØÍûÆÚÈ¨");
+		lboption = new JButton("å›æœ›æœŸæƒ");
 		lboption.setSize(170, 50);
 		lboption.setLocation(340,76);
 		lboption.setBackground(MyColor.lightblue);
@@ -114,7 +116,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		});
 		this.add(lboption);
 		
-		boption = new JButton("¶şÔªÆÚÈ¨");
+		boption = new JButton("äºŒå…ƒæœŸæƒ");
 		boption.setSize(170, 50);
 		boption.setLocation(170,76);
 		boption.setBackground(MyColor.lightblue);
@@ -130,7 +132,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		this.add(boption);
 		
 		
-		asianoption = new JButton("ÑÇÊ½ÆÚÈ¨");
+		asianoption = new JButton("äºšå¼æœŸæƒ");
 		asianoption.setSize(170, 50);
 		asianoption.setLocation(510,76);
 		asianoption.setBackground(MyColor.lightblue);
@@ -145,7 +147,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		});
 		this.add(asianoption);
 		
-		baroption = new JButton("ÕÏ°­ÆÚÈ¨");
+		baroption = new JButton("éšœç¢æœŸæƒ");
 		baroption.setSize(170, 50);
 		baroption.setLocation(680,76);
 		baroption.setBackground(MyColor.lightblue);
