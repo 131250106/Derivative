@@ -17,9 +17,9 @@ public class BARoptionsPanel extends MenuPanel{
 	
 	public BARoptionsPanel(String name) {
 		super("BARoptionsPanel");
-		Font font = new Font("微软雅黑",Font.PLAIN,20);
+		Font font = new Font("寰蒋闆呴粦",Font.PLAIN,20);
 		
-		downandoutoption = new JButton("向下敲出期权");
+		downandoutoption = new JButton("鍚戜笅鏁插嚭鏈熸潈");
 		downandoutoption.setSize(175, 70);
 		downandoutoption.setLocation(0,197);
 		downandoutoption.setBackground(MyColor.deepblue);
@@ -34,7 +34,7 @@ public class BARoptionsPanel extends MenuPanel{
 		});
 		this.add(downandoutoption);
 		
-		downandinoption = new JButton("向下敲入期权");
+		downandinoption = new JButton("鍚戜笅鏁插叆鏈熸潈");
 		downandinoption.setSize(175, 70);
 		downandinoption.setLocation(0,337);
 		downandinoption.setBackground(MyColor.deepblue);
@@ -49,7 +49,7 @@ public class BARoptionsPanel extends MenuPanel{
 		});
 		this.add(downandinoption);
 		
-		upandoutoption = new JButton("向上敲出期权");
+		upandoutoption = new JButton("鍚戜笂鏁插嚭鏈熸潈");
 		upandoutoption.setSize(175, 70);
 		upandoutoption.setLocation(0,127);
 		upandoutoption.setBackground(MyColor.deepblue);
@@ -64,7 +64,7 @@ public class BARoptionsPanel extends MenuPanel{
 		});
 		this.add(upandoutoption);
 		
-		upandinoption = new JButton("向上敲入期权");
+		upandinoption = new JButton("鍚戜笂鏁插叆鏈熸潈");
 		upandinoption.setSize(175, 70);
 		upandinoption.setLocation(0,267);
 		upandinoption.setBackground(MyColor.deepblue);
@@ -79,7 +79,7 @@ public class BARoptionsPanel extends MenuPanel{
 		});
 		this.add(upandinoption);
 		
-		doublebaroption = new JButton("双重障碍期权");
+		doublebaroption = new JButton("鍙岄噸闅滅鏈熸潈");
 		doublebaroption.setSize(175, 70);
 		doublebaroption.setLocation(0,407);
 		doublebaroption.setBackground(MyColor.deepblue);
@@ -94,9 +94,8 @@ public class BARoptionsPanel extends MenuPanel{
 		});
 		this.add(doublebaroption);
 		
-		font = new Font("微软雅黑",Font.PLAIN,20);
 		
-		multileveloption = new JButton("<html>多次触及<br/>障碍水平期权</html>");
+		multileveloption = new JButton("<html>澶氭瑙﹀強<br/>闅滅姘村钩鏈熸潈</html>");
 		multileveloption.setSize(175, 70);
 		multileveloption.setLocation(0,477);
 		multileveloption.setBackground(MyColor.deepblue);

@@ -17,9 +17,9 @@ public class PVoptionsPanel extends MenuPanel{
 	public PVoptionsPanel(String name) {
 		super("PVoptions");
 		
-		Font font = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,20);
+		Font font = new Font("å¾®è½¯é›…é»‘",Font.PLAIN,20);
 		
-		pvoption = new JButton("ÆÕÍ¨ÆÚÈ¨");
+		pvoption = new JButton("æ™®é€šæœŸæƒ");
 		pvoption.setSize(175, 70);
 		pvoption.setLocation(0,127);
 		pvoption.setBackground(MyColor.deepblue);

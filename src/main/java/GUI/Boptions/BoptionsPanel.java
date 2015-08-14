@@ -17,9 +17,9 @@ public class BoptionsPanel extends MenuPanel{
 	public BoptionsPanel(String name) {
 		super("Boptions");
 		
-		Font font = new Font("微软雅黑",Font.PLAIN,20);
+		Font font = new Font("寰蒋闆呴粦",Font.PLAIN,20);
 		
-		boption = new JButton("二元期权");
+		boption = new JButton("浜屽厓鏈熸潈");
 		boption.setSize(175,70);
 		boption.setLocation(0,127);
 		boption.setBackground(MyColor.deepblue);

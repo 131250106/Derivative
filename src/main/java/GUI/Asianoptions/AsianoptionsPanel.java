@@ -16,9 +16,9 @@ public class AsianoptionsPanel extends MenuPanel{
 	
 	public AsianoptionsPanel(String name) {
 		super("Asianoptions");
-		Font font = new Font("微软雅黑",Font.PLAIN,17);
+		Font font = new Font("寰蒋闆呴粦",Font.PLAIN,17);
 		
-		avgexcpriceoption = new JButton("平均执行价格期权");
+		avgexcpriceoption = new JButton("骞冲潎鎵ц浠锋牸鏈熸潈");
 		avgexcpriceoption.setSize(175, 70);
 		avgexcpriceoption.setLocation(0,197);
 		avgexcpriceoption.setBackground(MyColor.deepblue);
@@ -33,9 +33,9 @@ public class AsianoptionsPanel extends MenuPanel{
 		});
 		this.add(avgexcpriceoption);
 		
-		font = new Font("微软雅黑",Font.PLAIN,20);
+		font = new Font("微锟斤拷锟脚猴拷",Font.PLAIN,20);
 		
-		avgpriceoption = new JButton("平均价格期权");
+		avgpriceoption = new JButton("骞冲潎浠锋牸鏈熸潈");
 		avgpriceoption.setSize(175, 70);
 		avgpriceoption.setLocation(0,127);
 		avgpriceoption.setBackground(MyColor.deepblue);

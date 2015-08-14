@@ -17,9 +17,9 @@ public class LBoptionsPanel extends MenuPanel{
 	public LBoptionsPanel(String name) {
 		super("LBoptions");
 		
-		Font font = new Font("微软雅黑",Font.PLAIN,17);
+		Font font = new Font("寰蒋闆呴粦",Font.PLAIN,17);
 		
-		fixedoption = new JButton("固定执行价格期权");
+		fixedoption = new JButton("鍥哄畾鎵ц浠锋牸鏈熸潈");
 		fixedoption.setSize(175, 70);
 		fixedoption.setLocation(0,197);
 		fixedoption.setBackground(MyColor.deepblue);
@@ -34,7 +34,7 @@ public class LBoptionsPanel extends MenuPanel{
 		});
 		this.add(fixedoption);
 		
-		floatoption = new JButton("浮动执行价格期权");
+		floatoption = new JButton("娴姩鎵ц浠锋牸鏈熸潈");
 		floatoption.setSize(175, 70);
 		floatoption.setLocation(0,127);
 		floatoption.setBackground(MyColor.deepblue);

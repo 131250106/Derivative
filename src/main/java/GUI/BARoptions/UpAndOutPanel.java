@@ -3,7 +3,7 @@ package GUI.BARoptions;
 public class UpAndOutPanel extends BARoptionsPanel{
 
 	public UpAndOutPanel(String name) {
-		super("UpAndOutPanel");
+		super("UpAndOut");
 	}
 
 }
