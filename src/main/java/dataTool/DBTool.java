@@ -273,8 +273,7 @@ public class DBTool implements DBService {
 	public Order findOrderById(String id) {
 		String sql = "select * from `order` where order_id = ?";
 		Order order = null;
-		try {
-           PreparedStatement statement = conn.prepareStatement(sql);
+		try (PreparedStatement statement = conn.prepareStatement(sql)) {
            statement.setString(1, id);
            ResultSet resultSet = statement.executeQuery();
            if (resultSet.next())
