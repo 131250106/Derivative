@@ -7,4 +7,5 @@ public class MyColor {
 	public static Color deepblue2 = new Color(17,64,108);
 	public static Color lightblue = new Color(138,171,202);
 	public static Color white = new Color(255,255,255);
+	public static Color black = new Color(0,0,0);
 }
