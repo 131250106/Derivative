@@ -5,14 +5,18 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.invoke.MethodHandles.Lookup;
+import java.nio.file.SecureDirectoryStream;
+import java.util.function.DoubleToLongFunction;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import GUI.GraphicController;
 import GUI.MenuPanel;
+import GUI.myswing.CommonTextPanel;
 import GUI.myswing.MyColor;
 
 public class PVoptionsPanel extends MenuPanel{
@@ -25,6 +29,18 @@ public class PVoptionsPanel extends MenuPanel{
 	private ButtonGroup EAndA;
 	private JRadioButton Europe;
 	private JRadioButton America;
+	private CommonTextPanel commonTextPanel;
+	
+	static int PANEL_WIDTH = 960;
+	static int PANEL_HEIGHT = 600;
+	static int LABEL_WIDTH = 70;
+	static int LABEL_HEIGHT = 25;
+	static int TEXTFIELD_WIDTH = 70;
+	static int TEXTFIELD_HEIGHT = 22;
+	
+	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel;
+	JTextField executePriceField,noRiskRateField,deadlineField;
+	JButton submitButton;
 	
 	public PVoptionsPanel(String name) {
 		super("PVoptions");
@@ -99,6 +115,60 @@ public class PVoptionsPanel extends MenuPanel{
 		this.add(Europe);
 		this.add(America);
 		
+		executePriceLabel = new JLabel("执行价格:");
+		executePriceLabel.setFont(font);
+		executePriceLabel.setBounds(200, 240, LABEL_WIDTH, LABEL_HEIGHT);
+		executePriceLabel.setVisible(true);
+		this.add(executePriceLabel);
+		
+		executePriceField = new JTextField();
+		executePriceField.setBounds(280, 240, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		executePriceField.setVisible(true);
+		executePriceField.setFont(font);
+		this.add(executePriceField);
+		
+		noRiskRateLabel = new JLabel("无风险利率:");
+		noRiskRateLabel.setFont(font);
+		noRiskRateLabel.setBounds(200, 280, LABEL_WIDTH, LABEL_HEIGHT);
+		noRiskRateLabel.setVisible(true);
+		this.add(noRiskRateLabel);
+		
+		noRiskRateField = new JTextField();
+		noRiskRateField.setFont(font);
+		noRiskRateField.setBounds(280, 280, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		noRiskRateField.setVisible(true);
+		this.add(noRiskRateField);
+		
+		//需要处理计算一下
+		deadlineLabel = new JLabel("截止日期:");
+		deadlineLabel.setFont(font);
+		deadlineLabel.setBounds(200,320, LABEL_WIDTH, LABEL_HEIGHT);
+		deadlineLabel.setVisible(true);
+		this.add(deadlineLabel);
+		
+		deadlineField = new JTextField();
+		deadlineField.setFont(font);
+		deadlineField.setBounds(280, 320, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		deadlineField.setVisible(true);
+		this.add(deadlineField);
+		
+		submitButton = new JButton("查询");
+		submitButton.setFont(font);
+		submitButton.setSize(80, 30);
+		submitButton.setLocation(200,400);
+		submitButton.setBackground(MyColor.deepblue);
+		submitButton.setForeground(MyColor.lightblue);
+		submitButton.setFocusPainted(false);
+		submitButton.setBorderPainted(false);
+		submitButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//这里显示输出的两个框
+				double executePrice = Double.parseDouble(executePriceField.getText());
+				
+				System.out.println("submitButton has been clicked!");
+			}
+		});
+		this.add(submitButton);
 	}
 
 	
