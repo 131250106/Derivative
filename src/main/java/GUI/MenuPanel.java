@@ -82,6 +82,11 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonView.setFocusPainted(false);
 		buttonView.setBorderPainted(false);
 		buttonView.setFont(font);
+		buttonView.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new ViewPanel());
+			}
+		});
 		this.add(buttonView);
 		
 		font = new Font("微软雅黑",Font.PLAIN,20);
@@ -184,6 +189,8 @@ public class MenuPanel extends JPanel implements ActionListener{
 			System.exit(0);
 		}else if(e.getSource().equals(mini)){
 			GraphicController.mini();
+		}else if(e.getSource().equals(buttonView)){
+			GraphicController.changeToPanel(new ViewPanel());
 		}
 	}
 }
