@@ -30,7 +30,7 @@ public class NTable extends JPanel{
 		this.setSize(x,y);
 		table = new JTable(tableModel);
 		
-		table.setForeground(MyColor.white);
+		table.setForeground(MyColor.deepblue);
 		table.setBackground(MyColor.white);
 		table.setGridColor(MyColor.black);
 		
@@ -40,20 +40,20 @@ public class NTable extends JPanel{
 		tableHead.setBackground(MyColor.deepblue);
 		
 		setRenderer();
-		scrollPane = new JScrollPane(table);
-		scrollPane.setSize(x + 4, y + 4);
-		scrollPane.setBackground(MyColor.white);
-		scrollPane.getViewport().setBackground(MyColor.white);
-		scrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-		scrollPane.setLocation(-2, -2);
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getTableHeader().setResizingAllowed(false);
 		table.setFocusable(false);
 		table.setRowHeight(23);
 		table.setShowGrid(false);
 		this.setBackground(new Color(50, 50, 55));
+		scrollPane = new JScrollPane(table);
+		scrollPane.setSize(x + 4, y + 4);
+		scrollPane.setBackground(MyColor.deepblue);
+		scrollPane.getViewport().setBackground(MyColor.white);
+		scrollPane
+		.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		scrollPane.setLocation(-2, -2);
 		this.add(scrollPane);
 
 	}

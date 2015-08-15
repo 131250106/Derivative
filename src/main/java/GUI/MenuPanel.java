@@ -168,6 +168,9 @@ public class MenuPanel extends JPanel implements ActionListener{
 		
 		this.add(baroption);
 		
+		
+		
+		
 		this.setLayout(null);
 		this.setSize(960,600);
 		this.setVisible(true);
