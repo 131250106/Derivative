@@ -2,6 +2,7 @@ package GUI.PVoptions;
 
 
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.invoke.MethodHandles.Lookup;
@@ -13,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import org.junit.experimental.theories.Theories;
 
 import GUI.GraphicController;
 import GUI.MenuPanel;
@@ -29,7 +32,9 @@ public class PVoptionsPanel extends MenuPanel{
 	private ButtonGroup EAndA;
 	private JRadioButton Europe;
 	private JRadioButton America;
-	private CommonTextPanel commonTextPanel;
+	private ButtonGroup BorA;
+	private JRadioButton bidButton;
+	private JRadioButton askButton;
 	
 	static int PANEL_WIDTH = 960;
 	static int PANEL_HEIGHT = 600;
@@ -38,9 +43,9 @@ public class PVoptionsPanel extends MenuPanel{
 	static int TEXTFIELD_WIDTH = 70;
 	static int TEXTFIELD_HEIGHT = 22;
 	
-	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel;
-	JTextField executePriceField,noRiskRateField,deadlineField;
-	JButton submitButton;
+	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel,bidPriceLabel,askPriceLabel,dealNumLabel;
+	JTextField executePriceField,noRiskRateField,deadlineField,bidPriceField,askPriceField,dealNumField;
+	JButton submitButton,dealButton;
 	
 	public PVoptionsPanel(String name) {
 		super("PVoptions");
@@ -152,6 +157,73 @@ public class PVoptionsPanel extends MenuPanel{
 		deadlineField.setVisible(true);
 		this.add(deadlineField);
 		
+		JLabel warningLabel = new JLabel("请输入完整信息");
+		Font font2 = new Font("微软雅黑",Font.PLAIN,12);
+		warningLabel.setFont(font2);
+		warningLabel.setBounds(220,360,100,25);
+		warningLabel.setVisible(false);
+		this.add(warningLabel);
+		
+		bidPriceLabel = new JLabel("买价:");
+		bidPriceLabel.setFont(font);
+		bidPriceLabel.setBounds(500,163,LABEL_WIDTH,LABEL_HEIGHT);
+		bidPriceLabel.setVisible(false);
+		this.add(bidPriceLabel);
+		
+		bidPriceField = new JTextField();
+		bidPriceField.setFont(font);
+		bidPriceField.setBounds(580, 163, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		bidPriceField.setVisible(false);
+		this.add(bidPriceField);
+		
+		askPriceLabel = new JLabel("卖价:");
+		askPriceLabel.setFont(font);
+		askPriceLabel.setBounds(500,200,LABEL_WIDTH,LABEL_HEIGHT);
+		askPriceLabel.setVisible(false);
+		this.add(askPriceLabel);
+		
+		askPriceField = new JTextField();
+		askPriceField.setFont(font);
+		askPriceField.setBounds(580, 200, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		askPriceField.setVisible(false);
+		this.add(askPriceField);
+		
+		BorA = new ButtonGroup();
+		bidButton = new JRadioButton("买入");
+		bidButton.setFont(font);
+		askButton = new JRadioButton("卖出");
+		askButton.setFont(font);
+		BorA.add(bidButton);
+		BorA.add(askButton);
+		
+		bidButton.setFocusPainted(false);
+		bidButton.setBorderPainted(false);
+		askButton.setFocusPainted(false);
+		askButton.setBorderPainted(false);
+		bidButton.setBackground(MyColor.white);
+		askButton.setBackground(MyColor.white);
+		bidButton.setForeground(MyColor.black);
+		askButton.setForeground(MyColor.black);
+		
+		bidButton.setBounds(500,240, 64, 30);
+		askButton.setBounds(580,240,64,30);		
+		askButton.setVisible(false);
+		bidButton.setVisible(false);
+		this.add(bidButton);
+		this.add(askButton);
+		
+		dealNumLabel = new JLabel("交易数量:");
+		dealNumLabel.setFont(font);
+		dealNumLabel.setBounds(500,275,LABEL_WIDTH,LABEL_HEIGHT);
+		dealNumLabel.setVisible(false);
+		this.add(dealNumLabel);
+		
+		dealNumField = new JTextField();
+		dealNumField.setFont(font);
+		dealNumField.setBounds(580, 275, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		dealNumField.setVisible(false);
+		this.add(dealNumField);
+		
 		submitButton = new JButton("查询");
 		submitButton.setFont(font);
 		submitButton.setSize(80, 30);
@@ -160,16 +232,61 @@ public class PVoptionsPanel extends MenuPanel{
 		submitButton.setForeground(MyColor.lightblue);
 		submitButton.setFocusPainted(false);
 		submitButton.setBorderPainted(false);
+		submitButton.setVisible(true);
 		submitButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//这里显示输出的两个框
-				double executePrice = Double.parseDouble(executePriceField.getText());
-				
+				if(executePriceField.getText().equals("")||deadlineField.getText().equals("")||
+						noRiskRateField.getText().equals("")||
+						EAndA.getSelection()==null||LookUpAndDown.getSelection()==null){
+					warningLabel.setVisible(true);
+				}else{
+					//画出显示框
+					warningLabel.setVisible(false);
+					double executePrice = Double.parseDouble(executePriceField.getText());
+					double noRiskRate = Double.parseDouble(noRiskRateField.getText());
+					double deadline = Double.parseDouble(deadlineField.getText());
+					System.out.println(executePrice);
+					//这里调用getPurchasePrice
+					bidPriceField.setText("99.0");
+					askPriceField.setText("98.0");
+					bidPriceField.setVisible(true);
+					bidPriceLabel.setVisible(true);
+					askPriceLabel.setVisible(true);
+					askPriceField.setVisible(true);
+					bidButton.setVisible(true);
+					askButton.setVisible(true);
+					dealNumLabel.setVisible(true);
+					dealNumField.setVisible(true);
+					dealButton.setVisible(true);
+				}			
 				System.out.println("submitButton has been clicked!");
 			}
 		});
 		this.add(submitButton);
+		
+		dealButton = new JButton("交易");
+		dealButton.setFont(font);
+		dealButton.setSize(80, 30);
+		dealButton.setLocation(520,310);
+		dealButton.setBackground(MyColor.deepblue);
+		dealButton.setForeground(MyColor.lightblue);
+		dealButton.setFocusPainted(false);
+		dealButton.setBorderPainted(false);
+		dealButton.setVisible(false);
+		dealButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//这里显示输出的两个框
+				if(dealNumField.getText().equals("")||BorA.getSelection()==null){
+					System.out.println("没填完");
+				}else{
+					System.out.println("交易完成");
+				}			
+				System.out.println("submitButton has been clicked!");
+			}
+		});
+		
+		this.add(dealButton);
 	}
-
 	
 }
