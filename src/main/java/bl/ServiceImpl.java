@@ -20,6 +20,7 @@ import java.util.UUID;
 public class ServiceImpl implements Service {
 
     private Map<String, User> userData = new HashMap<>();
+    private OrderManage orderManage = OrderManage.getInstance();
     private DataTool dataTool = new DataTool();
 
     @Override
@@ -82,16 +83,14 @@ public class ServiceImpl implements Service {
     @Override
     public boolean purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
-    	OrderManage ordermanage = OrderManage.getInstance();
-        return ordermanage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+        return orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
     }
 
     @Override
     public boolean sellOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
-    	OrderManage ordermanage = OrderManage.getInstance();
     	number = -1 * number;
-        return ordermanage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+        return orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
     }
 
     @Override
@@ -102,8 +101,8 @@ public class ServiceImpl implements Service {
 	@Override
 	public Order[] getOrdersByAccount(String account) throws RemoteException  {
 		// TODO Auto-generated method stub
-		OrderManage ordermanage = OrderManage.getInstance();
-		return ordermanage.getOrdersByAccount(account);
+//		OrderManage ordermanage = OrderManage.getInstance();
+		return orderManage.getOrdersByAccount(account);
 	}
 
 }
