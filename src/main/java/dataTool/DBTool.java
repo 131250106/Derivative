@@ -146,6 +146,8 @@ public class DBTool implements DBService {
 		byte type = 1;
 		String first = option.getFirstClassName();
 		String second = option.getSecondClassName();
+		double payOff = option.getPayOff();
+		double obstacleRate = option.getObstacleRate();
 		// 确定type的数值
 		if (first != null) {
 			switch (first) {
@@ -158,7 +160,7 @@ public class DBTool implements DBService {
 		}
 		int num = order.getNumber();
 		String sql = "insert into `order` (order_id,client_account,deadLine,dealPrice,date,executePrice,updown,area,"
-				+ "type,num )" + " values (?,?,?,?,? ,?,?,?,?,?)";
+				+ "type,num,payOff,obstacleRate )" + " values (?,?,?,?,? ,?,?,?,?,?,?,?)";
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			int index = 1;
 			statement.setString(index++, order_id);
@@ -168,10 +170,11 @@ public class DBTool implements DBService {
 			statement.setLong(index++, date);
 			statement.setDouble(index++, executePrice);
 			statement.setByte(index++, updown);
-			;
 			statement.setByte(index++, area);
 			statement.setByte(index++, type);
 			statement.setInt(index++, num);
+			statement.setDouble(index++, payOff);
+			statement.setDouble(index++, obstacleRate);
 			statement.execute();
 			result = true;
 		} catch (Exception e) {
@@ -249,6 +252,8 @@ public class DBTool implements DBService {
 			byte area = results.getByte("area");
 			byte type = results.getByte("type");
 			int num = results.getInt("num");
+			double payOff = results.getDouble("payOff");
+			double obstacleRate = results.getDouble("obstacleRate");
 			String firstClassName = null;
 			String secondClassName = null;
 			EorA eora = null;
@@ -269,6 +274,8 @@ public class DBTool implements DBService {
 			upordown = upORdowns[updown];
 			Option option = new Option(firstClassName, secondClassName, eora,
 					upordown);
+			option.setPayOff(payOff);
+			option.setObstacleRate(obstacleRate);
 			order = new Order(client_account, option, deadLine, executePrice,
 					dealPrice, num);
 			order.setOrderId(order_id);
