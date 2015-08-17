@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 import com.mathworks.toolbox.javabuilder.MWClassID;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
@@ -13,9 +14,12 @@ import com.mathworks.toolbox.javabuilder.MWNumericArray;
 public class PriceQueue {
 	   LinkedList<Price> queue ;
 	   long earliestTime = 0;
+	   final static int dataNum = 1000000;
+	   Random rand = new Random();
        public PriceQueue()
        {
-    	   queue  = DBTool.dbTool.getPrice(100000);
+    	   queue  = DBTool.dbTool.getPrice(dataNum);
+    	   if (queue.size() != 0 )
     	   earliestTime  = queue.getLast().getTime();
        }
        
@@ -24,7 +28,8 @@ public class PriceQueue {
        {
     	   synchronized (queue)
     	   {
-    		   queue = DBTool.dbTool.getPrice(100000);
+    		   queue = DBTool.dbTool.getPrice(dataNum);
+    		   if (queue.size() != 0)
     		   earliestTime = queue.getLast().getTime();
     	   }
        }
@@ -34,6 +39,10 @@ public class PriceQueue {
     	   synchronized (queue)
     	   {
     		   queue.addFirst(price);
+    	   }
+    	   if (earliestTime == 0)
+    	   {
+    		   earliestTime = price.getTime();
     	   }
     	   DBTool.dbTool.addPrice(price);
        }
@@ -51,8 +60,7 @@ public class PriceQueue {
     	 Iterator<Price> priceItr = queue.iterator();
     	 Price temp = null;
     	 //由于数字过大分成 几份 没份 1000个
-    	 ArrayList<BigDecimal> decimalList = new ArrayList<BigDecimal>();
-    	 int count = 1000;
+//    	 ArrayList<BigDecimal> decimalList = new ArrayList<BigDecimal>();
     	 while (priceItr.hasNext())
     	 {
     		  temp = priceItr.next();
@@ -60,13 +68,26 @@ public class PriceQueue {
     		  {
     			  break;
     		  }
-    		  total  = total.multiply(new BigDecimal(temp.getPrice()));
     		  ++num;
-    		  --count;
+    	 }
+    	 double p  = 1000.0 / num;
+    	 priceItr = queue.iterator();
+    	 while (priceItr.hasNext())
+    	 {
+    		  temp = priceItr.next();
+    		  if (temp.getTime() < time)
+    		  {
+    			  break;
+    		  }
+    		  if (num <= 1000 || p > rand.nextDouble())
+    		  {
+    			  total  = total.multiply(new BigDecimal(temp.getPrice()));
+    		  }
     	 }
     	 }
     	 return getGeometricalMean(total,1.0/num);
        }
+       
        
        public static  double getGeometricalMean(BigDecimal decimal,double power)
        {
@@ -76,13 +97,18 @@ public class PriceQueue {
       	 try
       	 {
       		 math = new MyMath();
-      		 result = Double.parseDouble(((Object[])math.getGeomitricMean(1,decimal.toString(),y))[0].toString());
+      		 result = Double.parseDouble((((Object[])math.getGeomitricMean(1,decimal.toString(),y))[0].toString()));
       	 }
       	 catch(Exception e)
       	 {
       		 e.printStackTrace();
       	 }
       	 return result;
+       }
+       
+       public static void main(String[] args)
+       {
+    	   
        }
        
        
