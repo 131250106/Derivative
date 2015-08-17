@@ -28,7 +28,7 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public String register(String username, String password, String name) {
+    public String register(String username, String password, String name) throws RemoteException  {
         User user = userData.get(username);
         if (user != null)
             return "Username already exists.";
@@ -100,7 +100,7 @@ public class ServiceImpl implements Service {
     }
 
 	@Override
-	public Order[] getOrdersByAccount(String account) {
+	public Order[] getOrdersByAccount(String account) throws RemoteException  {
 		// TODO Auto-generated method stub
 		OrderManage ordermanage = OrderManage.getInstance();
 		return ordermanage.getOrdersByAccount(account);

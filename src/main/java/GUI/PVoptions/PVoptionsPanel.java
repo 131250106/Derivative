@@ -7,6 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.nio.file.SecureDirectoryStream;
+import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.function.DoubleToLongFunction;
 
 import javax.swing.ButtonGroup;
@@ -14,15 +16,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.xml.crypto.Data;
 
 import org.junit.experimental.theories.Theories;
 
 import GUI.GraphicController;
+import GUI.Loader;
 import GUI.MenuPanel;
 import GUI.myswing.CommonTextPanel;
 import GUI.myswing.MyColor;
+import blservice.Service;
+import data.EorA;
+import data.upORdown;
 
 public class PVoptionsPanel extends MenuPanel{
+	
+	Service service;
 	
 	private JButton pvoption;
 	private JLabel Name;
@@ -43,12 +52,16 @@ public class PVoptionsPanel extends MenuPanel{
 	static int TEXTFIELD_WIDTH = 70;
 	static int TEXTFIELD_HEIGHT = 22;
 	
+	double[] PurchasePrice;
+	
 	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel,bidPriceLabel,askPriceLabel,dealNumLabel;
 	JTextField executePriceField,noRiskRateField,deadlineField,bidPriceField,askPriceField,dealNumField;
 	JButton submitButton,dealButton;
 	
 	public PVoptionsPanel(String name) {
 		super("PVoptions");
+		
+		service = Loader.service;
 		
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
@@ -245,11 +258,19 @@ public class PVoptionsPanel extends MenuPanel{
 					warningLabel.setVisible(false);
 					double executePrice = Double.parseDouble(executePriceField.getText());
 					double noRiskRate = Double.parseDouble(noRiskRateField.getText());
-					double deadline = Double.parseDouble(deadlineField.getText());
+					Date deadline =new Date(deadlineField.getText());
+					EorA eora = Europe.isSelected()?EorA.E:EorA.A;
+					upORdown upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
+					
+					try {
+						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
 					System.out.println(executePrice);
 					//这里调用getPurchasePrice
-					bidPriceField.setText("99.0");
-					askPriceField.setText("98.0");
+					bidPriceField.setText(Double.toString(PurchasePrice[0]));
+					askPriceField.setText(Double.toString(PurchasePrice[1]));
 					bidPriceField.setVisible(true);
 					bidPriceLabel.setVisible(true);
 					askPriceLabel.setVisible(true);
@@ -280,6 +301,7 @@ public class PVoptionsPanel extends MenuPanel{
 				if(dealNumField.getText().equals("")||BorA.getSelection()==null){
 					System.out.println("没填完");
 				}else{
+					
 					System.out.println("交易完成");
 				}			
 				System.out.println("submitButton has been clicked!");

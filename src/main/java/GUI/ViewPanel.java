@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -336,7 +337,12 @@ public class ViewPanel extends JPanel implements ActionListener{
 		//table.repaint();
 		this.add(table);
 		
-		orderlist = service.getOrdersByAccount("0");
+		try {
+			orderlist = service.getOrdersByAccount("0");
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ArrayList<Order> orderarray = new ArrayList<Order>();
 		for(int i =0;i<orderlist.length;i++){
 			orderarray.add(orderlist[i]);

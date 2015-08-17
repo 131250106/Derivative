@@ -23,7 +23,7 @@ public interface Service extends Remote {
 	 * 注册功能，传入注册用户的用户名username，密码password，姓名name，返回结果为String
 	 * 若返回值为“success”，则表示注册成功，若为“Username already exists.”，则表示该用户已存在，注册失败
 	 * */
-	String register(String username, String password, String name);
+	String register(String username, String password, String name) throws RemoteException;
 
 	/**
 	 * 获取普通期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
@@ -94,5 +94,5 @@ public interface Service extends Remote {
 	/**
 	 * 通过客户ID(账号)得到该用户所有订单
 	 * */
-	public Order[] getOrdersByAccount(String account);
+	public Order[] getOrdersByAccount(String account) throws RemoteException;
 }
