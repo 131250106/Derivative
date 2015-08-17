@@ -23,12 +23,48 @@ public interface Service extends Remote {
 	String register(String username, String password, String name);
 
 	/**
-	 * 获取期权买卖价,传入参数：executeprice（执行价格），rate（无风险利率），deadline（距离到期日时间），ClientID用户唯一标识符 ，其他（暂时没有）
+	 * 获取普通期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
 	 * 返回值，double数组，第一个为买价，第二个为卖价
 	 * */
-	double[] getPurchasePrice(double executeprice, double rate, double deadline,String ClientID)
+	double[] getCommonPurchasePrice(double executeprice, double deadline,String ClientID)
 			throws RemoteException;
 
+	/**
+	 * 获取二元期权(资产或无价值期权)买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getBinaryPurchasePrice1(double executeprice,  double deadline,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取二元期权(现金或无价值期权)买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），salary（支付金），ClientID用户唯一标识符
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getBinaryPurchasePrice2(double executeprice,  double deadline,double salary,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取回望期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getRetrospectPurchasePrice(double executeprice, double deadline,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取亚式期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getSubtypePurchasePrice(double executeprice, double deadline,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取障碍期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 ，rate（障碍水平）
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getObstaclePurchasePrice(double executeprice, double deadline,double rate,String ClientID)
+			throws RemoteException;
+	
+	
 	/**
 	 * 购买期权，参数：option为购买的期权类型，number为购买的数量,ClientID用户唯一标识符，deadline 截止日期，executeprice为执行价格，dealprice为买价
 	 *  返回值，true代表购买成功，false代表失败

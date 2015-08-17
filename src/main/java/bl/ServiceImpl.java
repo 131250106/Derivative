@@ -34,9 +34,47 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public double[] getPurchasePrice(double executeprice, double rate, double deadline,String ClientID) throws RemoteException {
+    public double[] getCommonPurchasePrice(double executeprice, double deadline,String ClientID) throws RemoteException {
         return new double[2];
     }
+    
+	@Override
+	public double[] getBinaryPurchasePrice1(double executeprice,
+			double deadline, String ClientID) throws RemoteException {
+		// TODO Auto-generated method stub
+		return new double[2];
+	}
+
+	@Override
+	public double[] getBinaryPurchasePrice2(double executeprice,
+			double deadline, double salary, String ClientID)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return new double[2];
+	}
+
+	@Override
+	public double[] getRetrospectPurchasePrice(double executeprice,
+			double deadline, String ClientID) throws RemoteException {
+		// TODO Auto-generated method stub
+		return new double[2];
+	}
+
+	@Override
+	public double[] getSubtypePurchasePrice(double executeprice,
+			double deadline, String ClientID) throws RemoteException {
+		// TODO Auto-generated method stub
+		return new double[2];
+	}
+
+	@Override
+	public double[] getObstaclePurchasePrice(double executeprice,
+			double deadline, double rate, String ClientID)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return new double[2];
+	}
+
 
     @Override
     public boolean purchaseOption(Option option, int number, String ClientID,
