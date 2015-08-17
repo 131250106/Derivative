@@ -1,9 +1,11 @@
 package bl;
 
 import blservice.Service;
+import data.EorA;
 import data.Option;
 import data.Order;
 import data.User;
+import data.upORdown;
 import dataTool.DataTool;
 
 import java.rmi.RemoteException;
@@ -35,42 +37,42 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public double[] getCommonPurchasePrice(double executeprice, double deadline,String ClientID) throws RemoteException {
+    public double[] getCommonPurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID) throws RemoteException {
         return new double[2];
     }
     
 	@Override
-	public double[] getBinaryPurchasePrice1(double executeprice,
-			double deadline, String ClientID) throws RemoteException {
+	public double[] getBinaryPurchasePrice1(EorA eora, upORdown upordown,double executeprice,
+			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
 		return new double[2];
 	}
 
 	@Override
-	public double[] getBinaryPurchasePrice2(double executeprice,
-			double deadline, double salary, String ClientID)
+	public double[] getBinaryPurchasePrice2(EorA eora, upORdown upordown,double executeprice,
+			Date deadline, double salary, String ClientID)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return new double[2];
 	}
 
 	@Override
-	public double[] getRetrospectPurchasePrice(double executeprice,
-			double deadline, String ClientID) throws RemoteException {
+	public double[] getRetrospectPurchasePrice(EorA eora, upORdown upordown,double executeprice,
+			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
 		return new double[2];
 	}
 
 	@Override
-	public double[] getSubtypePurchasePrice(double executeprice,
-			double deadline, String ClientID) throws RemoteException {
+	public double[] getSubtypePurchasePrice(EorA eora, upORdown upordown,double executeprice,
+			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
 		return new double[2];
 	}
 
 	@Override
-	public double[] getObstaclePurchasePrice(double executeprice,
-			double deadline, double rate, String ClientID)
+	public double[] getObstaclePurchasePrice(EorA eora, upORdown upordown,double executeprice,
+			Date deadline, double rate, String ClientID)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return new double[2];
