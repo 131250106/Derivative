@@ -76,8 +76,8 @@ public class Order implements Serializable {
     public double getVega() {
         return vega;
     }
-    
-    public int getDeadTime(){
+
+	public int getDeadTime(){
     	Date now = new Date();
     	deadTime =(int)(deadline.getTime()-now.getTime())/(24*60*60*1000); 
     	return this.deadTime;
