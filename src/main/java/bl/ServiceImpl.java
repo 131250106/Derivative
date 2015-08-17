@@ -89,7 +89,7 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public double getPresentPriceByOption(Option option,String ClientID) throws RemoteException {
+    public double getPresentPriceByOption(Option option) throws RemoteException {
         return dataTool.getHuShen300Price();
     }
 

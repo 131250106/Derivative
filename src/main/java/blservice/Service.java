@@ -82,9 +82,9 @@ public interface Service extends Remote {
 			throws RemoteException;
 
 	/**
-	 * 根据期权得到该期权的当前价格；参数：期权类型,ClientID用户唯一标识符 
+	 * 根据期权得到该期权的当前价格(股指)；参数：期权类型,ClientID用户唯一标识符 
 	 * 返回值，该期权当前价格
 	 * */
-	double getPresentPriceByOption(Option option, String ClientID)
+	double getPresentPriceByOption(Option option)
 			throws RemoteException;
 }
