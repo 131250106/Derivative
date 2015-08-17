@@ -4,9 +4,13 @@ import data.*;
 import dataservice.DBService;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 
 public class DBTool implements DBService {
 	private String url = "jdbc:mysql://127.0.0.1:3306/derivative?useUnicode=true&characterEncoding=utf8";
@@ -14,10 +18,37 @@ public class DBTool implements DBService {
 	private String user = "root";
 	private String pwd = "";
 	private Connection conn;
+	private static AtomicInteger id;
+	public static DBTool dbTool;
 
-	public DBTool() throws ClassNotFoundException, SQLException {
+	public DBTool() throws ClassNotFoundException, SQLException, ParseException {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, user, pwd);
+		initId();
+		dbTool = this;
+	}
+
+	private void initId() throws ParseException {
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		String currentDateStr = format.format(date);
+		String start = currentDateStr + " 000000";
+		String end = currentDateStr + " 240000";
+		SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMdd hhmmss");
+		Date date_start = format2.parse(start);
+		Date date_end = format2.parse(end);
+		String sql = "select count(*) from `order` where date >= ? and date < ?";
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setLong(1, date_start.getTime());
+			statement.setLong(2, date_end.getTime());
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				id = new AtomicInteger(resultSet.getInt(1) + 1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean hasUser(String account, String password) {
@@ -41,14 +72,14 @@ public class DBTool implements DBService {
 		String name = user.getName(); // 用户姓名
 		String account = user.getAccount(); // 用户账号
 		String password = user.getPassword(); // 用户密码
-		 String phone = user.getPhone();
+		String phone = user.getPhone();
 		String address = user.getAddress();
 		boolean result = false;
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setString(1, account);
 			statement.setString(2, password);
 			statement.setString(3, name);
-			statement.setString(4,phone);
+			statement.setString(4, phone);
 			statement.setString(5, address);
 			statement.execute();
 			result = true;
@@ -106,19 +137,19 @@ public class DBTool implements DBService {
 		Option option = order.getOption();
 		String order_id = this.generateOrderId();
 		String client_account = order.getClientid();
-		java.sql.Date deadLine = convertDate(order.getDeadline());
+		long deadLine = order.getDeadline().getTime();
+		long date = new Date().getTime();
 		double dealPrice = order.getDealprice();
-		java.sql.Date date = new java.sql.Date(new Date().getTime());
 		double executePrice = order.getExecuteprice();
 		byte updown = (byte) (option.getUpordown() == upORdown.down ? 0 : 1);
 		byte area = (byte) (option.getEora() == EorA.A ? 0 : 1);
-		byte type = 0;
+		byte type = 1;
 		String first = option.getFirstClassName();
 		String second = option.getSecondClassName();
 		// 确定type的数值
 		if (first != null) {
 			switch (first) {
-
+                   
 			}
 		} else {
 			switch (second) {
@@ -132,9 +163,9 @@ public class DBTool implements DBService {
 			int index = 1;
 			statement.setString(index++, order_id);
 			statement.setString(index++, client_account);
-			statement.setDate(index++, deadLine);
+			statement.setLong(index++, deadLine);
 			statement.setDouble(index++, dealPrice);
-			statement.setDate(index++, date);
+			statement.setLong(index++, date);
 			statement.setDouble(index++, executePrice);
 			statement.setByte(index++, updown);
 			;
@@ -142,7 +173,7 @@ public class DBTool implements DBService {
 			statement.setByte(index++, type);
 			statement.setInt(index++, num);
 			statement.execute();
-			result =true;
+			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -152,7 +183,7 @@ public class DBTool implements DBService {
 
 	public Order[] findOrder(String account, Date date, Date ddl) {
 		String sql = "select * from `order` where ";
-		String sql1 = " claccount = ? ";
+		String sql1 = " client_account = ? ";
 		String sql2 = " date = ? ";
 		String sql3 = " deadLine = ? ";
 		String join = " and ";
@@ -210,12 +241,12 @@ public class DBTool implements DBService {
 		try {
 			String order_id = results.getString("order_id");
 			String client_account = results.getString("client_account");
-			java.sql.Date deadLine = results.getDate("deadLine");
+			Date deadLine = new Date(results.getLong("deadLine"));
 			double dealPrice = results.getDouble("dealPrice");
-			java.sql.Date date = results.getDate("date");
+			Date date = new Date(results.getLong("date"));
 			double executePrice = results.getDouble("executePrice");
 			byte updown = results.getByte("updown");
-		    byte area = results.getByte("area");
+			byte area = results.getByte("area");
 			byte type = results.getByte("type");
 			int num = results.getInt("num");
 			String firstClassName = null;
@@ -224,11 +255,12 @@ public class DBTool implements DBService {
 			upORdown upordown = null;
 			// 负的表示第一类
 			// 正的表示第二类
-			String[] firsts = {"a","b","c"};
-			String[] seconds = {"a2","b2","c3"};
+			String[] firsts = { "a", "b", "c" };
+			String[] seconds = { "a2", "b2", "c3" };
 			if (type > 0) {
 				firstClassName = firsts[type - 1];
 			} else {
+				type = (byte) (type * (-1));
 				secondClassName = seconds[type - 1];
 			}
 			EorA[] eoras = { EorA.A, EorA.E };
@@ -239,6 +271,7 @@ public class DBTool implements DBService {
 					upordown);
 			order = new Order(client_account, option, deadLine, executePrice,
 					dealPrice, num);
+			order.setOrderId(order_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -246,26 +279,12 @@ public class DBTool implements DBService {
 	}
 
 	private String generateOrderId() {
+
 		String orderId = null;
 		Date utilDate = new Date();
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-");
 		String dateStr = format.format(utilDate);
-		String sql = "select count(*) from `order` where date = ?";
-		int count = -1;
-		try (PreparedStatement statement = conn.prepareStatement(sql)) {
-			statement.setDate(1, sqlDate);
-			ResultSet result = statement.executeQuery();
-			if (result.next()) {
-				count = result.getInt(1);
-			}
-			if (count != -1) {
-				orderId = dateStr;
-				orderId += String.valueOf(count+1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		orderId = dateStr + id.incrementAndGet();
 		return orderId;
 	}
 
@@ -274,16 +293,71 @@ public class DBTool implements DBService {
 		String sql = "select * from `order` where order_id = ?";
 		Order order = null;
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
-           statement.setString(1, id);
-           ResultSet resultSet = statement.executeQuery();
-           if (resultSet.next())
-           {
-        	   order = toOrder(resultSet);
-           }
+			statement.setString(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				order = toOrder(resultSet);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return order;
+	}
+
+	public LinkedList<Price> getPrice(int n) {
+		String sql = "select * from price_record order by `time` limit ?";
+		LinkedList<Price> prices = new LinkedList<Price>();
+		try {
+           PreparedStatement statement = conn.prepareStatement(sql);
+           statement.setInt(1, n);
+           ResultSet results = statement.executeQuery();
+           while (results.next())
+           {
+        	   prices.add(toPrice(results));
+           }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return prices;
+	}
+
+	private Price toPrice(ResultSet resultSet) throws SQLException {
+		long time = resultSet.getLong("time");
+		double price = resultSet.getDouble("price");
+		return new Price(time, price);
+	}
+
+	public void addPrice(Price price) 
+	{
+     String sql = "insert into price_record(`time`,price)  values(?,?)";
+     try
+     {
+    	 PreparedStatement statement = conn.prepareStatement(sql);
+    	 statement.setLong(1, price.getTime());
+    	 statement.setDouble(2, price.getPrice());
+    	 statement.execute();
+     }
+     catch(Exception e)
+     {
+    	 e.printStackTrace();
+     }
+	}
+
+	public void testDate() {
+		String sql = "select date from `order` ";
+		Date date = null;
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				date = new Date(resultSet.getLong(1));
+			}
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+			String dateStr = format.format(date);
+			System.out.println(dateStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

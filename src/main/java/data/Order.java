@@ -16,7 +16,7 @@ public class Order implements Serializable {
 	private double theta;
 	private double vega;
 	private int deadTime;				//距离到期时间
-
+    private String id;
     public Order(String clientid, Option option, Date deadline, double executeprice, double
             dealprice, int number) {
         Clientid = clientid;
@@ -25,6 +25,16 @@ public class Order implements Serializable {
         this.executeprice = executeprice;
         this.dealprice = dealprice;
         this.number = number;
+    }
+    
+    public void setOrderId(String id )
+    {
+    	this.id = id ;
+    }
+    
+    public String getOrderId()
+    {
+    	return id;
     }
 
 	public String getClientid() {
