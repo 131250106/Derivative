@@ -18,13 +18,25 @@ public class DBTool implements DBService {
 	private String pwd = "";
 	private Connection conn;
 	private static AtomicInteger id;
-	public static DBTool dbTool;
+	private static DBTool dbTool;
 
-	public DBTool() throws ClassNotFoundException, SQLException, ParseException {
+	private DBTool() throws ClassNotFoundException, SQLException, ParseException {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, user, pwd);
 		initId();
 		dbTool = this;
+	}
+	
+	public static DBService getInstance(){
+		  if (dbTool == null)
+		  {
+			  try {
+				dbTool = new DBTool();
+			} catch (ClassNotFoundException | SQLException | ParseException e) {
+				e.printStackTrace();
+			}
+		  }
+		  return dbTool;
 	}
 
 	private void initId() throws ParseException {

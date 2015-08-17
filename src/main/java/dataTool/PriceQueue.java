@@ -17,7 +17,7 @@ public class PriceQueue {
 	   Random rand = new Random();
        public PriceQueue()
        {
-    	   queue  = DBTool.dbTool.getPrice(dataNum);
+    	   queue  = ((DBTool)DBTool.getInstance()).getPrice(dataNum);
     	   if (queue.size() != 0 )
     	   earliestTime  = queue.getLast().getTime();
        }
@@ -27,7 +27,7 @@ public class PriceQueue {
        {
     	   synchronized (queue)
     	   {
-    		   queue = DBTool.dbTool.getPrice(dataNum);
+    		   queue = ((DBTool)DBTool.getInstance()).getPrice(dataNum);
     		   if (queue.size() != 0)
     		   earliestTime = queue.getLast().getTime();
     	   }
@@ -43,7 +43,7 @@ public class PriceQueue {
     	   {
     		   earliestTime = price.getTime();
     	   }
-    	   DBTool.dbTool.addPrice(price);
+    	   ((DBTool)DBTool.getInstance()).addPrice(price);
        }
        
        public double getGeometricalMean(long time) throws NoDataException
@@ -58,8 +58,6 @@ public class PriceQueue {
     		 throw new NoDataException();
     	 Iterator<Price> priceItr = queue.iterator();
     	 Price temp = null;
-    	 //由于数字过大分成 几份 没份 1000个
-//    	 ArrayList<BigDecimal> decimalList = new ArrayList<BigDecimal>();
     	 while (priceItr.hasNext())
     	 {
     		  temp = priceItr.next();
@@ -71,6 +69,7 @@ public class PriceQueue {
     	 }
     	 double p  = 1000.0 / num;
     	 priceItr = queue.iterator();
+    	 boolean first = true;
     	 while (priceItr.hasNext())
     	 {
     		  temp = priceItr.next();
@@ -78,9 +77,13 @@ public class PriceQueue {
     		  {
     			  break;
     		  }
-    		  if (num <= 1000 || p > rand.nextDouble())
+    		  if (num <= 1000 || p > rand.nextDouble()||first)
     		  {
     			  total  = total.multiply(new BigDecimal(temp.getPrice()));
+    			  if (first)
+    			  {
+    				  first = false;
+    			  }
     		  }
     	 }
     	 }
