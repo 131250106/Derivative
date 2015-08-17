@@ -185,7 +185,8 @@ public class MenuPanel extends JPanel implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttonOption)){
-			GraphicController.changeToPanel(Loader.pvpanel);
+			//GraphicController.changeToPanel(Loader.pvpanel);
+			GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
 		}else if(e.getSource().equals(back)){
 			GraphicController.back();
 		}else if(e.getSource().equals(close)){
