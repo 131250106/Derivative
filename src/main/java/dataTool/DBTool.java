@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
 
 public class DBTool implements DBService {
 	private String url = "jdbc:mysql://127.0.0.1:3306/derivative?useUnicode=true&characterEncoding=utf8";
@@ -279,6 +278,7 @@ public class DBTool implements DBService {
 			order = new Order(client_account, option, deadLine, executePrice,
 					dealPrice, num);
 			order.setOrderId(order_id);
+			order.setBuyDate(date);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -396,6 +396,36 @@ public class DBTool implements DBService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public double getMaxPrice(Date date) {
+        String sql = "select max(price) from price_record where time >= ?";
+		return getOneDoubleResult(sql,date.getTime());
+	}
+
+	public double getMinPrice(Date date) {
+		String sql = "select min(price) from price_record where time >= ?";
+		return this.getOneDoubleResult(sql, date.getTime());
+	}
+	
+	private double getOneDoubleResult(String sql, long arg)
+	{
+		double result = -1;
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setLong(1, arg);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+            	result = resultSet.getDouble(1);
+            }
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

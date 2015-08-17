@@ -3,7 +3,6 @@ package dataTool;
 import gemomitricMeam.MyMath;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;

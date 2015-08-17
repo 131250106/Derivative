@@ -21,4 +21,8 @@ public interface DBService {
        public Order[] findOrder (String account, Date date, Date ddl);
        //根据单据编号查找
        public Order findOrderById (String id);
+       //获得某日起最大股指数
+       public double getMaxPrice(Date date);
+       //获得某日起最小股指数
+       public double getMinPrice(Date date);
 }

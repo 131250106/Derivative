@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DataTool {
+import dataservice.DataToolService;
+
+public class DataTool implements DataToolService{
 	private String urlStr = "http://hq.sinajs.cn/rn=1439444714514&list=s_sh000300";
 	private URL url;
 	private double value = -1;
