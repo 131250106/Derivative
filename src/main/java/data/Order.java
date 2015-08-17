@@ -15,22 +15,19 @@ public class Order implements Serializable {
 	private double gamma;
 	private double theta;
 	private double vega;
+	private int deadTime;				//距离到期时间
 
     public Order(String clientid, Option option, Date deadline, double executeprice, double
-            dealprice, int number, double delta, double gamma, double theta, double vega) {
+            dealprice, int number) {
         Clientid = clientid;
         this.option = option;
         this.deadline = deadline;
         this.executeprice = executeprice;
         this.dealprice = dealprice;
         this.number = number;
-        this.delta = delta;
-        this.gamma = gamma;
-        this.theta = theta;
-        this.vega = vega;
     }
 
-    public String getClientid() {
+	public String getClientid() {
         return Clientid;
     }
 
@@ -68,6 +65,12 @@ public class Order implements Serializable {
 
     public double getVega() {
         return vega;
+    }
+    
+    public int getDeadTime(){
+    	Date now = new Date();
+    	deadTime =(int)(deadline.getTime()-now.getTime())/(24*60*60*1000); 
+    	return this.deadTime;
     }
     
     public String toString()

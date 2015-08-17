@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import data.Option;
+import data.Order;
 import data.User;
 
 /**
@@ -87,4 +88,9 @@ public interface Service extends Remote {
 	 * */
 	double getPresentPriceByOption(Option option)
 			throws RemoteException;
+	
+	/**
+	 * 通过客户ID(账号)得到该用户所有订单
+	 * */
+	public Order[] getOrdersByAccount(String account);
 }

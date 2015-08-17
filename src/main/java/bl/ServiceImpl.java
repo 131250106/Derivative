@@ -2,6 +2,7 @@ package bl;
 
 import blservice.Service;
 import data.Option;
+import data.Order;
 import data.User;
 import dataTool.DataTool;
 
@@ -79,18 +80,28 @@ public class ServiceImpl implements Service {
     @Override
     public boolean purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
-        return false;
+    	OrderManage ordermanage = OrderManage.getInstance();
+        return ordermanage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
     }
 
     @Override
     public boolean sellOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
-        return false;
+    	OrderManage ordermanage = OrderManage.getInstance();
+    	number = -1 * number;
+        return ordermanage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
     }
 
     @Override
     public double getPresentPriceByOption(Option option) throws RemoteException {
         return dataTool.getHuShen300Price();
     }
+
+	@Override
+	public Order[] getOrdersByAccount(String account) {
+		// TODO Auto-generated method stub
+		OrderManage ordermanage = OrderManage.getInstance();
+		return ordermanage.getOrdersByAccount(account);
+	}
 
 }

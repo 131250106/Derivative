@@ -13,7 +13,7 @@ public class User implements Serializable {
 	private String account; // 用户账号
 	private String password; // 用户密码
 	private String phone; // 联系方式
-	private String address; // 账号
+	private String address; // 联系地址
 	private ArrayList<Order> listofOrders = new ArrayList<>(); // 用户所持有的所有订单
 
 	public User(String name, String user, String password, String phone,

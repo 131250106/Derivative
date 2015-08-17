@@ -238,7 +238,7 @@ public class DBTool implements DBService {
 			Option option = new Option(firstClassName, secondClassName, eora,
 					upordown);
 			order = new Order(client_account, option, deadLine, executePrice,
-					dealPrice, num, 0, 0, 0, 0);
+					dealPrice, num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
