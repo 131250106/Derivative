@@ -320,6 +320,37 @@ public class DBTool implements DBService {
 		}
 		return prices;
 	}
+	
+	public Price[]  getPriceByTime(long time1, long time2)
+	{
+		String sql = "select * from price_record where time >= ? and price < ? ";
+		Price[] prices = null;
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setLong(1, time1);
+			statement.setLong(2, time2);
+			ResultSet results = statement.executeQuery();
+			ArrayList<Price> priceList = null;
+			if (results.next())
+			{
+				priceList = new ArrayList<Price>();
+				priceList.add(toPrice(results));
+				while (results.next())
+				{
+					priceList.add(toPrice(results));
+				}
+				prices = new Price[priceList.size()];
+				priceList.toArray(prices);
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return prices;
+	}
 
 	private Price toPrice(ResultSet resultSet) throws SQLException {
 		long time = resultSet.getLong("time");

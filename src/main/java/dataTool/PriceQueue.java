@@ -3,6 +3,7 @@ package dataTool;
 import gemomitricMeam.MyMath;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -11,10 +12,21 @@ import com.mathworks.toolbox.javabuilder.MWNumericArray;
 
 public class PriceQueue {
 	   LinkedList<Price> queue ;
-	   
+	   long earliestTime = 0;
        public PriceQueue()
        {
     	   queue  = DBTool.dbTool.getPrice(100000);
+    	   earliestTime  = queue.getLast().getTime();
+       }
+       
+       
+       public void reInit()
+       {
+    	   synchronized (queue)
+    	   {
+    		   queue = DBTool.dbTool.getPrice(100000);
+    		   earliestTime = queue.getLast().getTime();
+    	   }
        }
        
        public void addPrice( Price price)
@@ -38,6 +50,9 @@ public class PriceQueue {
     		 throw new NoDataException();
     	 Iterator<Price> priceItr = queue.iterator();
     	 Price temp = null;
+    	 //由于数字过大分成 几份 没份 1000个
+    	 ArrayList<BigDecimal> decimalList = new ArrayList<BigDecimal>();
+    	 int count = 1000;
     	 while (priceItr.hasNext())
     	 {
     		  temp = priceItr.next();
@@ -47,9 +62,10 @@ public class PriceQueue {
     		  }
     		  total  = total.multiply(new BigDecimal(temp.getPrice()));
     		  ++num;
+    		  --count;
     	 }
     	 }
-    	 return Math.pow(total.doubleValue(), (1.0 / num));
+    	 return getGeometricalMean(total,1.0/num);
        }
        
        public static  double getGeometricalMean(BigDecimal decimal,double power)
