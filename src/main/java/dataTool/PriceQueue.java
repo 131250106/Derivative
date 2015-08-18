@@ -124,7 +124,6 @@ public class PriceQueue {
       	 MWNumericArray y = new MWNumericArray(power,MWClassID.DOUBLE);
       	 MyMath math =null;
       	 double result = -1;
-      	 double max = Double.MAX_VALUE;
       	 try
       	 {
       		 math = new MyMath();
