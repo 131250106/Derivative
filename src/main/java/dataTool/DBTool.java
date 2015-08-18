@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
 
 public class DBTool implements DBService {
 	private String url = "jdbc:mysql://127.0.0.1:3306/derivative?useUnicode=true&characterEncoding=utf8";
@@ -19,13 +18,28 @@ public class DBTool implements DBService {
 	private String pwd = "";
 	private Connection conn;
 	private static AtomicInteger id;
-	public static DBTool dbTool;
+	private static DBTool dbTool;
+	private final static String[] optionNames = { "普通期权", "二元期权", "回望期权 浮动执行价格期权",
+			"回望期权 固定执行价格期权", "亚式期权 平均价格期权", "亚式期权 平均执行价格期权", "障碍期权 向上敲出期权",
+			"障碍期权 向下敲出期权", "障碍期权 向上敲入期权", "障碍期权 向下敲入期权", "障碍期权 双重障碍期权","障碍期权 多次触及障碍水平期权" };
 
-	public DBTool() throws ClassNotFoundException, SQLException, ParseException {
+	private DBTool() throws ClassNotFoundException, SQLException,
+			ParseException {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, user, pwd);
 		initId();
 		dbTool = this;
+	}
+
+	public static DBService getInstance() {
+		if (dbTool == null) {
+			try {
+				dbTool = new DBTool();
+			} catch (ClassNotFoundException | SQLException | ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return dbTool;
 	}
 
 	private void initId() throws ParseException {
@@ -143,24 +157,23 @@ public class DBTool implements DBService {
 		double executePrice = order.getExecuteprice();
 		byte updown = (byte) (option.getUpordown() == upORdown.down ? 0 : 1);
 		byte area = (byte) (option.getEora() == EorA.A ? 0 : 1);
-		byte type = 1;
+		byte type = 0;
 		String first = option.getFirstClassName();
 		String second = option.getSecondClassName();
 		double payOff = option.getPayOff();
 		double obstacleRate = option.getObstacleRate();
-		// 确定type的数值
-		if (first != null) {
-			switch (first) {
-                   
-			}
-		} else {
-			switch (second) {
-
-			}
-		}
+		String temp = second == null ? first : first + " "+second;
+        for (String s : optionNames)		
+        {
+        	if (temp.equals(s))
+        		break;
+        	++type;
+        }
+		
 		int num = order.getNumber();
 		String sql = "insert into `order` (order_id,client_account,deadLine,dealPrice,date,executePrice,updown,area,"
-				+ "type,num,payOff,obstacleRate )" + " values (?,?,?,?,? ,?,?,?,?,?,?,?)";
+				+ "type,num,payOff,obstacleRate )"
+				+ " values (?,?,?,?,? ,?,?,?,?,?,?,?)";
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			int index = 1;
 			statement.setString(index++, order_id);
@@ -257,21 +270,17 @@ public class DBTool implements DBService {
 			String firstClassName = null;
 			String secondClassName = null;
 			EorA eora = null;
-			upORdown upordown = null;
-			// 负的表示第一类
-			// 正的表示第二类
-			String[] firsts = { "a", "b", "c" };
-			String[] seconds = { "a2", "b2", "c3" };
-			if (type > 0) {
-				firstClassName = firsts[type - 1];
-			} else {
-				type = (byte) (type * (-1));
-				secondClassName = seconds[type - 1];
-			}
+			String className = optionNames[type];
+	        String[] classNameArray = className.split(" ");
+	        firstClassName = classNameArray[0];
+	        if (classNameArray.length == 2)
+	        {
+	        	secondClassName = classNameArray[1];
+	        }
 			EorA[] eoras = { EorA.A, EorA.E };
 			upORdown[] upORdowns = { upORdown.down, upORdown.up };
 			eora = eoras[area];
-			upordown = upORdowns[updown];
+			upORdown upordown = upORdowns[updown];
 			Option option = new Option(firstClassName, secondClassName, eora,
 					upordown);
 			option.setPayOff(payOff);
@@ -279,6 +288,7 @@ public class DBTool implements DBService {
 			order = new Order(client_account, option, deadLine, executePrice,
 					dealPrice, num);
 			order.setOrderId(order_id);
+			order.setBuyDate(date);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -315,45 +325,38 @@ public class DBTool implements DBService {
 		String sql = "select * from price_record order by `time` limit ?";
 		LinkedList<Price> prices = new LinkedList<Price>();
 		try {
-           PreparedStatement statement = conn.prepareStatement(sql);
-           statement.setInt(1, n);
-           ResultSet results = statement.executeQuery();
-           while (results.next())
-           {
-        	   prices.add(toPrice(results));
-           }
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, n);
+			ResultSet results = statement.executeQuery();
+			while (results.next()) {
+				prices.add(toPrice(results));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return prices;
 	}
-	
-	public Price[]  getPriceByTime(long time1, long time2)
-	{
+
+	public Price[] getPriceByTime(long time1, long time2) {
 		String sql = "select * from price_record where time >= ? and price < ? ";
 		Price[] prices = null;
-		try
-		{
+		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setLong(1, time1);
 			statement.setLong(2, time2);
 			ResultSet results = statement.executeQuery();
 			ArrayList<Price> priceList = null;
-			if (results.next())
-			{
+			if (results.next()) {
 				priceList = new ArrayList<Price>();
 				priceList.add(toPrice(results));
-				while (results.next())
-				{
+				while (results.next()) {
 					priceList.add(toPrice(results));
 				}
 				prices = new Price[priceList.size()];
 				priceList.toArray(prices);
 			}
-			
-		}
-		catch(Exception e)
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return prices;
@@ -365,20 +368,16 @@ public class DBTool implements DBService {
 		return new Price(time, price);
 	}
 
-	public void addPrice(Price price) 
-	{
-     String sql = "insert into price_record(`time`,price)  values(?,?)";
-     try
-     {
-    	 PreparedStatement statement = conn.prepareStatement(sql);
-    	 statement.setLong(1, price.getTime());
-    	 statement.setDouble(2, price.getPrice());
-    	 statement.execute();
-     }
-     catch(Exception e)
-     {
-    	 e.printStackTrace();
-     }
+	public void addPrice(Price price) {
+		String sql = "insert into price_record(`time`,price)  values(?,?)";
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setLong(1, price.getTime());
+			statement.setDouble(2, price.getPrice());
+			statement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void testDate() {
@@ -396,6 +395,31 @@ public class DBTool implements DBService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public double getMaxPrice(Date date) {
+		String sql = "select max(price) from price_record where time >= ?";
+		return getOneDoubleResult(sql, date.getTime());
+	}
+
+	public double getMinPrice(Date date) {
+		String sql = "select min(price) from price_record where time >= ?";
+		return this.getOneDoubleResult(sql, date.getTime());
+	}
+
+	private double getOneDoubleResult(String sql, long arg) {
+		double result = -1;
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setLong(1, arg);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				result = resultSet.getDouble(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

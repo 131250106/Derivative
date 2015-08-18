@@ -14,18 +14,7 @@ public class OrderManage { // 所有客户订单的管理
 	private DBService dbtool;
 	
 	private OrderManage() {
-		try {
-			dbtool = new DBTool();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			dbtool = DBTool.getInstance();
 	}
 
 	public static OrderManage getInstance() {
