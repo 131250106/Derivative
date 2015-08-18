@@ -23,7 +23,7 @@ import GUI.myswing.MyColor;
 public class MenuPanel extends JPanel implements ActionListener{
 	private String panelCategory;
 	protected int whereTo;
-	private JButton buttonOption,buttonView;;
+	private JButton buttonOption,buttonView,buttonStore;;
 	
 	private JButton pvoption,lboption,boption,baroption,asianoption;
 	private JButton mini,close,back;
@@ -88,6 +88,20 @@ public class MenuPanel extends JPanel implements ActionListener{
 			}
 		});
 		this.add(buttonView);
+		
+		buttonStore = new JButton("持仓记录");
+		buttonStore.setBounds(220,30, 110,45);
+		buttonStore.setForeground(MyColor.white);
+		buttonStore.setBackground(MyColor.deepblue);
+		buttonStore.setFocusPainted(false);
+		buttonStore.setBorderPainted(false);
+		buttonStore.setFont(font);
+		buttonStore.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new StorePanel());
+			}
+		});
+		this.add(buttonStore);
 		
 		font = new Font("微软雅黑",Font.PLAIN,20);
 		

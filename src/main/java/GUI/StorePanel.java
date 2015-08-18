@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -19,28 +18,15 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import data.Order;
-import blservice.Service;
-import GUI.Asianoptions.AsianoptionsPanel;
-import GUI.Asianoptions.AvgExcPricePanel;
-import GUI.Asianoptions.AvgPricePanel;
-import GUI.BARoptions.BARoptionsPanel;
-import GUI.BARoptions.DoubleBARPanel;
-import GUI.BARoptions.DownAndInPanel;
-import GUI.BARoptions.DownAndOutPanel;
-import GUI.BARoptions.MultiLevelPanel;
-import GUI.BARoptions.UpAndInPanel;
-import GUI.BARoptions.UpAndOutPanel;
-import GUI.Boptions.BoptionsPanel;
-import GUI.LBoptions.FixedPanel;
-import GUI.LBoptions.FloatPanel;
-import GUI.LBoptions.LBoptionsPanel;
 import GUI.PVoptions.PVoptionsPanel;
 import GUI.myswing.MyColor;
 import GUI.myswing.NTable;
+import GUI.myswing.StoreTm;
 import GUI.myswing.ViewTm;
+import blservice.Service;
+import data.Order;
 
-public class ViewPanel extends JPanel implements ActionListener{
+public class StorePanel extends JPanel implements ActionListener{
 	private JButton buttonOption,buttonView,buttonStore;;
 	private JButton pvoption,lboption,boption,baroption,asianoption,alloption;
 	private JButton pvoptionDetail,fixedoption,floatoption,boptionDetail;
@@ -49,13 +35,13 @@ public class ViewPanel extends JPanel implements ActionListener{
 	private JButton avgexcpriceoption,avgpriceoption;
 	private JButton mini,close,back;
 	private NTable table;
-	private ViewTm tableRow = new ViewTm();
+	private StoreTm tableRow = new StoreTm();
 	private Service service;
 	private Order[] orderlist;
 	//ArrayList<Integer> list;
 	DefaultTableCellRenderer render;
 	
-	public ViewPanel(){
+	public StorePanel(){
 		Font font = new Font("微软雅黑",Font.PLAIN,18);
 		
 		service = Loader.service;
@@ -112,7 +98,6 @@ public class ViewPanel extends JPanel implements ActionListener{
 		});
 		this.add(buttonView);
 		
-
 		buttonStore = new JButton("持仓记录");
 		buttonStore.setBounds(220,30, 110,45);
 		buttonStore.setForeground(MyColor.white);

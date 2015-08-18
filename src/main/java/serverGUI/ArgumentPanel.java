@@ -55,7 +55,7 @@ public class ArgumentPanel extends MenuPanel{
 		warningLabel.setVisible(false);
 		this.add(warningLabel);
 		
-		changeArgument = new JButton("普通期权");
+		changeArgument = new JButton("确认更改");
 		changeArgument.setSize(175, 70);
 		changeArgument.setLocation(100,400);
 		changeArgument.setBackground(MyColor.deepblue);
