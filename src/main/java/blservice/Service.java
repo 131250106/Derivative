@@ -4,8 +4,11 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import data.EorA;
 import data.Option;
+import data.Order;
 import data.User;
+import data.upORdown;
 
 /**
  * Created by Nifury on 8/13/2015.
@@ -23,12 +26,48 @@ public interface Service extends Remote {
 	String register(String username, String password, String name) throws RemoteException;
 
 	/**
-	 * 获取期权买卖价,传入参数：executeprice（执行价格），rate（无风险利率），deadline（距离到期日时间），ClientID用户唯一标识符 ，其他（暂时没有）
+	 * 获取普通期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
 	 * 返回值，double数组，第一个为买价，第二个为卖价
 	 * */
-	double[] getPurchasePrice(double executeprice, double rate, double deadline,String ClientID)
+	double[] getCommonPurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID)
 			throws RemoteException;
 
+	/**
+	 * 获取二元期权(资产或无价值期权)买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getBinaryPurchasePrice1(EorA eora, upORdown upordown,double executeprice,  Date deadline,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取二元期权(现金或无价值期权)买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），salary（支付金），ClientID用户唯一标识符
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getBinaryPurchasePrice2(EorA eora, upORdown upordown,double executeprice,  Date deadline,double salary,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取回望期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getRetrospectPurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取亚式期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getSubtypePurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取障碍期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 ，rate（障碍水平）
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getObstaclePurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,double rate,String ClientID)
+			throws RemoteException;
+	
+	
 	/**
 	 * 购买期权，参数：option为购买的期权类型，number为购买的数量,ClientID用户唯一标识符，deadline 截止日期，executeprice为执行价格，dealprice为买价
 	 *  返回值，true代表购买成功，false代表失败
@@ -46,9 +85,14 @@ public interface Service extends Remote {
 			throws RemoteException;
 
 	/**
-	 * 根据期权得到该期权的当前价格；参数：期权类型,ClientID用户唯一标识符 
+	 * 根据期权得到该期权的当前价格(股指)；参数：期权类型,ClientID用户唯一标识符 
 	 * 返回值，该期权当前价格
 	 * */
-	double getPresentPriceByOption(Option option, String ClientID)
+	double getPresentPriceByOption(Option option)
 			throws RemoteException;
+	
+	/**
+	 * 通过客户ID(账号)得到该用户所有订单
+	 * */
+	public Order[] getOrdersByAccount(String account) throws RemoteException;
 }

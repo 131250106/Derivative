@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -18,6 +19,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import data.Order;
+import blservice.Service;
 import GUI.Asianoptions.AsianoptionsPanel;
 import GUI.Asianoptions.AvgExcPricePanel;
 import GUI.Asianoptions.AvgPricePanel;
@@ -47,11 +50,15 @@ public class ViewPanel extends JPanel implements ActionListener{
 	private JButton mini,close,back;
 	private NTable table;
 	private ViewTm tableRow = new ViewTm();
-	ArrayList<Integer> list;
+	private Service service;
+	private Order[] orderlist;
+	//ArrayList<Integer> list;
 	DefaultTableCellRenderer render;
 	
 	public ViewPanel(){
 		Font font = new Font("微软雅黑",Font.PLAIN,18);
+		
+		service = Loader.service;
 		
 		mini = new JButton("");
 		mini.setBounds(890,0,34,30);
@@ -315,21 +322,32 @@ public class ViewPanel extends JPanel implements ActionListener{
 			}
 		};
 		render.setHorizontalAlignment(SwingConstants.CENTER);
-		table = new NTable(tableRow, 711,383);
-		table.setLocation(200,174);
+		table = new NTable(tableRow, 751,383);
+		table.setLocation(190,174);
 		for (int i = 0; i <table.getColumnCount(); i++) {
 			table.getColumn(table.getColumnName(i))
 			.setCellRenderer(render);
 			
 		}
-		list = new ArrayList<Integer>();
+		/*list = new ArrayList<Integer>();
 		list.add(1);
 		list.add(2);
-		list.add(3);
+		list.add(3);*/
 		//table.revalidate();
 		//table.repaint();
 		this.add(table);
-		filltable(list);
+		
+		try {
+			orderlist = service.getOrdersByAccount("0");
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ArrayList<Order> orderarray = new ArrayList<Order>();
+		for(int i =0;i<orderlist.length;i++){
+			orderarray.add(orderlist[i]);
+		}
+		filltable(orderarray);
 
 //-----------------------------------------------------------------------------------------------------------
 		pvoption.addMouseListener(new MouseAdapter() {
@@ -375,11 +393,26 @@ public class ViewPanel extends JPanel implements ActionListener{
 	}
 	
 	
-	private void filltable(ArrayList<Integer> list){
+	private void filltable(ArrayList<Order> list){
 		if(list!=null){
 			for (int i = tableRow.getRowCount(); i > 0; i--) {
 				tableRow.removeRow(0);
 			}
+			for(Order order:list){
+				Vector v = new Vector();
+				v.add(order.getOption().toString());
+				v.add(order.getNumber());
+				v.add(order.getDealprice());
+				v.add(order.getExecuteprice());
+				v.add(order.getDeadline());
+				v.add(order.getDeadTime());
+				v.add(order.getDelta());
+				v.add(order.getGamma());
+				v.add(order.getTheta());
+				v.add(order.getVega());
+				tableRow.addRow(v);
+			}
+			/*
 			Vector v = new Vector();
 			v.add(list);
 			v.add(list);
@@ -391,7 +424,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
-			
+			*/
 			/*for(Integer a:list){
 				Vector v = new Vector();
 				v.add(a);
@@ -411,7 +444,8 @@ public class ViewPanel extends JPanel implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttonOption)){
-			GraphicController.changeToPanel(Loader.pvpanel);
+			//GraphicController.changeToPanel(Loader.pvpanel);
+			GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
 		}else if(e.getSource().equals(back)){
 			GraphicController.back();
 		}else if(e.getSource().equals(close)){

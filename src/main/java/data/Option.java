@@ -8,7 +8,9 @@ public class Option implements Serializable {									//期权
 	private String secondClassName;				//第二大分类;  
 	private EorA eora;									//欧式或美式
 	private upORdown upordown;					//看涨或看跌
-
+	private double payOff = -1;				//支付金，只有二元期权会有，其他的情况下值都为-1
+	private double ObstacleRate = -1;	//障碍水平，只有障碍期权会有，其他的情况下都为-1
+	
     public Option(String firstClassName, String secondClassName, EorA eora, upORdown upordown) {
         this.firstClassName = firstClassName;
         this.secondClassName = secondClassName;
@@ -31,6 +33,23 @@ public class Option implements Serializable {									//期权
     public upORdown getUpordown() {
         return upordown;
     }
+    
+    public double getPayOff() {
+		return payOff;
+	}
+
+	public void setPayOff(double payOff) {
+		this.payOff = payOff;
+	}
+
+	public double getObstacleRate() {
+		return ObstacleRate;
+	}
+
+	public void setObstacleRate(double obstacleRate) {
+		ObstacleRate = obstacleRate;
+	}
+	
     public String toString()
     {
     	return "firstClassName:\t"+firstClassName+"\tsecondClassName:\t"+secondClassName+"\teora:\t"+eora+"\tupordown:\t"+upordown+"\t";

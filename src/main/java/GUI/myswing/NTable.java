@@ -65,7 +65,7 @@ public class NTable extends JPanel{
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
 			label.setText(value.toString());
-			label.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+			label.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 			label.setForeground(MyColor.white);
 			Dimension d = label.getSize();
 			d.height = 36;
