@@ -337,17 +337,8 @@ public class ViewPanel extends JPanel implements ActionListener{
 		//table.repaint();
 		this.add(table);
 		
-		try {
-			orderlist = service.getOrdersByAccount("0");
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		ArrayList<Order> orderarray = new ArrayList<Order>();
-		for(int i =0;i<orderlist.length;i++){
-			orderarray.add(orderlist[i]);
-		}
-		filltable(orderarray);
+		//orderlist = service.getOrdersByAccount("0");
+		filltable(orderlist);
 
 //-----------------------------------------------------------------------------------------------------------
 		pvoption.addMouseListener(new MouseAdapter() {
@@ -393,12 +384,12 @@ public class ViewPanel extends JPanel implements ActionListener{
 	}
 	
 	
-	private void filltable(ArrayList<Order> list){
-		if(list!=null){
+	private void filltable(Order[] list){
+		//if(list!=null){
 			for (int i = tableRow.getRowCount(); i > 0; i--) {
 				tableRow.removeRow(0);
 			}
-			for(Order order:list){
+			/*for(Order order:list){
 				Vector v = new Vector();
 				v.add(order.getOption().toString());
 				v.add(order.getNumber());
@@ -411,20 +402,25 @@ public class ViewPanel extends JPanel implements ActionListener{
 				v.add(order.getTheta());
 				v.add(order.getVega());
 				tableRow.addRow(v);
-			}
-			/*
+			}*/
+			int l =  123;
 			Vector v = new Vector();
-			v.add(list);
-			v.add(list);
-			v.add(list);
-			v.add(list);
-			v.add(list);
+			v.add(l);
+			v.add(l);
+			v.add(l);
+			v.add(l);
+			v.add(l);
+			v.add(l);
+			v.add(l);
+			v.add(l);
+			v.add(l);
+			v.add(l);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
-			*/
+			
 			/*for(Integer a:list){
 				Vector v = new Vector();
 				v.add(a);
@@ -432,7 +428,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 			}*/
 			table.revalidate();
 			table.repaint();
-		}
+		//}
 	}
 	
 	@Override
@@ -457,6 +453,41 @@ public class ViewPanel extends JPanel implements ActionListener{
 		}
 	}
 	
+	public double[] getNowPrice(Order list){
+		String name = list.getOption().getFirstClassName();
+		try{
+			if(name.equals("普通期权")){
+				return service.getCommonPurchasePrice(list.getOption().getEora(),
+						list.getOption().getUpordown(), 
+						list.getExecuteprice(),list.getDeadline(),list.getClientid());
+			}else if(name.equals("二元期权")){
+				return service.getBinaryPurchasePrice1(list.getOption().getEora(),
+						list.getOption().getUpordown(), 
+						list.getExecuteprice(),list.getDeadline(),list.getClientid());
+				//
+				/**
+				 * Something Wrong
+				 */
+			}else if(name.equals("回望期权")){
+				return service.getRetrospectPurchasePrice(list.getOption().getEora(),
+						list.getOption().getUpordown(), 
+						list.getExecuteprice(),list.getDeadline(),list.getClientid());
+			}else if(name.equals("亚式期权")){
+				return service.getSubtypePurchasePrice(list.getOption().getEora(),
+						list.getOption().getUpordown(), 
+						list.getExecuteprice(),list.getDeadline(),list.getClientid());
+			}else if(name.equals("障碍期权")){
+				return service.getObstaclePurchasePrice(list.getOption().getEora(),
+						list.getOption().getUpordown(), 
+						list.getExecuteprice(),list.getDeadline(),
+						-1,
+						list.getClientid());
+			}
+		}catch(RemoteException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	private void choose(int type){
 		/*pvoptionDetail,fixedoption,floatoption,boptionDetail;
