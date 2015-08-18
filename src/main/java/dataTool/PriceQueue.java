@@ -3,6 +3,7 @@ package dataTool;
 import gemomitricMeam.MyMath;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -49,7 +50,13 @@ public class PriceQueue {
        public double getGeometricalMean(long time) throws NoDataException
        {
     	 int size  = 0;
-    	 BigDecimal total = new BigDecimal(1);
+    	 BigDecimal[] total = new BigDecimal[10];
+    	 int[] count = new int[10];
+    	 Arrays.fill(count, 0);
+    	 for (int i = 0; i < 10; ++i)
+    	 {
+    	  total[i] = new BigDecimal(1);	 
+    	 }
     	 int num = 0;
     	 synchronized(queue)
     	 {
@@ -67,9 +74,10 @@ public class PriceQueue {
     		  }
     		  ++num;
     	 }
-    	 double p  = 1000.0 / num;
+    	 double p  = 70.0 / num;
     	 priceItr = queue.iterator();
     	 boolean first = true;
+    	 
     	 while (priceItr.hasNext())
     	 {
     		  temp = priceItr.next();
@@ -77,17 +85,37 @@ public class PriceQueue {
     		  {
     			  break;
     		  }
-    		  if (num <= 1000 || p > rand.nextDouble()||first)
+    		  for (int i = 0; i < 10; ++i)
     		  {
-    			  total  = total.multiply(new BigDecimal(temp.getPrice()));
+    			  if (num <= 60 || p > rand.nextDouble()||first)
+    		      {
+    			  total[i]  = total[i].multiply(new BigDecimal(temp.getPrice()));
+    			  count[i]++;
     			  if (first)
     			  {
     				  first = false;
     			  }
     		  }
+    		  }
     	 }
     	 }
-    	 return getGeometricalMean(total,1.0/num);
+    	 double result = 0;
+    	 double temp = -1;
+    	 int errorNum = 0;
+    	 for (int i = 0; i < 10; ++i)
+    	 {
+    		 temp = getGeometricalMean(total[i],1.0/count[i]);
+    		 if (temp == -1 ) 
+    			 {
+    			 errorNum++;
+    			 continue;
+    			 }
+    		 else 
+    		 {
+    			 result += temp;
+    		 }
+    	 }
+    	 return result / (10 - errorNum);
        }
        
        
@@ -96,6 +124,7 @@ public class PriceQueue {
       	 MWNumericArray y = new MWNumericArray(power,MWClassID.DOUBLE);
       	 MyMath math =null;
       	 double result = -1;
+      	 double max = Double.MAX_VALUE;
       	 try
       	 {
       		 math = new MyMath();
@@ -108,9 +137,22 @@ public class PriceQueue {
       	 return result;
        }
        
+       
+       public static BigDecimal  newTonItr(BigDecimal decimal,int count)
+       {
+    	   BigDecimal temp = new BigDecimal(2);
+    	   BigDecimal one = new BigDecimal(1);
+    	   BigDecimal result = one;
+    	   for (int i = 0; i < count; ++i)
+    	   {
+    		   result = (result.add(decimal.divide(result,1000,BigDecimal.ROUND_DOWN))).divide(temp,1000,BigDecimal.ROUND_DOWN);
+    	   }
+    	   return result;
+       }
+       
        public static void main(String[] args)
        {
-    	   
+    	   System.out.println(getGeometricalMean(new BigDecimal(2),0.5));
        }
        
        
