@@ -52,48 +52,49 @@ public class CombinationManage {
 		double Gamma = 0;
 		double Vega = 0;
 		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice,
+				MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(
+				ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(
+				ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		Option option = null;
+
 		try {
-			Option option = new Option();
-			MWNumericArray s = new MWNumericArray(getHuShen300Price(),
-					MWClassID.DOUBLE);
-			MWNumericArray k = new MWNumericArray(executeprice,
-					MWClassID.DOUBLE);
-			MWNumericArray t = new MWNumericArray(
-					ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
-			MWNumericArray r = new MWNumericArray(
-					ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
-			MWNumericArray sg = new MWNumericArray(
-					ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
-			MWNumericArray smin = new MWNumericArray(
-					dbtool.getMinPrice(new Date()), MWClassID.DOUBLE);
-			MWNumericArray smax = new MWNumericArray(
-					dbtool.getMaxPrice(new Date()), MWClassID.DOUBLE);
-			Object[] result;
+			option = new Option();
 			if (upordown == upORdown.up) {
 				result = option.vanillacall(5, s, k, t, r, sg);
 			} else {
 				result = option.vanillaput(5, s, k, t, r, sg);
 			}
-			PurchasePrice = Double.parseDouble(result[0].toString())
+			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
-			SellPrice = Double.parseDouble(result[0].toString())
+			SellPrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 - ServerData.getFloat_Rate());
-			Delta = Double.parseDouble(result[1].toString());
-			Gamma = Double.parseDouble(result[2].toString());
-			Vega = Double.parseDouble(result[3].toString());
-			Theta = Double.parseDouble(result[4].toString());
-
+			Delta = ((MWNumericArray)(result[1])).getDouble();
+			Gamma = ((MWNumericArray)(result[2])).getDouble();
+			Vega = ((MWNumericArray)(result[3])).getDouble();
+			Theta = ((MWNumericArray)(result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
 			MWArray.disposeArray(s);
 			MWArray.disposeArray(k);
 			MWArray.disposeArray(t);
 			MWArray.disposeArray(r);
 			MWArray.disposeArray(sg);
-			option.dispose();
-		} catch (MWException e) {
-			e.printStackTrace();
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
 		}
-		double[] r = { PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
-		return r;
+		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
 	}
 
 	public double[] getlookbackfixedPrice(EorA eora, upORdown upordown,
@@ -105,48 +106,54 @@ public class CombinationManage {
 		double Gamma = 0;
 		double Vega = 0;
 		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice,
+				MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(
+				ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(
+				ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		MWNumericArray smin = new MWNumericArray(
+				dbtool.getMinPrice(new Date()), MWClassID.DOUBLE);
+		MWNumericArray smax = new MWNumericArray(
+				dbtool.getMaxPrice(new Date()), MWClassID.DOUBLE);
+		Object[] result = null;
+		Option option = null;
 		try {
-			Option option = new Option();
-			MWNumericArray s = new MWNumericArray(getHuShen300Price(),
-					MWClassID.DOUBLE);
-			MWNumericArray k = new MWNumericArray(executeprice,
-					MWClassID.DOUBLE);
-			MWNumericArray t = new MWNumericArray(
-					ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
-			MWNumericArray r = new MWNumericArray(
-					ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
-			MWNumericArray sg = new MWNumericArray(
-					ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
-			MWNumericArray smin = new MWNumericArray(
-					dbtool.getMinPrice(new Date()), MWClassID.DOUBLE);
-			MWNumericArray smax = new MWNumericArray(
-					dbtool.getMaxPrice(new Date()), MWClassID.DOUBLE);
-			Object[] result;
+			option = new Option();
 			if (upordown == upORdown.up) {
-				result = option.lookbackfixedcall(5, s,k,smax,t,r,sg);
+				result = option.lookbackfixedcall(5, s, k, smax, t, r, sg);
 			} else {
 				result = option.lookbackfixedput(5, s, k, smin, t, r, sg);
 			}
-			PurchasePrice = Double.parseDouble(result[0].toString())
+			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
-			SellPrice = Double.parseDouble(result[0].toString())
+			SellPrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 - ServerData.getFloat_Rate());
-			Delta = Double.parseDouble(result[0].toString());
-			Gamma = Double.parseDouble(result[0].toString());
-			Vega = Double.parseDouble(result[0].toString());
-			Theta = Double.parseDouble(result[0].toString());
-
+			Delta = ((MWNumericArray)(result[1])).getDouble();
+			Gamma = ((MWNumericArray)(result[2])).getDouble();
+			Vega = ((MWNumericArray)(result[3])).getDouble();
+			Theta = ((MWNumericArray)(result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
 			MWArray.disposeArray(s);
 			MWArray.disposeArray(k);
 			MWArray.disposeArray(t);
 			MWArray.disposeArray(r);
 			MWArray.disposeArray(sg);
-			option.dispose();
-		} catch (MWException e) {
-			e.printStackTrace();
+			MWArray.disposeArray(smin);
+			MWArray.disposeArray(smax);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
 		}
-		double[] r = { PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
-		return r;
+		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
 	}
 
 	public double[] getlookbackfloatPrice(EorA eora, upORdown upordown,
@@ -158,48 +165,54 @@ public class CombinationManage {
 		double Gamma = 0;
 		double Vega = 0;
 		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice,
+				MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(
+				ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(
+				ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		MWNumericArray smin = new MWNumericArray(
+				dbtool.getMinPrice(new Date()), MWClassID.DOUBLE);
+		MWNumericArray smax = new MWNumericArray(
+				dbtool.getMaxPrice(new Date()), MWClassID.DOUBLE);
+		Object[] result = null;
+		Option option = null;
 		try {
-			Option option = new Option();
-			MWNumericArray s = new MWNumericArray(getHuShen300Price(),
-					MWClassID.DOUBLE);
-			MWNumericArray k = new MWNumericArray(executeprice,
-					MWClassID.DOUBLE);
-			MWNumericArray t = new MWNumericArray(
-					ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
-			MWNumericArray r = new MWNumericArray(
-					ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
-			MWNumericArray sg = new MWNumericArray(
-					ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
-			MWNumericArray smin = new MWNumericArray(
-					dbtool.getMinPrice(new Date()), MWClassID.DOUBLE);
-			MWNumericArray smax = new MWNumericArray(
-					dbtool.getMaxPrice(new Date()), MWClassID.DOUBLE);
-			Object[] result;
+			option = new Option();
 			if (upordown == upORdown.up) {
 				result = option.lookbackfloatcall(5, s, smin, t, r, sg);
 			} else {
 				result = option.lookbackfloatput(5, s, smax, t, r, sg);
 			}
-			PurchasePrice = Double.parseDouble(result[0].toString())
+			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
-			SellPrice = Double.parseDouble(result[0].toString())
+			SellPrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 - ServerData.getFloat_Rate());
-			Delta = Double.parseDouble(result[0].toString());
-			Gamma = Double.parseDouble(result[0].toString());
-			Vega = Double.parseDouble(result[0].toString());
-			Theta = Double.parseDouble(result[0].toString());
-
+			Delta = ((MWNumericArray)(result[1])).getDouble();
+			Gamma = ((MWNumericArray)(result[2])).getDouble();
+			Vega = ((MWNumericArray)(result[3])).getDouble();
+			Theta = ((MWNumericArray)(result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
 			MWArray.disposeArray(s);
 			MWArray.disposeArray(k);
 			MWArray.disposeArray(t);
 			MWArray.disposeArray(r);
 			MWArray.disposeArray(sg);
-			option.dispose();
-		} catch (MWException e) {
-			e.printStackTrace();
+			MWArray.disposeArray(smin);
+			MWArray.disposeArray(smax);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
 		}
-		double[] r = { PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
-		return r;
+		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
 	}
 	
 	public static void main(String[] args){
