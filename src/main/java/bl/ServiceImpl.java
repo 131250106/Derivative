@@ -22,7 +22,8 @@ public class ServiceImpl implements Service {
 
     private Map<String, User> userData = new HashMap<>();
     private OrderManage orderManage = OrderManage.getInstance();
-    private DataTool dataTool = new DataTool();
+    private CombinationManage combinationManage = CombinationManage.getInstance();
+    
 
     @Override
     public User login(String username, String password) throws RemoteException {
@@ -38,9 +39,10 @@ public class ServiceImpl implements Service {
         return "success";
     }
 
+    //普通期权
     @Override
     public double[] getCommonPurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID) throws RemoteException {
-        return new double[2];
+        return combinationManage.getCommonPurchasePrice(eora,upordown,executeprice,deadline);
     }
     
 	@Override
@@ -58,11 +60,20 @@ public class ServiceImpl implements Service {
 		return new double[2];
 	}
 
+	//回望固定期权
 	@Override
-	public double[] getRetrospectPurchasePrice(EorA eora, upORdown upordown,double executeprice,
+	public double[] getlookbackfixedPrice(EorA eora, upORdown upordown,double executeprice,
 			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
-		return new double[2];
+		return combinationManage.getlookbackfixedPrice(eora,upordown,executeprice,deadline);
+	}
+	
+	//回望浮动期权
+	@Override
+	public double[] getlookbackfloatPrice(EorA eora, upORdown upordown,double executeprice,
+			Date deadline, String ClientID) throws RemoteException {
+		// TODO Auto-generated method stub
+		return combinationManage.getlookbackfloatPrice(eora,upordown,executeprice,deadline);
 	}
 
 	@Override
@@ -96,7 +107,7 @@ public class ServiceImpl implements Service {
 
     @Override
     public double getPresentPriceByOption(Option option) throws RemoteException {
-        return dataTool.getHuShen300Price();
+        return combinationManage.getHuShen300Price();
     }
 
 	@Override

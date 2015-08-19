@@ -35,7 +35,7 @@ public class OrderManage { // 所有客户订单的管理
 
 	public OrderOFholdings[] getOrderOFholdingsByAccount(String account) {			//根据客户账号得到持仓记录
 		// TODO Auto-generated method stub
-		return null;
+		return dbtool.getHoldingOrdersByClientId(account);
 	}
 	
 	public boolean addOrder(Option option, int number, String ClientID,
@@ -43,6 +43,15 @@ public class OrderManage { // 所有客户订单的管理
 																	// ，deadline
 																	// 截止日期，executeprice为执行价格，dealprice为买卖价
 		boolean isOpen = true;
+		OrderOFholdings[] temp = getOrderOFholdingsByAccount(ClientID);
+		for(int i=0;i<temp.length;i++){
+			if(temp[i].getOption().isequal(option)){
+				if( temp[i].getNumber() * number <0){ 				//若为相反类型操作，则为平仓
+					isOpen = false;
+					break;
+				}
+			}
+		}
 		Order order = new Order(ClientID, option, deadline, executeprice, dealprice, number,isOpen);
 		return dbtool.addOrder(order);
 	}

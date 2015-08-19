@@ -48,10 +48,17 @@ public interface Service extends Remote {
 			throws RemoteException;
 	
 	/**
-	 * 获取回望期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
+	 * 获取回望固定期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
 	 * 返回值，double数组，第一个为买价，第二个为卖价
 	 * */
-	double[] getRetrospectPurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID)
+	double[] getlookbackfixedPrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取回望浮动期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getlookbackfloatPrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID)
 			throws RemoteException;
 	
 	/**
