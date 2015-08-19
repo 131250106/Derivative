@@ -158,6 +158,7 @@ public class DBTool implements DBService {
 		byte updown = (byte) (option.getUpordown() == upORdown.down ? 0 : 1);
 		byte area = (byte) (option.getEora() == EorA.A ? 0 : 1);
 		byte type = 0;
+		byte open = (byte)(order.isOpen() ? 1 : 0);
 		String first = option.getFirstClassName();
 		String second = option.getSecondClassName();
 		double payOff = option.getPayOff();
@@ -172,8 +173,8 @@ public class DBTool implements DBService {
 		
 		int num = order.getNumber();
 		String sql = "insert into `order` (order_id,client_account,deadLine,dealPrice,date,executePrice,updown,area,"
-				+ "type,num,payOff,obstacleRate )"
-				+ " values (?,?,?,?,? ,?,?,?,?,?,?,?)";
+				+ "type,num,payOff,obstacleRate,open)"
+				+ " values (?,?,?,?,? ,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			int index = 1;
 			statement.setString(index++, order_id);
@@ -188,6 +189,7 @@ public class DBTool implements DBService {
 			statement.setInt(index++, num);
 			statement.setDouble(index++, payOff);
 			statement.setDouble(index++, obstacleRate);
+			statement.setByte(index++, open);
 			statement.execute();
 			result = true;
 		} catch (Exception e) {
@@ -261,32 +263,15 @@ public class DBTool implements DBService {
 			double dealPrice = results.getDouble("dealPrice");
 			Date date = new Date(results.getLong("date"));
 			double executePrice = results.getDouble("executePrice");
-			byte updown = results.getByte("updown");
-			byte area = results.getByte("area");
-			byte type = results.getByte("type");
 			int num = results.getInt("num");
 			double payOff = results.getDouble("payOff");
 			double obstacleRate = results.getDouble("obstacleRate");
-			String firstClassName = null;
-			String secondClassName = null;
-			EorA eora = null;
-			String className = optionNames[type];
-	        String[] classNameArray = className.split(" ");
-	        firstClassName = classNameArray[0];
-	        if (classNameArray.length == 2)
-	        {
-	        	secondClassName = classNameArray[1];
-	        }
-			EorA[] eoras = { EorA.A, EorA.E };
-			upORdown[] upORdowns = { upORdown.down, upORdown.up };
-			eora = eoras[area];
-			upORdown upordown = upORdowns[updown];
-			Option option = new Option(firstClassName, secondClassName, eora,
-					upordown);
+		    byte isOpen = results.getByte("open");
+			Option option = toOption(results);
 			option.setPayOff(payOff);
 			option.setObstacleRate(obstacleRate);
 			order = new Order(client_account, option, deadLine, executePrice,
-					dealPrice, num);
+					dealPrice, num, isOpen == 0 ? false : true);
 			order.setOrderId(order_id);
 			order.setBuyDate(date);
 		} catch (Exception e) {
@@ -421,5 +406,64 @@ public class DBTool implements DBService {
 		}
 		return result;
 	}
+	
 
+	public OrderOFholdings[] getHoldingOrdersByClientId(String account) {
+		String sql = "select type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost from `order` where client_account = ? group by `type`,updown,area,deadLine;";
+		OrderOFholdings[] holdingOrders = null;
+		try
+		{
+			PreparedStatement statement  = conn.prepareStatement(sql);
+			statement.setString(1, account);
+			ResultSet results = statement.executeQuery();
+			ArrayList<OrderOFholdings> orderList = new ArrayList<OrderOFholdings>();
+			while (results.next())
+			{
+				orderList.add(toHoldingOrder(results));
+			}
+			if (orderList.size() != 0)
+			{
+				holdingOrders = new OrderOFholdings[orderList.size()];
+				orderList.toArray(holdingOrders);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return  holdingOrders;
+	} 
+    
+	private OrderOFholdings toHoldingOrder(ResultSet result) throws SQLException
+	{
+		
+		Option option = toOption(result);
+		int sum = result.getInt("total");
+		double cost = result.getDouble("cost");
+		Date deadLine = new Date(result.getLong("deadLine"));
+		return new OrderOFholdings(option,deadLine,sum,cost);
+	}
+	private Option toOption(ResultSet results) throws SQLException
+	{
+		byte updown = results.getByte("updown");
+		byte area = results.getByte("area");
+		byte type = results.getByte("type");
+		String firstClassName = null;
+		String secondClassName = null;
+		EorA eora = null;
+		String className = optionNames[type];
+        String[] classNameArray = className.split(" ");
+        firstClassName = classNameArray[0];
+        if (classNameArray.length == 2)
+        {
+        	secondClassName = classNameArray[1];
+        }
+		EorA[] eoras = { EorA.A, EorA.E };
+		upORdown[] upORdowns = { upORdown.down, upORdown.up };
+		eora = eoras[area];
+		upORdown upordown = upORdowns[updown];
+		return new Option(firstClassName, secondClassName, eora,
+				upordown);
+	}
 }

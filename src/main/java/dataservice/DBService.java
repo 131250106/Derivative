@@ -3,6 +3,7 @@ package dataservice;
 import java.util.Date;
 
 import data.Order;
+import data.OrderOFholdings;
 import data.User;
 
 public interface DBService {
@@ -25,4 +26,6 @@ public interface DBService {
        public double getMaxPrice(Date date);
        //获得某日起最小股指数
        public double getMinPrice(Date date);
+       //获得某个用户的持仓记录
+       public OrderOFholdings[] getHoldingOrdersByClientId(String account);
 }

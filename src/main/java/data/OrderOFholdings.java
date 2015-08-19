@@ -36,9 +36,15 @@ public class OrderOFholdings {
 	
 	public int getDeadTime() {
 		Date now = new Date();
-		deadTime = (int) (deadline.getTime() - now.getTime())
-				/ (24 * 60 * 60 * 1000);
+		deadTime = (int)((now.getTime() - deadline.getTime())
+				/ (24 * 60 * 60 * 1000));
 		return this.deadTime;
 	}
+	
+	public String toString()
+	{
+		return "option : \t"+option +" \tdeadTime:\t"+getDeadTime()+"\tnum:\t"+getNumber()+"\tcost:\t"+getCost()+"\n";
+	}
+	
 	
 }
