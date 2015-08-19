@@ -14,13 +14,16 @@ public class OrderOFholdings {
 	private int deadTime; // 距离到期时间（给界面用的，数据库那边不用管）
 	
 	
-	public OrderOFholdings(Option option, Date deadline, int number, double cost) {
+	public OrderOFholdings(String account,Option option, Date deadline, int number, double cost) {
 		super();
+		this.account =account;
 		this.option = option;
 		this.deadline = deadline;
 		this.number = number;
 		this.cost = cost;
 	}
+	
+   	
 	
 	public Option getOption() {
 		return option;
@@ -44,7 +47,7 @@ public class OrderOFholdings {
 	
 	public String toString()
 	{
-		return "option : \t"+option +" \tdeadTime:\t"+getDeadTime()+"\tnum:\t"+getNumber()+"\tcost:\t"+getCost()+"\n";
+		return "account:\t "+account+ "\toption : \t"+option +" \tdeadTime:\t"+getDeadTime()+"\tnum:\t"+getNumber()+"\tcost:\t"+getCost()+"\n";
 	}
 
 	public String getAccount() {

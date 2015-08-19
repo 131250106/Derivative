@@ -409,7 +409,7 @@ public class DBTool implements DBService {
 	
 
 	public OrderOFholdings[] getHoldingOrdersByClientId(String account) {
-		String sql = "select type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost from `order` where client_account = ? group by `type`,updown,area,deadLine;";
+		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost from `order` where client_account = ? group by `type`,updown,area,deadLine;";
 		OrderOFholdings[] holdingOrders = null;
 		try
 		{
@@ -442,8 +442,9 @@ public class DBTool implements DBService {
 		int sum = result.getInt("total");
 		double cost = result.getDouble("cost");
 		Date deadLine = new Date(result.getLong("deadLine"));
-		return new OrderOFholdings(option,deadLine,sum,cost);
+		return new OrderOFholdings(result.getString("client_account"),option,deadLine,sum,cost);
 	}
+	
 	private Option toOption(ResultSet results) throws SQLException
 	{
 		byte updown = results.getByte("updown");
@@ -465,5 +466,31 @@ public class DBTool implements DBService {
 		upORdown upordown = upORdowns[updown];
 		return new Option(firstClassName, secondClassName, eora,
 				upordown);
+	}
+
+	public OrderOFholdings[] getHoldingOrders() {
+		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost from `order`  group by `type`,updown,area,deadLine,client_account;";
+		OrderOFholdings[] holdingOrders = null;
+		try
+		{
+			PreparedStatement statement  = conn.prepareStatement(sql);
+			ResultSet results = statement.executeQuery();
+			ArrayList<OrderOFholdings> orderList = new ArrayList<OrderOFholdings>();
+			while (results.next())
+			{
+				orderList.add(toHoldingOrder(results));
+			}
+			if (orderList.size() != 0)
+			{
+				holdingOrders = new OrderOFholdings[orderList.size()];
+				orderList.toArray(holdingOrders);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return  holdingOrders;
 	}
 }
