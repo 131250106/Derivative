@@ -11,19 +11,21 @@ import java.util.TimerTask;
 import dataservice.DataToolService;
 
 public class DataTool implements DataToolService{
-	private String urlStr = "http://hq.sinajs.cn/rn=1439444714514&list=s_sh000300";
+//	private String urlStr = "http://hq.sinajs.cn/rn=1439444714514&list=s_sh000300";  //获得沪深300
+	private String urlStr = "http://hq.sinajs.cn/list=sh000300";        //获得沪深300
+//	private String urlBjTime = "http://hq.sinajs.cn/?format=json&list=sys_time";   //获得背景时间
 	private URL url;
-	private double value = -1;
+	private static  volatile  double value = -1;
 	private PriceQueue queue;
-	private int count = 1;
 	private boolean onTime = true;
-
+    private String time;
 	public DataTool() {
 		init();
 		queue = new PriceQueue();
 	}
-
+    
 	public double getHuShen300Price() {
+//		System.out.println("hushen300 "+value);
 		return value;
 	}
 
@@ -36,11 +38,12 @@ public class DataTool implements DataToolService{
 		TimerTask task = new TimerTask() {
 			public void run() {
 				double data = catchData();
-				if (data != -1) {
+				if (Math.abs((data + 1)) > 0.0000001) {
+//					System.out.println("data ---: "+data);
+//					System.out.println("value ---: "+value);
 					value = data;
 				}
-				--count;
-				if (count <= 0 && value != -1 && onTime == true) {
+				if (value != -1 && onTime == true) {
 					queue.addPrice(new Price(value));
 				}
 			}
@@ -77,7 +80,27 @@ public class DataTool implements DataToolService{
 	}
 
 	private String getValue(String script) {
-		return script.split(",")[1];
+		String[] data = script.split(",");
+		//通过两次时间数据的对比得出 股市是否收盘
+		String hushenTime = data[data.length - 2];
+//		System.out.println("data[3]: "+data[3]);
+//		System.out.println("hushenTime : "+hushenTime);
+		if (time == null)
+		{
+			time = hushenTime;
+		}
+		else 
+		{
+			if (time.equals(hushenTime))
+			 {
+				this.setOnTime(false);
+			 }
+			else 
+			{
+				time = hushenTime;
+			}
+		}
+		return data[3];
 
 	}
 
