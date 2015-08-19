@@ -3,6 +3,7 @@ package data;
 import java.util.Date;
 
 public class OrderOFholdings {
+	private String account;	//用户账号
 	private Option option; // 期权
 	private Date deadline; // 到期时间
 	private int number; // 数量,购买记录相加就行
@@ -44,6 +45,14 @@ public class OrderOFholdings {
 	public String toString()
 	{
 		return "option : \t"+option +" \tdeadTime:\t"+getDeadTime()+"\tnum:\t"+getNumber()+"\tcost:\t"+getCost()+"\n";
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
 	}
 	
 	
