@@ -28,7 +28,6 @@ public class DataTool implements DataToolService{
 	}
 
 	public double getGeometricalMean(Date date) throws NoDataException {
-		double total = 0;
 		return queue.getGeometricalMean(date.getTime());
 	}
 
