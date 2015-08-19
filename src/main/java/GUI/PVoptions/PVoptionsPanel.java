@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.nio.file.SecureDirectoryStream;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.function.DoubleToLongFunction;
 
@@ -20,6 +21,8 @@ import javax.xml.crypto.Data;
 
 import org.junit.experimental.theories.Theories;
 
+import com.sun.xml.internal.ws.org.objectweb.asm.Label;
+
 import GUI.GraphicController;
 import GUI.Loader;
 import GUI.MenuPanel;
@@ -29,8 +32,13 @@ import blservice.Service;
 import data.EorA;
 import data.upORdown;
 
-public class PVoptionsPanel extends MenuPanel{
+public class PVoptionsPanel extends MenuPanel implements Runnable{
 	
+	public void run() {
+
+	}
+
+
 	Service service;
 	
 	private JButton pvoption;
@@ -44,6 +52,8 @@ public class PVoptionsPanel extends MenuPanel{
 	private ButtonGroup BorA;
 	private JRadioButton bidButton;
 	private JRadioButton askButton;
+	
+    private JLabel timer;
 	
 	static int PANEL_WIDTH = 960;
 	static int PANEL_HEIGHT = 600;
@@ -100,8 +110,8 @@ public class PVoptionsPanel extends MenuPanel{
 		LookUp.setForeground(MyColor.black);
 		LookDown.setForeground(MyColor.black);
 		
-		LookUp.setBounds(290, 163, 64, 30);
-		LookDown.setBounds(213,163,64,30);		
+		LookUp.setBounds(295+100, 160+50, 64, 30);
+		LookDown.setBounds(208+100,160+50,64,30);		
 		LookDown.setVisible(true);
 		LookUp.setVisible(true);
 		this.add(LookUp);
@@ -126,8 +136,8 @@ public class PVoptionsPanel extends MenuPanel{
 		Europe.setForeground(MyColor.black);
 		America.setForeground(MyColor.black);
 		
-		Europe.setBounds(290, 200, 64, 30);
-		America.setBounds(213,200,64,30);		
+		Europe.setBounds(295+100, 210+50, 64, 30);
+		America.setBounds(208+100,210+50,64,30);		
 		America.setVisible(true);
 		Europe.setVisible(true);
 		this.add(Europe);
@@ -135,69 +145,69 @@ public class PVoptionsPanel extends MenuPanel{
 		
 		executePriceLabel = new JLabel("执行价格:");
 		executePriceLabel.setFont(font);
-		executePriceLabel.setBounds(200, 240, LABEL_WIDTH, LABEL_HEIGHT);
+		executePriceLabel.setBounds(213+100, 260+50, LABEL_WIDTH, LABEL_HEIGHT);
 		executePriceLabel.setVisible(true);
 		this.add(executePriceLabel);
 		
 		executePriceField = new JTextField();
-		executePriceField.setBounds(280, 240, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		executePriceField.setBounds(290+100, 260+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		executePriceField.setVisible(true);
 		executePriceField.setFont(font);
 		this.add(executePriceField);
 		
-		noRiskRateLabel = new JLabel("无风险利率:");
-		noRiskRateLabel.setFont(font);
-		noRiskRateLabel.setBounds(200, 280, LABEL_WIDTH, LABEL_HEIGHT);
-		noRiskRateLabel.setVisible(true);
-		this.add(noRiskRateLabel);
-		
-		noRiskRateField = new JTextField();
-		noRiskRateField.setFont(font);
-		noRiskRateField.setBounds(280, 280, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		noRiskRateField.setVisible(true);
-		this.add(noRiskRateField);
+//		noRiskRateLabel = new JLabel("无风险利率:");
+//		noRiskRateLabel.setFont(font);
+//		noRiskRateLabel.setBounds(200, 280, LABEL_WIDTH, LABEL_HEIGHT);
+//		noRiskRateLabel.setVisible(true);
+//		this.add(noRiskRateLabel);
+//		
+//		noRiskRateField = new JTextField();
+//		noRiskRateField.setFont(font);
+//		noRiskRateField.setBounds(280, 280, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+//		noRiskRateField.setVisible(true);
+//		this.add(noRiskRateField);
 		
 		//需要处理计算一下
 		deadlineLabel = new JLabel("截止日期:");
 		deadlineLabel.setFont(font);
-		deadlineLabel.setBounds(200,320, LABEL_WIDTH, LABEL_HEIGHT);
+		deadlineLabel.setBounds(213+100,310+50, LABEL_WIDTH, LABEL_HEIGHT);
 		deadlineLabel.setVisible(true);
 		this.add(deadlineLabel);
 		
 		deadlineField = new JTextField();
 		deadlineField.setFont(font);
-		deadlineField.setBounds(280, 320, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		deadlineField.setBounds(290+100,310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		deadlineField.setVisible(true);
 		this.add(deadlineField);
 		
 		JLabel warningLabel = new JLabel("请输入完整信息");
 		Font font2 = new Font("微软雅黑",Font.PLAIN,12);
 		warningLabel.setFont(font2);
-		warningLabel.setBounds(220,360,100,25);
+		warningLabel.setBounds(240+100,345,100,25);
 		warningLabel.setVisible(false);
 		this.add(warningLabel);
 		
-		bidPriceLabel = new JLabel("买价:");
+		bidPriceLabel = new JLabel(" 买价:");
 		bidPriceLabel.setFont(font);
-		bidPriceLabel.setBounds(500,163,LABEL_WIDTH,LABEL_HEIGHT);
+		bidPriceLabel.setBounds(500+101,160+50,LABEL_WIDTH,LABEL_HEIGHT);
 		bidPriceLabel.setVisible(false);
 		this.add(bidPriceLabel);
 		
 		bidPriceField = new JTextField();
 		bidPriceField.setFont(font);
-		bidPriceField.setBounds(580, 163, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		bidPriceField.setBounds(580+101, 160+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		bidPriceField.setVisible(false);
 		this.add(bidPriceField);
 		
-		askPriceLabel = new JLabel("卖价:");
+		askPriceLabel = new JLabel(" 卖价:");
 		askPriceLabel.setFont(font);
-		askPriceLabel.setBounds(500,200,LABEL_WIDTH,LABEL_HEIGHT);
+		askPriceLabel.setBounds(500+101,210+50,LABEL_WIDTH,LABEL_HEIGHT);
 		askPriceLabel.setVisible(false);
 		this.add(askPriceLabel);
 		
 		askPriceField = new JTextField();
 		askPriceField.setFont(font);
-		askPriceField.setBounds(580, 200, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		askPriceField.setBounds(580+101, 210+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		askPriceField.setVisible(false);
 		this.add(askPriceField);
 		
@@ -218,8 +228,8 @@ public class PVoptionsPanel extends MenuPanel{
 		bidButton.setForeground(MyColor.black);
 		askButton.setForeground(MyColor.black);
 		
-		bidButton.setBounds(500,240, 64, 30);
-		askButton.setBounds(580,240,64,30);		
+		bidButton.setBounds(500+101,260+50, 64, 30);
+		askButton.setBounds(580+101,260+50,64,30);		
 		askButton.setVisible(false);
 		bidButton.setVisible(false);
 		this.add(bidButton);
@@ -227,20 +237,26 @@ public class PVoptionsPanel extends MenuPanel{
 		
 		dealNumLabel = new JLabel("交易数量:");
 		dealNumLabel.setFont(font);
-		dealNumLabel.setBounds(500,275,LABEL_WIDTH,LABEL_HEIGHT);
+		dealNumLabel.setBounds(500+101,310+50,LABEL_WIDTH,LABEL_HEIGHT);
 		dealNumLabel.setVisible(false);
 		this.add(dealNumLabel);
 		
 		dealNumField = new JTextField();
 		dealNumField.setFont(font);
-		dealNumField.setBounds(580, 275, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		dealNumField.setBounds(580+101,310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		dealNumField.setVisible(false);
 		this.add(dealNumField);
+		
+		timer = new JLabel("初始化");
+		timer.setFont(font);
+		timer.setBounds(520+101+85,380+50, LABEL_WIDTH+100, LABEL_HEIGHT);
+		timer.setVisible(false);
+		this.add(timer);
 		
 		submitButton = new JButton("查询");
 		submitButton.setFont(font);
 		submitButton.setSize(80, 30);
-		submitButton.setLocation(200,400);
+		submitButton.setLocation(240+100,380+50);
 		submitButton.setBackground(MyColor.deepblue);
 		submitButton.setForeground(MyColor.lightblue);
 		submitButton.setFocusPainted(false);
@@ -250,15 +266,20 @@ public class PVoptionsPanel extends MenuPanel{
 			public void mouseClicked(MouseEvent e) {
 				//这里显示输出的两个框
 				if(executePriceField.getText().equals("")||deadlineField.getText().equals("")||
-						noRiskRateField.getText().equals("")||
 						EAndA.getSelection()==null||LookUpAndDown.getSelection()==null){
 					warningLabel.setVisible(true);
 				}else{
 					//画出显示框
 					warningLabel.setVisible(false);
 					double executePrice = Double.parseDouble(executePriceField.getText());
-					double noRiskRate = Double.parseDouble(noRiskRateField.getText());
-					Date deadline =new Date(deadlineField.getText());
+//					double noRiskRate = Double.parseDouble(noRiskRateField.getText());
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date deadline = null;
+					try {
+						deadline = format.parse(deadlineField.getText());
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
 					EorA eora = Europe.isSelected()?EorA.E:EorA.A;
 					upORdown upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 					
@@ -280,6 +301,9 @@ public class PVoptionsPanel extends MenuPanel{
 					dealNumLabel.setVisible(true);
 					dealNumField.setVisible(true);
 					dealButton.setVisible(true);
+					timer.setVisible(true);
+					TimerThread timerThread = new TimerThread();
+					timerThread.start();
 				}			
 				System.out.println("submitButton has been clicked!");
 			}
@@ -289,7 +313,7 @@ public class PVoptionsPanel extends MenuPanel{
 		dealButton = new JButton("交易");
 		dealButton.setFont(font);
 		dealButton.setSize(80, 30);
-		dealButton.setLocation(520,310);
+		dealButton.setLocation(520+101,380+50);
 		dealButton.setBackground(MyColor.deepblue);
 		dealButton.setForeground(MyColor.lightblue);
 		dealButton.setFocusPainted(false);
@@ -301,7 +325,9 @@ public class PVoptionsPanel extends MenuPanel{
 				if(dealNumField.getText().equals("")||BorA.getSelection()==null){
 					System.out.println("没填完");
 				}else{
-					
+					if(timer.getText().equals("(请在0秒内完成操作)")){
+						timer.setText("操作超时，请重新查询");
+					}
 					System.out.println("交易完成");
 				}			
 				System.out.println("submitButton has been clicked!");
@@ -310,5 +336,22 @@ public class PVoptionsPanel extends MenuPanel{
 		
 		this.add(dealButton);
 	}
+	
+    
+    class TimerThread extends Thread{
+    	public void run(){
+      	  long time = 1 * 30 ;// 自定义倒计时时间
+      	  while (time >= 0){
+              timer.setText("(请在"+time+"秒内完成操作)");
+                try {
+                	this.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                time--;
+            }
+    	}  	
+    }
+    
 	
 }
