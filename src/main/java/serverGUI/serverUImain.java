@@ -17,7 +17,7 @@ public class serverUImain {
 
 		@Override
 		public void run() {
-			GraphicController.changeToPanel(new MenuPanel("menu"));
+			GraphicControllerServer.changeToPanel(new MenuPanel("menu"));
 		}
 		
 	}

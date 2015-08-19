@@ -17,7 +17,7 @@ import GUI.myswing.MyColor;
 public class MenuPanel extends JPanel implements ActionListener{
 	private String panelCategory;
 	protected int whereTo;
-	private JButton buttonOption,buttonView;;
+	private JButton buttonOption,buttonView,buttonStore;;;
 	
 	private JButton pvoption,lboption,boption,baroption,asianoption;
 	private JButton mini,close,back;
@@ -64,7 +64,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonOption.setFont(font);
 		buttonOption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				GraphicController.changeToPanel(new ArgumentPanel("argument"));
+				GraphicControllerServer.changeToPanel(new ArgumentPanel("argument"));
 			}
 		});
 		this.add(buttonOption);
@@ -78,10 +78,25 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonView.setFont(font);
 		buttonView.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				//GraphicController.changeToPanel(new ViewPanel());
+				GraphicControllerServer.changeToPanel(new ViewPanelServer("View"));
 			}
 		});
 		this.add(buttonView);	
+		
+		buttonStore = new JButton("持仓记录");
+		buttonStore.setBounds(220,30, 110,45);
+		buttonStore.setForeground(MyColor.white);
+		buttonStore.setBackground(MyColor.deepblue);
+		buttonStore.setFocusPainted(false);
+		buttonStore.setBorderPainted(false);
+		buttonStore.setFont(font);
+		buttonStore.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+
+				GraphicControllerServer.changeToPanel(new StorePanelServer("Store"));
+			}
+		});
+		this.add(buttonStore);
 		
 		this.setLayout(null);
 		this.setSize(960,600);
@@ -97,15 +112,17 @@ public class MenuPanel extends JPanel implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(buttonOption)){
-			//GraphicController.changeToPanel(Loader.pvpanel);
+			GraphicControllerServer.changeToPanel(new ArgumentPanel("argument"));
 		}else if(e.getSource().equals(back)){
-			GraphicController.back();
+			GraphicControllerServer.back();
 		}else if(e.getSource().equals(close)){
 			System.exit(0);
 		}else if(e.getSource().equals(mini)){
-			GraphicController.mini();
+			GraphicControllerServer.mini();
 		}else if(e.getSource().equals(buttonView)){
-		//	GraphicController.changeToPanel(new ViewPanel());
+			GraphicControllerServer.changeToPanel(new ViewPanelServer("View"));
+		}else if(e.getSource().equals(buttonStore)){
+			GraphicControllerServer.changeToPanel(new StorePanelServer("Store"));
 		}
 	}
 }

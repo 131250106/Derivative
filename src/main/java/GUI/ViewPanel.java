@@ -404,24 +404,33 @@ public class ViewPanel extends JPanel implements ActionListener{
 	
 	
 	private void filltable(Order[] list){
-		//if(list!=null){
+		if(list!=null){
 			for (int i = tableRow.getRowCount(); i > 0; i--) {
 				tableRow.removeRow(0);
 			}
-			/*for(Order order:list){
+			for(Order order:list){
 				Vector v = new Vector();
+				v.add(order.getBuyDate());
 				v.add(order.getOption().toString());
-				v.add(order.getNumber());
-				v.add(order.getDealprice());
-				v.add(order.getExecuteprice());
+				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				if(order.getNumber()>=0){
+					v.add("买");
+				}else{
+					v.add("卖");
+				}
 				v.add(order.getDeadline());
-				v.add(order.getDeadTime());
-				v.add(order.getDelta());
-				v.add(order.getGamma());
-				v.add(order.getTheta());
-				v.add(order.getVega());
+				v.add(order.getDealprice());
+				v.add(Math.abs(order.getNumber()));
+				tableRow.addRow(v);
+			}
+			/*for(Integer a:list){
+				Vector v = new Vector();
+				v.add(a);
 				tableRow.addRow(v);
 			}*/
+			table.revalidate();
+			table.repaint();
+		}
 			int l =  123;
 			Vector v = new Vector();
 			v.add(l);
@@ -440,14 +449,6 @@ public class ViewPanel extends JPanel implements ActionListener{
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			
-			/*for(Integer a:list){
-				Vector v = new Vector();
-				v.add(a);
-				tableRow.addRow(v);
-			}*/
-			table.revalidate();
-			table.repaint();
-		//}
 	}
 	
 	@Override
@@ -471,7 +472,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 			GraphicController.changeToPanel(new ViewPanel());
 		}
 	}
-	
+	/*
 	public double[] getNowPrice(Order list){
 		String name = list.getOption().getFirstClassName();
 		try{
@@ -484,9 +485,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 						list.getOption().getUpordown(), 
 						list.getExecuteprice(),list.getDeadline(),list.getClientid());
 				//
-				/**
-				 * Something Wrong
-				 */
+
 			}else if(name.equals("回望期权")){
 				return service.getRetrospectPurchasePrice(list.getOption().getEora(),
 						list.getOption().getUpordown(), 
@@ -507,7 +506,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 		}
 		return null;
 	}
-	
+	*/
 	private void choose(int type){
 		/*pvoptionDetail,fixedoption,floatoption,boptionDetail;
 			downandoutoption,downandinoption,upandoutoption,upandinoption,
