@@ -4,6 +4,7 @@ import blservice.Service;
 import data.EorA;
 import data.Option;
 import data.Order;
+import data.OrderOFholdings;
 import data.User;
 import data.upORdown;
 import dataTool.DataTool;
@@ -103,6 +104,13 @@ public class ServiceImpl implements Service {
 		// TODO Auto-generated method stub
 //		OrderManage ordermanage = OrderManage.getInstance();
 		return orderManage.getOrdersByAccount(account);
+	}
+
+	@Override
+	public OrderOFholdings[] getOrderOFholdingsByAccount(String account)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return orderManage.getOrderOFholdingsByAccount(account);
 	}
 
 }

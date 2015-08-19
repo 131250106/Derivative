@@ -4,6 +4,7 @@ import java.util.Date;
 
 import data.Option;
 import data.Order;
+import data.OrderOFholdings;
 import dataTool.DBTool;
 import dataservice.DBService;
 
@@ -32,6 +33,11 @@ public class OrderManage { // 所有客户订单的管理
 		return dbtool.findOrder(account, null, null);
 	}
 
+	public OrderOFholdings[] getOrderOFholdingsByAccount(String account) {			//根据客户账号得到持仓记录
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public boolean addOrder(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) {// 参数：option为卖出的期权类型，number为卖出的数量，ClientID用户唯一标识符
 																	// ，deadline
@@ -40,4 +46,6 @@ public class OrderManage { // 所有客户订单的管理
 		Order order = new Order(ClientID, option, deadline, executeprice, dealprice, number,isOpen);
 		return dbtool.addOrder(order);
 	}
+
+	
 }

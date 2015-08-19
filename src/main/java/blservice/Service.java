@@ -7,6 +7,7 @@ import java.util.Date;
 import data.EorA;
 import data.Option;
 import data.Order;
+import data.OrderOFholdings;
 import data.User;
 import data.upORdown;
 
@@ -95,4 +96,10 @@ public interface Service extends Remote {
 	 * 通过客户ID(账号)得到该用户所有订单
 	 * */
 	public Order[] getOrdersByAccount(String account) throws RemoteException;
+	
+	/**
+	 * 通过客户ID(账号)得到该用户所有持仓记录
+	 * */
+	public OrderOFholdings[] getOrderOFholdingsByAccount(String account) throws RemoteException;
+	
 }
