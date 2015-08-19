@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import data.ServerData;
 import GUI.myswing.MyColor;
 
 public class ArgumentPanel extends MenuPanel{
@@ -68,9 +69,8 @@ public class ArgumentPanel extends MenuPanel{
 				if(rateField.getText().equals("")||noRiskRateField.getText().equals("")){
 					warningLabel.setVisible(true);
 				}else{
-					/**
-					 * do something
-					 */
+					ServerData.setFluctuation_Rate(Double.parseDouble(rateField.getText()));
+					ServerData.setRisk_free_Rate(Double.parseDouble(noRiskRateField.getText()));
 				}
 			}
 		});
