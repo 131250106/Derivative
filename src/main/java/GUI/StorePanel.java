@@ -25,6 +25,7 @@ import GUI.myswing.StoreTm;
 import GUI.myswing.ViewTm;
 import blservice.Service;
 import data.Order;
+import data.OrderOFholdings;
 
 public class StorePanel extends JPanel implements ActionListener{
 	private JButton buttonOption,buttonView,buttonStore;;
@@ -37,7 +38,7 @@ public class StorePanel extends JPanel implements ActionListener{
 	private NTable table;
 	private StoreTm tableRow = new StoreTm();
 	private Service service;
-	private Order[] orderlist;
+	private OrderOFholdings[] orderlist;
 	//ArrayList<Integer> list;
 	DefaultTableCellRenderer render;
 	
@@ -342,6 +343,12 @@ public class StorePanel extends JPanel implements ActionListener{
 		this.add(table);
 		
 		//orderlist = service.getOrdersByAccount("0");
+//		try {
+//			//orderlist = service.getOrderOFholdingsByAccount("0");
+//		} catch (RemoteException e1) {
+//			System.out.println("NetWork Wrong");
+//			e1.printStackTrace();
+//		}
 		filltable(orderlist);
 
 //-----------------------------------------------------------------------------------------------------------
@@ -388,43 +395,27 @@ public class StorePanel extends JPanel implements ActionListener{
 	}
 	
 	
-	private void filltable(Order[] list){
-		//if(list!=null){
+	private void filltable(OrderOFholdings[] list){
+		if(list!=null){
 			for (int i = tableRow.getRowCount(); i > 0; i--) {
 				tableRow.removeRow(0);
 			}
-			/*for(Order order:list){
+			
+			for(OrderOFholdings order:list){
 				Vector v = new Vector();
 				v.add(order.getOption().toString());
-				v.add(order.getNumber());
-				v.add(order.getDealprice());
-				v.add(order.getExecuteprice());
-				v.add(order.getDeadline());
+				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				if(order.getNumber()>=0){
+					v.add("买");
+				}else{
+					v.add("卖");
+				}
 				v.add(order.getDeadTime());
-				v.add(order.getDelta());
-				v.add(order.getGamma());
-				v.add(order.getTheta());
-				v.add(order.getVega());
+				v.add(order.getCost());
+				v.add(Math.abs(order.getNumber()));
 				tableRow.addRow(v);
-			}*/
-			int l =  123;
-			Vector v = new Vector();
-			v.add(l);
-			v.add(l);
-			v.add(l);
-			v.add(l);
-			v.add(l);
-			v.add(l);
-			v.add(l);
-			/*v.add(l);
-			v.add(l);
-			v.add(l);*/
-			tableRow.addRow(v);
-			tableRow.addRow(v);
-			tableRow.addRow(v);
-			tableRow.addRow(v);
-			tableRow.addRow(v);
-			
+			}
+	
 			/*for(Integer a:list){
 				Vector v = new Vector();
 				v.add(a);
@@ -432,7 +423,28 @@ public class StorePanel extends JPanel implements ActionListener{
 			}*/
 			table.revalidate();
 			table.repaint();
-		//}
+		}
+		/**
+		 * test
+		 */
+		Vector v = new Vector();
+		int l =  123;
+		v.add(l);
+		v.add(l);
+		v.add(l);
+		v.add(l);
+		v.add(l);
+		v.add(l);
+		/*v.add(l);
+		v.add(l);
+		v.add(l);*/
+		tableRow.addRow(v);
+		tableRow.addRow(v);
+		tableRow.addRow(v);
+		tableRow.addRow(v);
+		tableRow.addRow(v);
+		table.revalidate();
+		table.repaint();
 	}
 	
 	@Override
@@ -456,7 +468,7 @@ public class StorePanel extends JPanel implements ActionListener{
 			GraphicController.changeToPanel(new ViewPanel());
 		}
 	}
-	
+	/*
 	public double[] getNowPrice(Order list){
 		String name = list.getOption().getFirstClassName();
 		try{
@@ -469,9 +481,6 @@ public class StorePanel extends JPanel implements ActionListener{
 						list.getOption().getUpordown(), 
 						list.getExecuteprice(),list.getDeadline(),list.getClientid());
 				//
-				/**
-				 * Something Wrong
-				 */
 			}else if(name.equals("回望期权")){
 				return service.getRetrospectPurchasePrice(list.getOption().getEora(),
 						list.getOption().getUpordown(), 
@@ -493,6 +502,7 @@ public class StorePanel extends JPanel implements ActionListener{
 		return null;
 	}
 	
+	*/
 	private void choose(int type){
 		/*pvoptionDetail,fixedoption,floatoption,boptionDetail;
 			downandoutoption,downandinoption,upandoutoption,upandinoption,
