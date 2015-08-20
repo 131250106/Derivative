@@ -10,6 +10,8 @@ import javax.swing.JRadioButton;
 
 import GUI.GraphicController;
 import GUI.MenuPanel;
+import GUI.Asianoptions.AvgExcPricePanel;
+import GUI.Asianoptions.AvgPricePanel;
 import GUI.myswing.MyColor;
 
 public class BoptionsPanel extends MenuPanel{
@@ -21,13 +23,16 @@ public class BoptionsPanel extends MenuPanel{
 	private ButtonGroup EAndA;
 	private JRadioButton Europe;
 	private JRadioButton America;
+	private JButton cashoption,assetoption;
+	
 	
 	public BoptionsPanel(String name) {
 		super("Boptions");
 		
+		
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
-		boption = new JButton("二元期权");
+		/*boption = new JButton("二元期权");
 		boption.setSize(175,70);
 		boption.setLocation(0,127);
 		boption.setBackground(MyColor.deepblue);
@@ -40,7 +45,41 @@ public class BoptionsPanel extends MenuPanel{
 				GraphicController.changeToPanel(new BoptionsPanel("Boptions"));
 			}
 		});
-		this.add(boption);
+		this.add(boption);*/
+		
+		font = new Font("微软雅黑",Font.PLAIN,17);
+		
+		cashoption = new JButton("现金或无价值期权");
+		cashoption.setSize(175, 70);
+		cashoption.setLocation(0,197);
+		cashoption.setBackground(MyColor.deepblue);
+		cashoption.setForeground(MyColor.lightblue);
+		cashoption.setFocusPainted(false);
+		cashoption.setBorderPainted(false);
+		cashoption.setFont(font);
+		cashoption.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new cashPanel("cash"));
+			}
+		});
+		this.add(cashoption);
+		
+		font = new Font("微软雅黑",Font.PLAIN,20);
+		
+		assetoption = new JButton("资产或无价值");
+		assetoption.setSize(175, 70);
+		assetoption.setLocation(0,127);
+		assetoption.setBackground(MyColor.deepblue);
+		assetoption.setForeground(MyColor.lightblue);
+		assetoption.setFocusPainted(false);
+		assetoption.setBorderPainted(false);
+		assetoption.setFont(font);
+		assetoption.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				GraphicController.changeToPanel(new AssetPanel("asset"));
+			}
+		});
+		this.add(assetoption);
 		
 		 font = new Font("微软雅黑",Font.PLAIN,15);
 			

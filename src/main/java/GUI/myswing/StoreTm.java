@@ -15,6 +15,7 @@ public class StoreTm extends AbstractTableModel{
 		columnNames.add("期限");
 		columnNames.add("成本");
 		columnNames.add("数量");
+		columnNames.add("执行价格");
 		rows = new Vector();
 	}
 	

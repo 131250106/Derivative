@@ -1,5 +1,8 @@
 package serverGUI;
 
-public class serverLoader {
+import bl.ServiceImpl;
+import blservice.Service;
 
+public class serverLoader {
+	public static Service service = new ServiceImpl();
 }

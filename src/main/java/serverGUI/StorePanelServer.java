@@ -103,6 +103,7 @@ public class StorePanelServer extends MenuPanel{
 			v.add(l);
 			v.add(l);
 			v.add(l);
+			v.add(l);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);

@@ -16,7 +16,8 @@ public class StoreTmServer extends AbstractTableModel{
 		columnNames.add("期限");
 		columnNames.add("成本");
 		columnNames.add("数量");
-		columnNames.add("现实当前价格");
+		columnNames.add("执行价格");
+		columnNames.add("当前价格");
 		columnNames.add("alpha");
 		columnNames.add("gamma");
 		columnNames.add("theta");

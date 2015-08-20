@@ -440,6 +440,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 			v.add(l);
 			v.add(l);
 			v.add(l);
+			v.add(l);
 			/*v.add(l);
 			v.add(l);
 			v.add(l);*/

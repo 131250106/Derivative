@@ -435,6 +435,7 @@ public class StorePanel extends JPanel implements ActionListener{
 		v.add(l);
 		v.add(l);
 		v.add(l);
+		v.add(l);
 		/*v.add(l);
 		v.add(l);
 		v.add(l);*/
