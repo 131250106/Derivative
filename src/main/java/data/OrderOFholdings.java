@@ -12,15 +12,16 @@ public class OrderOFholdings {
 	 * 如果一开始买了A100个，买价为50，那么成本就是50，如果后来有卖了A120个，卖价为60，那么成本就是（50*100-60*120）/（100-120）
 	 * */
 	private int deadTime; // 距离到期时间（给界面用的，数据库那边不用管）
+	private double executeprice; // 执行价格
 	
-	
-	public OrderOFholdings(String account,Option option, Date deadline, int number, double cost) {
+	public OrderOFholdings(String account,Option option, Date deadline, int number, double cost, double executeprice) {
 		super();
 		this.account =account;
 		this.option = option;
 		this.deadline = deadline;
 		this.number = number;
 		this.cost = cost;
+		this.executeprice = executeprice;
 	}
 	
    	
@@ -58,5 +59,12 @@ public class OrderOFholdings {
 		this.account = account;
 	}
 	
+	public double getExecuteprice() {
+		return executeprice;
+	}
+
+	public void setExecuteprice(double executeprice) {
+		this.executeprice = executeprice;
+	}
 	
 }
