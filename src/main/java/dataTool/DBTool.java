@@ -409,7 +409,7 @@ public class DBTool implements DBService {
 	
 
 	public OrderOFholdings[] getHoldingOrdersByClientId(String account) {
-		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost from `order` where client_account = ? group by `type`,updown,area,deadLine;";
+		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost, executePrice from `order` where client_account = ? group by `type`,updown,area,deadLine,executePrice;";
 		OrderOFholdings[] holdingOrders = null;
 		try
 		{
@@ -442,7 +442,7 @@ public class DBTool implements DBService {
 		int sum = result.getInt("total");
 		double cost = result.getDouble("cost");
 		Date deadLine = new Date(result.getLong("deadLine"));
-		return new OrderOFholdings(result.getString("client_account"),option,deadLine,sum,cost);
+		return new OrderOFholdings(result.getString("client_account"),option,deadLine,sum,cost,result.getDouble("executePrice"));
 	}
 	
 	private Option toOption(ResultSet results) throws SQLException

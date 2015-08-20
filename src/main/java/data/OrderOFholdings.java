@@ -48,7 +48,7 @@ public class OrderOFholdings {
 	
 	public String toString()
 	{
-		return "account:\t "+account+ "\toption : \t"+option +" \tdeadTime:\t"+getDeadTime()+"\tnum:\t"+getNumber()+"\tcost:\t"+getCost()+"\n";
+		return "account:\t "+account+ "\toption : \t"+option +" \tdeadTime:\t"+getDeadTime()+"\tnum:\t"+getNumber()+"\tcost:\t"+getCost()+"\texecutePrice:\t"+executeprice+"\n";
 	}
 
 	public String getAccount() {

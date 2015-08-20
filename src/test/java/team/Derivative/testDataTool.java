@@ -13,10 +13,10 @@ public class testDataTool {
     	   {
     		   public void run()
     		   {
+    			     DBTool.getInstance();
+				    DataTool dataTool = new DataTool();
     			   while(true)
     			   {
-				    DBTool.getInstance();
-				    DataTool dataTool = new DataTool();
 				    System.out.println("price : " + dataTool.getHuShen300Price());
 				    try {
 						TimeUnit.SECONDS.sleep(4);

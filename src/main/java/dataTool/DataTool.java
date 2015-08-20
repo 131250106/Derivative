@@ -15,7 +15,7 @@ public class DataTool implements DataToolService{
 	private String urlStr = "http://hq.sinajs.cn/list=sh000300";        //获得沪深300
 //	private String urlBjTime = "http://hq.sinajs.cn/?format=json&list=sys_time";   //获得背景时间
 	private URL url;
-	private static  volatile  double value = -1;
+	private volatile  double value = -1;
 	private PriceQueue queue;
 	private boolean onTime = true;
     private String time;
@@ -25,7 +25,6 @@ public class DataTool implements DataToolService{
 	}
     
 	public double getHuShen300Price() {
-//		System.out.println("hushen300 "+value);
 		return value;
 	}
 
@@ -39,8 +38,6 @@ public class DataTool implements DataToolService{
 			public void run() {
 				double data = catchData();
 				if (Math.abs((data + 1)) > 0.0000001) {
-//					System.out.println("data ---: "+data);
-//					System.out.println("value ---: "+value);
 					value = data;
 				}
 				if (value != -1 && onTime == true) {
@@ -83,8 +80,6 @@ public class DataTool implements DataToolService{
 		String[] data = script.split(",");
 		//通过两次时间数据的对比得出 股市是否收盘
 		String hushenTime = data[data.length - 2];
-//		System.out.println("data[3]: "+data[3]);
-//		System.out.println("hushenTime : "+hushenTime);
 		if (time == null)
 		{
 			time = hushenTime;
