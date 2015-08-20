@@ -215,6 +215,223 @@ public class CombinationManage {
 		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
 	}
 	
+	public double[] getBinaryAONPrice(EorA eora, upORdown upordown,
+			double executeprice, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice,
+				MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(
+				ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(
+				ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.BinaryAONCall(5, s, k, t, r, sg);
+			} else {
+				result = option.BinaryAONPut(5, s, k, t, r, sg);
+			}
+			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray)(result[1])).getDouble();
+			Gamma = ((MWNumericArray)(result[2])).getDouble();
+			Vega = ((MWNumericArray)(result[3])).getDouble();
+			Theta = ((MWNumericArray)(result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
+	}
+
+	public double[] getBinaryCONPrice(EorA eora, upORdown upordown,
+			double executeprice, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice,
+				MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(
+				ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(
+				ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.BinaryCONCall(5, s, k, t, r, sg);
+			} else {
+				result = option.BinaryCONPut(5, s, k, t, r, sg);
+			}
+			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray)(result[1])).getDouble();
+			Gamma = ((MWNumericArray)(result[2])).getDouble();
+			Vega = ((MWNumericArray)(result[3])).getDouble();
+			Theta = ((MWNumericArray)(result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
+	}
+	
+	public double[] getSubtypeAveragePricePrice(EorA eora, upORdown upordown,
+			double executeprice, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice,
+				MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(
+				ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(
+				ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.AveragePriceCall(5, s, k, t, r, sg);
+			} else {
+				result = option.AveragePricePut(5, s, k, t, r, sg);
+			}
+			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray)(result[1])).getDouble();
+			Gamma = ((MWNumericArray)(result[2])).getDouble();
+			Vega = ((MWNumericArray)(result[3])).getDouble();
+			Theta = ((MWNumericArray)(result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
+	}
+
+	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,
+			double executeprice, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice,
+				MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(
+				ServerData.getDeadTime(deadline), MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(
+				ServerData.getRisk_free_Rate(), MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.AverageStrikeCall(5, s, k, t, r, sg);
+			} else {
+				result = option.AverageStrikePut(5, s, k, t, r, sg);
+			}
+			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray)(result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray)(result[1])).getDouble();
+			Gamma = ((MWNumericArray)(result[2])).getDouble();
+			Vega = ((MWNumericArray)(result[3])).getDouble();
+			Theta = ((MWNumericArray)(result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[]{ PurchasePrice, SellPrice, Delta, Gamma, Vega, Theta };
+	}
+	
+	
 	public static void main(String[] args){
 		CombinationManage c = CombinationManage.getInstance();
 		

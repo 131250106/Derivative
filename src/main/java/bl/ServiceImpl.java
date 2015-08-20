@@ -45,19 +45,21 @@ public class ServiceImpl implements Service {
         return combinationManage.getCommonPurchasePrice(eora,upordown,executeprice,deadline);
     }
     
+    //二元期权(资产或无价值期权)
 	@Override
 	public double[] getBinaryPurchasePrice1(EorA eora, upORdown upordown,double executeprice,
 			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
-		return new double[2];
+		  return combinationManage.getBinaryAONPrice(eora,upordown,executeprice,deadline);
 	}
 
+	//二元期权(现金或无价值期权)
 	@Override
 	public double[] getBinaryPurchasePrice2(EorA eora, upORdown upordown,double executeprice,
 			Date deadline, double salary, String ClientID)
 			throws RemoteException {
 		// TODO Auto-generated method stub
-		return new double[2];
+		return combinationManage.getBinaryCONPrice(eora,upordown,executeprice,deadline);
 	}
 
 	//回望固定期权
@@ -76,11 +78,20 @@ public class ServiceImpl implements Service {
 		return combinationManage.getlookbackfloatPrice(eora,upordown,executeprice,deadline);
 	}
 
+	//亚式期权(平均价格期权)
 	@Override
-	public double[] getSubtypePurchasePrice(EorA eora, upORdown upordown,double executeprice,
+	public double[] getSubtypeAveragePricePrice(EorA eora, upORdown upordown,double executeprice,
 			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
-		return new double[2];
+		return combinationManage.getSubtypeAveragePricePrice(eora,upordown,executeprice,deadline);
+	}
+	
+	//亚式期权(平均执行价格期权)
+	@Override
+	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,double executeprice,
+			Date deadline, String ClientID) throws RemoteException {
+		// TODO Auto-generated method stub
+		return combinationManage.getSubtypeAverageStrikePrice(eora,upordown,executeprice,deadline);
 	}
 
 	@Override
