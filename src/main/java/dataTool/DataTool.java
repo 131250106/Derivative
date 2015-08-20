@@ -19,6 +19,7 @@ public class DataTool implements DataToolService{
 	private PriceQueue queue;
 	private boolean onTime = true;
     private String time;
+    private int count = 0;
 	public DataTool() {
 		init();
 		queue = new PriceQueue();
@@ -41,6 +42,7 @@ public class DataTool implements DataToolService{
 					value = data;
 				}
 				if (value != -1 && onTime == true) {
+					System.out.println("add");
 					queue.addPrice(new Price(value));
 				}
 			}
@@ -88,10 +90,17 @@ public class DataTool implements DataToolService{
 		{
 			if (time.equals(hushenTime))
 			 {
-				this.setOnTime(false);
+				++count;
+				if (count > 5)
+				 this.setOnTime(false);
 			 }
 			else 
 			{
+				if (count > 5)
+				{
+				this.setOnTime(true);
+				count = 0;
+				}
 				time = hushenTime;
 			}
 		}
