@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import option.Option;
+import option.MatlabOption;
 
 import com.mathworks.toolbox.javabuilder.MWArray;
 import com.mathworks.toolbox.javabuilder.MWClassID;
@@ -64,10 +64,10 @@ public class CombinationManage {
 		MWNumericArray sg = new MWNumericArray(
 				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
 		Object[] result = null;
-		Option option = null;
+		MatlabOption option = null;
 
 		try {
-			option = new Option();
+			option = new MatlabOption();
 			if (upordown == upORdown.up) {
 				result = option.vanillacall(5, s, k, t, r, sg);
 			} else {
@@ -122,9 +122,9 @@ public class CombinationManage {
 		MWNumericArray smax = new MWNumericArray(
 				dbtool.getMaxPrice(new Date()), MWClassID.DOUBLE);
 		Object[] result = null;
-		Option option = null;
+		MatlabOption option = null;
 		try {
-			option = new Option();
+			option = new MatlabOption();
 			if (upordown == upORdown.up) {
 				result = option.lookbackfixedcall(5, s, k, smax, t, r, sg);
 			} else {
@@ -181,9 +181,9 @@ public class CombinationManage {
 		MWNumericArray smax = new MWNumericArray(
 				dbtool.getMaxPrice(new Date()), MWClassID.DOUBLE);
 		Object[] result = null;
-		Option option = null;
+		MatlabOption option = null;
 		try {
-			option = new Option();
+			option = new MatlabOption();
 			if (upordown == upORdown.up) {
 				result = option.lookbackfloatcall(5, s, smin, t, r, sg);
 			} else {

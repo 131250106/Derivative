@@ -19,7 +19,7 @@ public class Entry {
 
     private static void matlabTest() {
         try {
-            Option option = new Option();
+            MatlabOption option = new MatlabOption();
             MWNumericArray s = new MWNumericArray(100, MWClassID.DOUBLE);
             MWNumericArray k = new MWNumericArray(105, MWClassID.DOUBLE);
             MWNumericArray t = new MWNumericArray(0.5, MWClassID.DOUBLE);
