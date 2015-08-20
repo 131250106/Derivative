@@ -1,6 +1,7 @@
 package GUI.PVoptions;
 
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
 import java.awt.event.MouseAdapter;
@@ -64,8 +65,8 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	
 	double[] PurchasePrice;
 	
-	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel,bidPriceLabel,askPriceLabel,dealNumLabel;
-	JTextField executePriceField,noRiskRateField,deadlineField,bidPriceField,askPriceField,dealNumField;
+	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel,bidPriceLabel,askPriceLabel,dealNumLabel,bidPriceField,askPriceField;
+	JTextField executePriceField,noRiskRateField,deadlineField,dealNumField;
 	JButton submitButton,dealButton;
 	
 	public PVoptionsPanel(String name) {
@@ -187,26 +188,33 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		warningLabel.setVisible(false);
 		this.add(warningLabel);
 		
+		Font font3 = new Font("微软雅黑",Font.BOLD,20);
+		
 		bidPriceLabel = new JLabel(" 买价:");
-		bidPriceLabel.setFont(font);
+		bidPriceLabel.setFont(font3);
 		bidPriceLabel.setBounds(500+101,160+50,LABEL_WIDTH,LABEL_HEIGHT);
 		bidPriceLabel.setVisible(false);
+//		bidPriceLabel.setForeground(Color.RED);;
 		this.add(bidPriceLabel);
 		
-		bidPriceField = new JTextField();
-		bidPriceField.setFont(font);
+		
+		bidPriceField = new JLabel();
+		bidPriceField.setFont(font3);
 		bidPriceField.setBounds(580+101, 160+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		bidPriceField.setVisible(false);
+		bidPriceField.setForeground(Color.RED);;
 		this.add(bidPriceField);
 		
 		askPriceLabel = new JLabel(" 卖价:");
-		askPriceLabel.setFont(font);
+		askPriceLabel.setFont(font3);
+//		askPriceLabel.setForeground(Color.RED);
 		askPriceLabel.setBounds(500+101,210+50,LABEL_WIDTH,LABEL_HEIGHT);
 		askPriceLabel.setVisible(false);
 		this.add(askPriceLabel);
 		
-		askPriceField = new JTextField();
-		askPriceField.setFont(font);
+		askPriceField = new JLabel();
+		askPriceField.setFont(font3);
+		askPriceField.setForeground(Color.RED);
 		askPriceField.setBounds(580+101, 210+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		askPriceField.setVisible(false);
 		this.add(askPriceField);
@@ -290,8 +298,10 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					}
 					System.out.println(executePrice);
 					//这里调用getPurchasePrice
-					bidPriceField.setText(Double.toString(PurchasePrice[0]));
-					askPriceField.setText(Double.toString(PurchasePrice[1]));
+//					bidPriceField.setText(Double.toString(PurchasePrice[0]));
+//					askPriceField.setText(Double.toString(PurchasePrice[1]));
+					bidPriceField.setText("12.5");
+					askPriceField.setText("12.0");
 					bidPriceField.setVisible(true);
 					bidPriceLabel.setVisible(true);
 					askPriceLabel.setVisible(true);
@@ -343,6 +353,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
       	  long time = 1 * 30 ;// 自定义倒计时时间
       	  while (time >= 0){
               timer.setText("(请在"+time+"秒内完成操作)");
+              timer.setForeground(Color.RED);
                 try {
                 	this.sleep(1000);
                 } catch (InterruptedException e) {
