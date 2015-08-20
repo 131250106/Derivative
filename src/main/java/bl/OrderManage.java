@@ -32,6 +32,11 @@ public class OrderManage { // 所有客户订单的管理
 	public Order[] getOrdersByAccount(String account) {				//根据客户账号得到订单
 		return dbtool.findOrder(account, null, null);
 	}
+	
+	public OrderOFholdings[] getAllOrderOFholdings() {			//得到所有客户的持仓记录
+		// TODO Auto-generated method stub
+		return dbtool.getHoldingOrders();
+	}
 
 	public OrderOFholdings[] getOrderOFholdingsByAccount(String account) {			//根据客户账号得到持仓记录
 		// TODO Auto-generated method stub
