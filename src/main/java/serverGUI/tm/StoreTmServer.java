@@ -1,20 +1,26 @@
-package GUI.myswing;
+package serverGUI.tm;
 
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-public class StoreTm extends AbstractTableModel{
+public class StoreTmServer extends AbstractTableModel{
 	Vector columnNames;
 	public Vector rows;
-	public StoreTm(){
+	public StoreTmServer(){
 		columnNames = new Vector();
+		columnNames.add("用户ID");
 		columnNames.add("期权种类");
 		columnNames.add("类型");
 		columnNames.add("买/卖");
 		columnNames.add("期限");
 		columnNames.add("成本");
 		columnNames.add("数量");
+		columnNames.add("现实当前价格");
+		columnNames.add("alpha");
+		columnNames.add("gamma");
+		columnNames.add("theta");
+		columnNames.add("vega");		
 		rows = new Vector();
 	}
 	

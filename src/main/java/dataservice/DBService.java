@@ -28,4 +28,6 @@ public interface DBService {
        public double getMinPrice(Date date);
        //获得某个用户的持仓记录
        public OrderOFholdings[] getHoldingOrdersByClientId(String account);
+       //获得所有用户的持仓记录
+       public OrderOFholdings[] getHoldingOrders();
 }

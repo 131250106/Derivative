@@ -8,7 +8,7 @@ import java.util.Stack;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GraphicController {
+public class GraphicControllerServer {
 	private static JFrame frame = new JFrame();
 	private static JPanel panel = new JPanel();
 	private static Stack<JPanel> stackOfPanels = new Stack<JPanel>();

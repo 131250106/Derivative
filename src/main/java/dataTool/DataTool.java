@@ -11,18 +11,20 @@ import java.util.TimerTask;
 import dataservice.DataToolService;
 
 public class DataTool implements DataToolService{
-	private String urlStr = "http://hq.sinajs.cn/rn=1439444714514&list=s_sh000300";
+//	private String urlStr = "http://hq.sinajs.cn/rn=1439444714514&list=s_sh000300";  //获得沪深300
+	private String urlStr = "http://hq.sinajs.cn/list=sh000300";        //获得沪深300
+//	private String urlBjTime = "http://hq.sinajs.cn/?format=json&list=sys_time";   //获得背景时间
 	private URL url;
-	private double value = -1;
+	private volatile  double value = -1;
 	private PriceQueue queue;
-	private int count = 1;
 	private boolean onTime = true;
-
+    private String time;
+    private int count = 0;
 	public DataTool() {
 		init();
 		queue = new PriceQueue();
 	}
-
+    
 	public double getHuShen300Price() {
 		return value;
 	}
@@ -36,11 +38,11 @@ public class DataTool implements DataToolService{
 		TimerTask task = new TimerTask() {
 			public void run() {
 				double data = catchData();
-				if (data != -1) {
+				if (Math.abs((data + 1)) > 0.0000001) {
 					value = data;
 				}
-				--count;
-				if (count <= 0 && value != -1 && onTime == true) {
+				if (value != -1 && onTime == true) {
+					System.out.println("add");
 					queue.addPrice(new Price(value));
 				}
 			}
@@ -77,7 +79,32 @@ public class DataTool implements DataToolService{
 	}
 
 	private String getValue(String script) {
-		return script.split(",")[1];
+		String[] data = script.split(",");
+		//通过两次时间数据的对比得出 股市是否收盘
+		String hushenTime = data[data.length - 2];
+		if (time == null)
+		{
+			time = hushenTime;
+		}
+		else 
+		{
+			if (time.equals(hushenTime))
+			 {
+				++count;
+				if (count > 5)
+				 this.setOnTime(false);
+			 }
+			else 
+			{
+				if (count > 5)
+				{
+				this.setOnTime(true);
+				count = 0;
+				}
+				time = hushenTime;
+			}
+		}
+		return data[3];
 
 	}
 
