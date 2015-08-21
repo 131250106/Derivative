@@ -1,9 +1,11 @@
 package serverGUI;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.rmi.RemoteException;
 import java.util.Vector;
 
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -22,8 +24,20 @@ public class ViewPanelServer extends MenuPanel{
 	DefaultTableCellRenderer render;
 	private NTable table;
 	private ViewTmServer tableRow = new ViewTmServer();
+	private JLabel tag;
 	public ViewPanelServer(String name) {
 		super("View");
+		
+		Font font = new Font("微软雅黑",Font.PLAIN,18);
+		
+		tag = new JLabel("交易记录");
+		tag.setSize(175,70);
+		tag.setLocation(40,60);
+		tag.setFont(font);
+		tag.setBackground(MyColor.white);
+		tag.setForeground(MyColor.deepblue);
+		tag.setVisible(true);
+		this.add(tag);
 		//----------------------------------------------------------------------------------------
 		
 				render = new DefaultTableCellRenderer() {
@@ -45,7 +59,7 @@ public class ViewPanelServer extends MenuPanel{
 				};
 				render.setHorizontalAlignment(SwingConstants.CENTER);
 				table = new NTable(tableRow, 900,383);
-				table.setLocation(30,100);
+				table.setLocation(30,120);
 				for (int i = 0; i <table.getColumnCount(); i++) {
 					table.getColumn(table.getColumnName(i))
 					.setCellRenderer(render);

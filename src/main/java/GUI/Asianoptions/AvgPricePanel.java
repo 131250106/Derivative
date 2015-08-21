@@ -50,9 +50,10 @@ public class AvgPricePanel extends AsianoptionsPanel{
 	JTextField executePriceField,noRiskRateField,deadlineField,dealNumField;
 	JButton submitButton,dealButton;
 	
+	private JLabel tag;
 	public AvgPricePanel(String name) {
 		super("AvgPrice");
-Font font = new Font("微软雅黑",Font.PLAIN,20);
+		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		pvoption = new JButton("普通期权");
 		pvoption.setSize(175, 70);
@@ -71,6 +72,17 @@ Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		
 		font = new Font("微软雅黑",Font.PLAIN,15);
+
+		super.tag.setVisible(false);;
+		
+		 tag = new JLabel("平均价格期权");
+			tag.setSize(175,70);
+			tag.setLocation(830,127);
+			tag.setFont(font);
+			tag.setBackground(MyColor.white);
+			tag.setForeground(MyColor.deepblue);
+			tag.setVisible(true);
+			this.add(tag);
 		
 		LookUpAndDown = new ButtonGroup();
 		LookUp = new JRadioButton("看涨");

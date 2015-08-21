@@ -44,7 +44,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	Service service;
 	
 	private JButton pvoption;
-	private JLabel Name;
+	private JLabel tag;
 	private ButtonGroup LookUpAndDown;
 	private JRadioButton LookUp;
 	private JRadioButton LookDown;
@@ -93,6 +93,14 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		});
 		this.add(pvoption);
 		
+		tag = new JLabel("普通期权");
+		tag.setSize(175,70);
+		tag.setLocation(830,127);
+		tag.setFont(font);
+		tag.setBackground(MyColor.white);
+		tag.setForeground(MyColor.deepblue);
+		tag.setVisible(true);
+		this.add(tag);
 		
 		font = new Font("微软雅黑",Font.PLAIN,15);
 		

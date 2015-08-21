@@ -50,8 +50,11 @@ public class FloatPanel extends LBoptionsPanel{
 	JTextField executePriceField,noRiskRateField,deadlineField,dealNumField;
 	JButton submitButton,dealButton;
 	
+	private JLabel tag;
+
 	public FloatPanel(String name) {
 		super("Float");
+		super.tag.setVisible(false);;
 		
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
@@ -72,6 +75,15 @@ public class FloatPanel extends LBoptionsPanel{
 		
 		
 		font = new Font("微软雅黑",Font.PLAIN,15);
+		
+		tag = new JLabel("固定执行价格期权");
+		tag.setSize(175,70);
+		tag.setLocation(830,127);
+		tag.setFont(font);
+		tag.setBackground(MyColor.white);
+		tag.setForeground(MyColor.deepblue);
+		tag.setVisible(true);
+		this.add(tag);
 		
 		LookUpAndDown = new ButtonGroup();
 		LookUp = new JRadioButton("看涨");

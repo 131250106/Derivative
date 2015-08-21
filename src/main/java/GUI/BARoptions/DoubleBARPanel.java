@@ -3,6 +3,7 @@ package GUI.BARoptions;
 import java.awt.Font;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 
 import GUI.myswing.MyColor;
@@ -14,9 +15,21 @@ public class DoubleBARPanel extends BARoptionsPanel{
 	private ButtonGroup EAndA;
 	private JRadioButton Europe;
 	private JRadioButton America;
+	private JLabel tag;
 	public DoubleBARPanel(String name) {
 		super("DoubleBAR");
+
+		super.tag.setVisible(false);;
 		Font font = new Font("微软雅黑",Font.PLAIN,15);
+		
+	    tag = new JLabel("双重障碍期权");
+				tag.setSize(175,70);
+				tag.setLocation(830,127);
+				tag.setFont(font);
+				tag.setBackground(MyColor.white);
+				tag.setForeground(MyColor.deepblue);
+				tag.setVisible(true);
+				this.add(tag);
 		
 		LookUpAndDown = new ButtonGroup();
 		LookUp = new JRadioButton("看涨");

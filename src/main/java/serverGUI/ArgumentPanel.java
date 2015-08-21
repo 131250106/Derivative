@@ -19,11 +19,22 @@ public class ArgumentPanel extends MenuPanel{
 	private JTextField rateField;
 	private JTextField noRiskRateField;
 	private JButton changeArgument;
-	
+	private JLabel tag;
 	public ArgumentPanel(String name) {
 		super("argument");
 		
-		Font font = new Font("微软雅黑",Font.PLAIN,20);
+		Font font = new Font("微软雅黑",Font.PLAIN,18);
+		
+		tag = new JLabel("参数调整");
+		tag.setSize(175,70);
+		tag.setLocation(40,60);
+		tag.setFont(font);
+		tag.setBackground(MyColor.white);
+		tag.setForeground(MyColor.deepblue);
+		tag.setVisible(true);
+		this.add(tag);
+		
+		font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		noRiskRateLabel = new JLabel("无风险利率");
 		noRiskRateLabel.setFont(font);

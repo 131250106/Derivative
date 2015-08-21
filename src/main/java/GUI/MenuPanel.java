@@ -70,6 +70,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonOption.setFont(font);
 		buttonOption.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				buttonOption.setBackground(MyColor.deepblue2);
 				GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
 			}
 		});

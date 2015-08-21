@@ -1,8 +1,10 @@
 package serverGUI;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.util.Vector;
 
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,10 +22,21 @@ public class StorePanelServer extends MenuPanel{
 	private NTable table;
 	StoreTmServer tableRow = new StoreTmServer();
 	OrderOFholdings[] orderlist;
-	
+	private JLabel tag;
 	public StorePanelServer(String name) {
 		super("Store");
 
+		Font font = new Font("微软雅黑",Font.PLAIN,18);
+		
+		tag = new JLabel("持仓记录");
+		tag.setSize(175,70);
+		tag.setLocation(40,60);
+		tag.setFont(font);
+		tag.setBackground(MyColor.white);
+		tag.setForeground(MyColor.deepblue);
+		tag.setVisible(true);
+		this.add(tag);
+		
 		render = new DefaultTableCellRenderer() {
 			public Component getTableCellRendererComponent(JTable table,
 					Object value, boolean isSelected, boolean hasFocus,
@@ -43,7 +56,7 @@ public class StorePanelServer extends MenuPanel{
 		};
 		render.setHorizontalAlignment(SwingConstants.CENTER);
 		table = new NTable(tableRow, 900,383);
-		table.setLocation(30,100);
+		table.setLocation(30,120);
 		for (int i = 0; i <table.getColumnCount(); i++) {
 			table.getColumn(table.getColumnName(i))
 			.setCellRenderer(render);

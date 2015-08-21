@@ -19,8 +19,9 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.22-bin.jar"/>
 	<classpathentry kind="lib" path="gemomitricMeam.jar"/>
+	<classpathentry kind="lib" path="option.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/javabuilder.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="javabuilder.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

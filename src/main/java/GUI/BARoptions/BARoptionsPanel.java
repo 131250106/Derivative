@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import GUI.GraphicController;
 import GUI.MenuPanel;
@@ -14,10 +15,20 @@ public class BARoptionsPanel extends MenuPanel{
 
 	private JButton downandoutoption,downandinoption,upandoutoption,upandinoption,
 	doublebaroption,multileveloption;
-	
+	protected JLabel tag;
 	public BARoptionsPanel(String name) {
 		super("BARoptionsPanel");
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
+		
+	    tag = new JLabel("障碍期权");
+					tag.setSize(175,70);
+					tag.setLocation(830,127);
+					tag.setFont(font);
+					tag.setBackground(MyColor.white);
+					tag.setForeground(MyColor.deepblue);
+					tag.setVisible(true);
+					this.add(tag);
+		
 		
 		downandoutoption = new JButton("向下敲出期权");
 		downandoutoption.setSize(175, 70);

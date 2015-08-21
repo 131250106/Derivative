@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import GUI.GraphicController;
 import GUI.MenuPanel;
@@ -13,11 +14,20 @@ import GUI.myswing.MyColor;
 public class LBoptionsPanel extends MenuPanel{
 
 	private JButton fixedoption,floatoption;
-	
+	protected JLabel tag;
 	public LBoptionsPanel(String name) {
 		super("LBoptions");
 		
 		Font font = new Font("微软雅黑",Font.PLAIN,17);
+		
+		 tag = new JLabel("亚式期权");
+			tag.setSize(175,70);
+			tag.setLocation(830,127);
+			tag.setFont(font);
+			tag.setBackground(MyColor.white);
+			tag.setForeground(MyColor.deepblue);
+			tag.setVisible(true);
+			this.add(tag);
 		
 		fixedoption = new JButton("固定执行价格期权");
 		fixedoption.setSize(175, 70);

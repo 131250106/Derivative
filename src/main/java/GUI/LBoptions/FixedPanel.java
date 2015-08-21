@@ -50,9 +50,13 @@ public class FixedPanel extends LBoptionsPanel{
 	JTextField executePriceField,noRiskRateField,deadlineField,dealNumField;
 	JButton submitButton,dealButton;
 	
+
+	private JLabel tag;
+
 	public FixedPanel(String name) {
 		super("Fixed");
-Font font = new Font("微软雅黑",Font.PLAIN,20);
+
+		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		pvoption = new JButton("普通期权");
 		pvoption.setSize(175, 70);
@@ -70,7 +74,18 @@ Font font = new Font("微软雅黑",Font.PLAIN,20);
 		this.add(pvoption);
 		
 		
+		super.tag.setVisible(false);;
 		font = new Font("微软雅黑",Font.PLAIN,15);
+
+		
+		tag = new JLabel("浮动执行价格期权");
+		tag.setSize(175,70);
+		tag.setLocation(830,127);
+		tag.setFont(font);
+		tag.setBackground(MyColor.white);
+		tag.setForeground(MyColor.deepblue);
+		tag.setVisible(true);
+		this.add(tag);
 		
 		LookUpAndDown = new ButtonGroup();
 		LookUp = new JRadioButton("看涨");
