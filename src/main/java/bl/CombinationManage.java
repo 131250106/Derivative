@@ -241,9 +241,9 @@ public class CombinationManage {
 		try {
 			option = new MatlabOption();
 			if (upordown == upORdown.up) {
-				result = option.BinaryAONCall(5, s, k, t, r, sg);
+				result = option.BinaryAONCall(5, s, t, r, sg, k);
 			} else {
-				result = option.BinaryAONPut(5, s, k, t, r, sg);
+				result = option.BinaryAONPut(5, s, t, r, sg, k);
 			}
 			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
@@ -295,9 +295,9 @@ public class CombinationManage {
 		try {
 			option = new MatlabOption();
 			if (upordown == upORdown.up) {
-				result = option.BinaryCONCall(5, s, k, t, r, sg);
+				result = option.BinaryCONCall(5, s, t, r, sg, k);
 			} else {
-				result = option.BinaryCONPut(5, s, k, t, r, sg);
+				result = option.BinaryCONPut(5, s, t, r, sg, k);
 			}
 			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
@@ -349,9 +349,9 @@ public class CombinationManage {
 		try {
 			option = new MatlabOption();
 			if (upordown == upORdown.up) {
-				result = option.AveragePriceCall(5, s, k, t, r, sg);
+				result = option.AveragePriceCall(5, s, t, r, sg, k);
 			} else {
-				result = option.AveragePricePut(5, s, k, t, r, sg);
+				result = option.AveragePricePut(5, s, t, r, sg, k);
 			}
 			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
@@ -403,9 +403,9 @@ public class CombinationManage {
 		try {
 			option = new MatlabOption();
 			if (upordown == upORdown.up) {
-				result = option.AverageStrikeCall(5, s, k, t, r, sg);
+				result = option.AverageStrikeCall(5, s, r, sg, j, t_now, t_end);
 			} else {
-				result = option.AverageStrikePut(5, s, k, t, r, sg);
+				result = option.AverageStrikePut(5, s, r, sg, j, t_now, t_end);
 			}
 			PurchasePrice = ((MWNumericArray)(result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
