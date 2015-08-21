@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import GUI.GraphicController;
 import GUI.MenuPanel;
@@ -13,10 +14,21 @@ import GUI.myswing.MyColor;
 public class AsianoptionsPanel extends MenuPanel{
 
 	private JButton avgexcpriceoption,avgpriceoption;
-	
+	protected JLabel tag;
 	public AsianoptionsPanel(String name) {
 		super("Asianoptions");
+		
 		Font font = new Font("微软雅黑",Font.PLAIN,17);
+		
+
+		 tag = new JLabel("亚式期权");
+			tag.setSize(175,70);
+			tag.setLocation(830,127);
+			tag.setFont(font);
+			tag.setBackground(MyColor.white);
+			tag.setForeground(MyColor.deepblue);
+			tag.setVisible(true);
+			this.add(tag);
 		
 		avgexcpriceoption = new JButton("平均执行价格期权");
 		avgexcpriceoption.setSize(175, 70);

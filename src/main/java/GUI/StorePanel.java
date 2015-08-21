@@ -13,6 +13,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -41,7 +42,8 @@ public class StorePanel extends JPanel implements ActionListener{
 	private OrderOFholdings[] orderlist;
 	//ArrayList<Integer> list;
 	DefaultTableCellRenderer render;
-	
+
+	private JLabel tag;
 	public StorePanel(){
 		Font font = new Font("微软雅黑",Font.PLAIN,18);
 		
@@ -114,6 +116,15 @@ public class StorePanel extends JPanel implements ActionListener{
 		this.add(buttonStore);
 		
 		//--------------------------------------------------------------------------------------------
+		
+		tag = new JLabel("持仓记录");
+		tag.setSize(175,70);
+		tag.setLocation(200,127);
+		tag.setFont(font);
+		tag.setBackground(MyColor.white);
+		tag.setForeground(MyColor.deepblue);
+		tag.setVisible(true);
+		this.add(tag);
 		
 		font = new Font("微软雅黑",Font.PLAIN,20);
 		
@@ -328,7 +339,7 @@ public class StorePanel extends JPanel implements ActionListener{
 		};
 		render.setHorizontalAlignment(SwingConstants.CENTER);
 		table = new NTable(tableRow, 751,383);
-		table.setLocation(190,174);
+		table.setLocation(190,190);
 		for (int i = 0; i <table.getColumnCount(); i++) {
 			table.getColumn(table.getColumnName(i))
 			.setCellRenderer(render);
