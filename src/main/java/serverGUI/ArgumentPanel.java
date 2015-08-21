@@ -22,6 +22,7 @@ public class ArgumentPanel extends MenuPanel{
 	private JLabel tag;
 	public ArgumentPanel(String name) {
 		super("argument");
+		super.buttonOption.setBackground(MyColor.deepblue2);
 		
 		Font font = new Font("微软雅黑",Font.PLAIN,18);
 		

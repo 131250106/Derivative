@@ -27,7 +27,7 @@ public class ViewPanelServer extends MenuPanel{
 	private JLabel tag;
 	public ViewPanelServer(String name) {
 		super("View");
-		
+		super.buttonView.setBackground(MyColor.deepblue2);
 		Font font = new Font("微软雅黑",Font.PLAIN,18);
 		
 		tag = new JLabel("交易记录");

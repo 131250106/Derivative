@@ -1,4 +1,4 @@
-package serverGUI;
+ package serverGUI;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -17,7 +17,7 @@ import GUI.myswing.MyColor;
 public class MenuPanel extends JPanel implements ActionListener{
 	private String panelCategory;
 	protected int whereTo;
-	private JButton buttonOption,buttonView,buttonStore;;;
+	protected JButton buttonOption,buttonView,buttonStore;;;
 	
 	private JButton pvoption,lboption,boption,baroption,asianoption;
 	private JButton mini,close,back;

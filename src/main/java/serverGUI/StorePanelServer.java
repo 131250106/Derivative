@@ -25,7 +25,7 @@ public class StorePanelServer extends MenuPanel{
 	private JLabel tag;
 	public StorePanelServer(String name) {
 		super("Store");
-
+		super.buttonStore.setBackground(MyColor.deepblue2);
 		Font font = new Font("微软雅黑",Font.PLAIN,18);
 		
 		tag = new JLabel("持仓记录");
