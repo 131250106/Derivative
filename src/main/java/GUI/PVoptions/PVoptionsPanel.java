@@ -28,6 +28,7 @@ import GUI.GraphicController;
 import GUI.Loader;
 import GUI.MenuPanel;
 import GUI.myswing.CommonTextPanel;
+import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
 import blservice.Service;
 import data.EorA;
@@ -55,7 +56,8 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	private JRadioButton askButton;
 	
     private JLabel timer;
-	
+	private DateChooser datechooser;
+    
 	static int PANEL_WIDTH = 960;
 	static int PANEL_HEIGHT = 600;
 	static int LABEL_WIDTH = 70;
@@ -119,6 +121,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		this.add(LookDown);
 		
 		font = new Font("微软雅黑",Font.PLAIN,15);
+		Font font3 = new Font("微软雅黑",Font.BOLD,20);
 		
 		EAndA = new ButtonGroup();
 		Europe = new JRadioButton("欧式");
@@ -177,18 +180,32 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		
 		deadlineField = new JTextField();
 		deadlineField.setFont(font);
-		deadlineField.setBounds(290+100,310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		deadlineField.setVisible(true);
+		deadlineField.setBounds(100+290+100,310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		deadlineField.setVisible(false);
 		this.add(deadlineField);
 		
-		JLabel warningLabel = new JLabel("请输入完整信息");
+		datechooser = new DateChooser();
+		datechooser.setEnabled(true);
+		datechooser.setVisible(true);
+		datechooser.setFont(font);
+//		datechooser.setBorder(null);//把边框隐藏
+		datechooser.setBounds(290+100,310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT+3);
+		this.add(datechooser);
+		
+//		hourLabel = new JLabel("时");
+//		hourLabel.setFont(font);
+//		hourLabel.setBounds(r);
+//		hourLabel.setVisible(true);
+//		this.add(hourLabel);
+		
+		
+		JLabel warningLabel = new JLabel("(请输入完整信息)");
 		Font font2 = new Font("微软雅黑",Font.PLAIN,12);
-		warningLabel.setFont(font2);
-		warningLabel.setBounds(240+100,345,100,25);
+		warningLabel.setFont(font);
+		warningLabel.setBounds(240+100+80+5,380+50,140,25);
+		warningLabel.setForeground(Color.RED);
 		warningLabel.setVisible(false);
 		this.add(warningLabel);
-		
-		Font font3 = new Font("微软雅黑",Font.BOLD,20);
 		
 		bidPriceLabel = new JLabel(" 买价:");
 		bidPriceLabel.setFont(font3);
@@ -273,7 +290,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		submitButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//这里显示输出的两个框
-				if(executePriceField.getText().equals("")||deadlineField.getText().equals("")||
+				if(executePriceField.getText().equals("")||
 						EAndA.getSelection()==null||LookUpAndDown.getSelection()==null){
 					warningLabel.setVisible(true);
 				}else{
@@ -281,21 +298,22 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					warningLabel.setVisible(false);
 					double executePrice = Double.parseDouble(executePriceField.getText());
 //					double noRiskRate = Double.parseDouble(noRiskRateField.getText());
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 					Date deadline = null;
 					try {
-						deadline = format.parse(deadlineField.getText());
+						deadline = format.parse(datechooser.getTime());
+						System.out.println(deadline);
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
 					EorA eora = Europe.isSelected()?EorA.E:EorA.A;
 					upORdown upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 					
-					try {
-						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
-					}
+//					try {
+//						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
+//					} catch (RemoteException e1) {
+//						e1.printStackTrace();
+//					}
 					System.out.println(executePrice);
 					//这里调用getPurchasePrice
 //					bidPriceField.setText(Double.toString(PurchasePrice[0]));
@@ -345,6 +363,8 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		});
 		
 		this.add(dealButton);
+		
+
 	}
 	
     
