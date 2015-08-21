@@ -76,7 +76,7 @@ public class FloatPanel extends LBoptionsPanel{
 		
 		font = new Font("微软雅黑",Font.PLAIN,15);
 		
-		tag = new JLabel("固定执行价格期权");
+		tag = new JLabel("浮动执行价格期权");
 		tag.setSize(175,70);
 		tag.setLocation(830,127);
 		tag.setFont(font);
