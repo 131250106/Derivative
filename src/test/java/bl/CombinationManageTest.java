@@ -15,7 +15,7 @@ import org.junit.Test;
 public class CombinationManageTest {
 
     private static MatlabOption option;
-    private static MWNumericArray s, k, t, r, sg, smin, smax, t_end, t_now, j;
+    private static MWNumericArray s, k, t, r, sg, smin, smax, t_end, t_now, j, b;
 
     private static void printAndDispose(Object[] obj) {
         System.out.println("--------------------------");
@@ -39,6 +39,8 @@ public class CombinationManageTest {
         t_end = new MWNumericArray(1, MWClassID.DOUBLE);
         t_now = new MWNumericArray(0.4, MWClassID.DOUBLE);
         j = new MWNumericArray(3000, MWClassID.DOUBLE);
+        b = new MWNumericArray(200, MWClassID.DOUBLE);
+
         option = new MatlabOption();
     }
 
@@ -54,6 +56,8 @@ public class CombinationManageTest {
         MWArray.disposeArray(t_end);
         MWArray.disposeArray(t_now);
         MWArray.disposeArray(j);
+        MWArray.disposeArray(b);
+
         option.dispose();
     }
 
@@ -97,6 +101,30 @@ public class CombinationManageTest {
     public void testVanilla() throws MWException {
         printAndDispose(option.vanillacall(5, s, k, t, r, sg));
         printAndDispose(option.vanillaput(5, s, k, t, r, sg));
+    }
+
+    @Test
+    public void testCdownand() throws MWException {
+        printAndDispose(option.Cdownandin(5, s, k, b, r, sg, t));
+        printAndDispose(option.Cdownandout(5, s, k, b, r, sg, t));
+    }
+
+    @Test
+    public void testCupand() throws MWException {
+        printAndDispose(option.Cupandin(5, s, k, b, r, sg, t));
+        printAndDispose(option.Cupandout(5, s, k, b, r, sg, t));
+    }
+
+    @Test
+    public void testPdownand() throws MWException {
+        printAndDispose(option.Pdownandin(5, s, k, b, r, sg, t));
+        printAndDispose(option.Pdownandout(5, s, k, b, r, sg, t));
+    }
+
+    @Test
+    public void testPupand() throws MWException {
+        printAndDispose(option.Pupandin(5, s, k, b, r, sg, t));
+        printAndDispose(option.Pupandout(5, s, k, b, r, sg, t));
     }
 
 }
