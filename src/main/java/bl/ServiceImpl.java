@@ -7,7 +7,6 @@ import data.Order;
 import data.OrderOFholdings;
 import data.User;
 import data.upORdown;
-import dataTool.DataTool;
 
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -88,32 +87,64 @@ public class ServiceImpl implements Service {
 	
 	//亚式期权(平均执行价格期权)
 	@Override
-	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,double executeprice,
+	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,double executeprice,double payOff,
 			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
-		return combinationManage.getSubtypeAverageStrikePrice(eora,upordown,executeprice,deadline);
+		return combinationManage.getSubtypeAverageStrikePrice(eora,upordown,executeprice,payOff,deadline);
 	}
 
+	//障碍期权（向下敲入）
 	@Override
-	public double[] getObstaclePurchasePrice(EorA eora, upORdown upordown,double executeprice,
+	public double[] getObstaclePurchasedownandinPrice(EorA eora, upORdown upordown,double executeprice,
 			Date deadline, double rate, String ClientID)
 			throws RemoteException {
 		// TODO Auto-generated method stub
-		return new double[2];
+		return combinationManage.getObstaclePurchasedownandinPrice(eora,upordown,executeprice,rate,deadline);
 	}
+	
+	//障碍期权（向上敲入）
+		@Override
+		public double[] getObstaclePurchaseupandinPrice(EorA eora, upORdown upordown,double executeprice,
+				Date deadline, double rate, String ClientID)
+				throws RemoteException {
+			// TODO Auto-generated method stub
+			return combinationManage.getObstaclePurchaseupandinPrice(eora,upordown,executeprice,rate,deadline);
+		}
+		
+		//障碍期权（向下敲出）
+		@Override
+		public double[] getObstaclePurchasedownandoutPrice(EorA eora, upORdown upordown,double executeprice,
+				Date deadline, double rate, String ClientID)
+				throws RemoteException {
+			// TODO Auto-generated method stub
+			return combinationManage.getObstaclePurchasedownandoutPrice(eora,upordown,executeprice,rate,deadline);
+		}
+		
+		//障碍期权（向上敲出）
+		@Override
+		public double[] getObstaclePurchaseupandoutPrice(EorA eora, upORdown upordown,double executeprice,
+				Date deadline, double rate, String ClientID)
+				throws RemoteException {
+			// TODO Auto-generated method stub
+			return combinationManage.getObstaclePurchaseupandoutPrice(eora,upordown,executeprice,rate,deadline);
+		}
 
 
     @Override
     public boolean purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
-        return orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+        boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+        combinationManage.hedging();
+        return result;
     }
 
     @Override
     public boolean sellOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
     	number = -1 * number;
-        return orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+    	boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+        combinationManage.hedging();
+        return result;
     }
 
     @Override

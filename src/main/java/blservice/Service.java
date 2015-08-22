@@ -72,14 +72,35 @@ public interface Service extends Remote {
 	 * 获取亚式期权(平均执行价格期权)买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 
 	 * 返回值，double数组，第一个为买价，第二个为卖价
 	 * */
-	double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,String ClientID)
+	double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,double executeprice, double payOff, Date deadline,String ClientID)
 			throws RemoteException;
 	
 	/**
-	 * 获取障碍期权买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 ，rate（障碍水平）
+	 * 获取障碍期权（向下敲入）买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 ，rate（障碍水平）
 	 * 返回值，double数组，第一个为买价，第二个为卖价
 	 * */
-	double[] getObstaclePurchasePrice(EorA eora, upORdown upordown,double executeprice, Date deadline,double rate,String ClientID)
+	double[] getObstaclePurchasedownandinPrice(EorA eora, upORdown upordown,double executeprice, Date deadline,double rate,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取障碍期权（向上敲入）买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 ，rate（障碍水平）
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getObstaclePurchaseupandinPrice(EorA eora, upORdown upordown,double executeprice, Date deadline,double rate,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取障碍期权（向下敲出）买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 ，rate（障碍水平）
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getObstaclePurchasedownandoutPrice(EorA eora, upORdown upordown,double executeprice, Date deadline,double rate,String ClientID)
+			throws RemoteException;
+	
+	/**
+	 * 获取障碍期权（向上敲出）买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符 ，rate（障碍水平）
+	 * 返回值，double数组，第一个为买价，第二个为卖价
+	 * */
+	double[] getObstaclePurchaseupandoutPrice(EorA eora, upORdown upordown,double executeprice, Date deadline,double rate,String ClientID)
 			throws RemoteException;
 	
 	

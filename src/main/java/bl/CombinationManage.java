@@ -379,7 +379,7 @@ public class CombinationManage {
 	}
 
 	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,
-			double executeprice, Date deadline) {
+			double executeprice, double payOff, Date deadline) {
 		// TODO Auto-generated method stub
 		double PurchasePrice = 0;
 		double SellPrice = 0;
@@ -408,6 +408,226 @@ public class CombinationManage {
 			} else {
 				// result = option.AverageStrikePut(5, s, r, sg, j, t_now,
 				// t_end);
+			}
+			PurchasePrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray) (result[1])).getDouble();
+			Gamma = ((MWNumericArray) (result[2])).getDouble();
+			Vega = ((MWNumericArray) (result[3])).getDouble();
+			Theta = ((MWNumericArray) (result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[] { PurchasePrice, SellPrice, Delta, Gamma, Vega,
+				Theta };
+	}
+
+	public double[] getObstaclePurchasedownandinPrice(EorA eora,
+			upORdown upordown, double executeprice, double rate, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice, MWClassID.DOUBLE);
+		MWNumericArray b = new MWNumericArray(rate, MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(ServerData.getDeadTime(deadline),
+				MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(ServerData.getRisk_free_Rate(),
+				MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.Cdownandin(5, s, k, b, r, sg, t);
+			} else {
+				result = option.Pdownandin(5, s, k, b, r, sg, t);
+			}
+			PurchasePrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray) (result[1])).getDouble();
+			Gamma = ((MWNumericArray) (result[2])).getDouble();
+			Vega = ((MWNumericArray) (result[3])).getDouble();
+			Theta = ((MWNumericArray) (result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[] { PurchasePrice, SellPrice, Delta, Gamma, Vega,
+				Theta };
+	}
+
+	public double[] getObstaclePurchaseupandinPrice(EorA eora,
+			upORdown upordown, double executeprice, double rate, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice, MWClassID.DOUBLE);
+		MWNumericArray b = new MWNumericArray(rate, MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(ServerData.getDeadTime(deadline),
+				MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(ServerData.getRisk_free_Rate(),
+				MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.Cupandin(5, s, k, b, r, sg, t);
+			} else {
+				result = option.Pupandin(5, s, k, b, r, sg, t);
+			}
+			PurchasePrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray) (result[1])).getDouble();
+			Gamma = ((MWNumericArray) (result[2])).getDouble();
+			Vega = ((MWNumericArray) (result[3])).getDouble();
+			Theta = ((MWNumericArray) (result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[] { PurchasePrice, SellPrice, Delta, Gamma, Vega,
+				Theta };
+	}
+
+	public double[] getObstaclePurchasedownandoutPrice(EorA eora,
+			upORdown upordown, double executeprice, double rate, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice, MWClassID.DOUBLE);
+		MWNumericArray b = new MWNumericArray(rate, MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(ServerData.getDeadTime(deadline),
+				MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(ServerData.getRisk_free_Rate(),
+				MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.Cdownandout(5, s, k, b, r, sg, t);
+			} else {
+				result = option.Pdownandout(5, s, k, b, r, sg, t);
+			}
+			PurchasePrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 + ServerData.getFloat_Rate());
+			SellPrice = ((MWNumericArray) (result[0])).getDouble()
+					* (1.0 - ServerData.getFloat_Rate());
+			Delta = ((MWNumericArray) (result[1])).getDouble();
+			Gamma = ((MWNumericArray) (result[2])).getDouble();
+			Vega = ((MWNumericArray) (result[3])).getDouble();
+			Theta = ((MWNumericArray) (result[4])).getDouble();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} finally {
+			MWArray.disposeArray(s);
+			MWArray.disposeArray(k);
+			MWArray.disposeArray(t);
+			MWArray.disposeArray(r);
+			MWArray.disposeArray(sg);
+			MWArray.disposeArray(result);
+			if (option != null) {
+				option.dispose();
+			}
+		}
+		return new double[] { PurchasePrice, SellPrice, Delta, Gamma, Vega,
+				Theta };
+	}
+
+	public double[] getObstaclePurchaseupandoutPrice(EorA eora,
+			upORdown upordown, double executeprice, double rate, Date deadline) {
+		// TODO Auto-generated method stub
+		double PurchasePrice = 0;
+		double SellPrice = 0;
+		double Delta = 0;
+		double Gamma = 0;
+		double Vega = 0;
+		double Theta = 0;
+
+		MWNumericArray s = new MWNumericArray(getHuShen300Price(),
+				MWClassID.DOUBLE);
+		MWNumericArray k = new MWNumericArray(executeprice, MWClassID.DOUBLE);
+		MWNumericArray b = new MWNumericArray(rate, MWClassID.DOUBLE);
+		MWNumericArray t = new MWNumericArray(ServerData.getDeadTime(deadline),
+				MWClassID.DOUBLE);
+		MWNumericArray r = new MWNumericArray(ServerData.getRisk_free_Rate(),
+				MWClassID.DOUBLE);
+		MWNumericArray sg = new MWNumericArray(
+				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
+		Object[] result = null;
+		MatlabOption option = null;
+
+		try {
+			option = new MatlabOption();
+			if (upordown == upORdown.up) {
+				result = option.Cupandout(5, s, k, b, r, sg, t);
+			} else {
+				result = option.Pupandout(5, s, k, b, r, sg, t);
 			}
 			PurchasePrice = ((MWNumericArray) (result[0])).getDouble()
 					* (1.0 + ServerData.getFloat_Rate());
@@ -468,10 +688,27 @@ public class CombinationManage {
 			} else {
 				return getSubtypeAverageStrikePrice(orders.getOption()
 						.getEora(), orders.getOption().getUpordown(),
-						orders.getExecuteprice(), orders.getDeadline());
+						orders.getExecuteprice(),orders.getOption().getPayOff(), orders.getDeadline());
 			}
 		} else if (orders.getOption().getFirstClassName().equals("障碍期权")) {
-			return null;
+			if (orders.getOption().getSecondClassName().equals("向上敲入期权")) {
+				return getObstaclePurchaseupandinPrice(
+						orders.getOption().getEora(), orders.getOption()
+								.getUpordown(), orders.getExecuteprice(),orders.getOption().getObstacleRate(),
+						orders.getDeadline());
+			} else if (orders.getOption().getSecondClassName().equals("向下敲入期权")){
+				return getObstaclePurchasedownandinPrice(orders.getOption()
+						.getEora(), orders.getOption().getUpordown(),
+						orders.getExecuteprice(),orders.getOption().getObstacleRate(), orders.getDeadline());
+			}else if (orders.getOption().getSecondClassName().equals("向上敲出期权")){
+				return getObstaclePurchaseupandoutPrice(orders.getOption()
+						.getEora(), orders.getOption().getUpordown(),
+						orders.getExecuteprice(),orders.getOption().getObstacleRate(), orders.getDeadline());
+			}else {
+				return getObstaclePurchasedownandoutPrice(orders.getOption()
+						.getEora(), orders.getOption().getUpordown(),
+						orders.getExecuteprice(),orders.getOption().getObstacleRate(), orders.getDeadline());
+			}
 		}
 		return null;
 	}
@@ -488,14 +725,15 @@ public class CombinationManage {
 		d0 = -1 * d0;
 		g0 = -1 * g0;
 		v0 = -1 * v0;
-		if( Math.abs(  (d0-ServerData.getDelta()) /ServerData.getDelta() ) > ServerData.getDelta_change()){				//一旦Delta波动过大超出设定值
-			//在期货市场上进行仓位的增减。（自动买入-d0（取整）手期货
+		if (Math.abs((d0 - ServerData.getDelta()) / ServerData.getDelta()) > ServerData
+				.getDelta_change()) { // 一旦Delta波动过大超出设定值
+			// 在期货市场上进行仓位的增减。（自动买入-d0（取整）手期货
 			ServerData.setDelta(d0);
-//			hedging();                             																		//不知道需不需要这一步。。。。。
+			// hedging(); //不知道需不需要这一步。。。。。
 		}
 		ServerData.setDelta(d0);
-		if (g0 > ServerData.getThreshold() || v0 > ServerData.getThreshold()) {					//gamma或vega达到阈值时启动（暂定）
-			
+		if (g0 > ServerData.getThreshold() || v0 > ServerData.getThreshold()) { // gamma或vega达到阈值时启动（暂定）
+
 			// 暂定(暂时不知道这些值怎么来的)
 			EorA eora = EorA.E;
 			upORdown upordown1 = upORdown.up;
@@ -505,7 +743,7 @@ public class CombinationManage {
 			Date deadline1 = new Date();
 			Date deadline2 = new Date();
 			// 暂定(暂时不知道这些值怎么来的)
-			
+
 			double[] temp1 = getCommonPurchasePrice(eora, upordown1,
 					executeprice1, deadline1);
 			double[] temp2 = getCommonPurchasePrice(eora, upordown2,
@@ -523,8 +761,8 @@ public class CombinationManage {
 			w1 = Math.round(w1);
 			w2 = Math.round(w2);
 			w3 = Math.round(w3);
-			//（自动买入w1（取整）手1期权，w2（取整）手2期权）
-			//（自动买入w3（取整）手期货）
+			// （自动买入w1（取整）手1期权，w2（取整）手2期权）
+			// （自动买入w3（取整）手期货）
 		}
 
 	}
