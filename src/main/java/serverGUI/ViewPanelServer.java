@@ -111,7 +111,7 @@ public class ViewPanelServer extends MenuPanel{
 			table.revalidate();
 			table.repaint();
 		}
-			int l =  123;
+			/*int l =  123;
 			Vector v = new Vector();
 			v.add(l);
 			v.add(l);
@@ -127,7 +127,7 @@ public class ViewPanelServer extends MenuPanel{
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
-			tableRow.addRow(v);
+			tableRow.addRow(v);*/
 		
 	}
 	

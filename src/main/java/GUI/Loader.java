@@ -14,7 +14,7 @@ public class Loader {
 	public static Service service;
 	static{
 		try {
-			service = (Service) Naming.lookup("service");
+			service = (Service) Naming.lookup("rmi://127.0.0.1/service");
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			System.out.println("Network Wrong");
 			e.printStackTrace();
