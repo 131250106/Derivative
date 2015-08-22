@@ -50,6 +50,8 @@ public class DoubleBARPanel extends BARoptionsPanel{
 		super("DoubleBAR");
 
 		super.tag.setVisible(false);;
+		super.doublebaroption.setBackground(MyColor.deepblue2);
+		super.doublebaroption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,15);
 		
 	    tag = new JLabel("双重障碍期权");

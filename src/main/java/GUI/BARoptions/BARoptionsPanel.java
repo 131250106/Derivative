@@ -13,11 +13,13 @@ import GUI.myswing.MyColor;
 
 public class BARoptionsPanel extends MenuPanel{
 
-	private JButton downandoutoption,downandinoption,upandoutoption,upandinoption,
+	protected JButton downandoutoption,downandinoption,upandoutoption,upandinoption,
 	doublebaroption,multileveloption;
 	protected JLabel tag;
 	public BARoptionsPanel(String name) {
 		super("BARoptionsPanel");
+		super.baroption.setBackground(MyColor.deepblue3);
+		super.buttonOption.setBackground(MyColor.deepblue2);
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 	    tag = new JLabel("障碍期权");
@@ -90,7 +92,7 @@ public class BARoptionsPanel extends MenuPanel{
 		});
 		this.add(upandinoption);
 		
-		doublebaroption = new JButton("双重障碍期权");
+		/*doublebaroption = new JButton("双重障碍期权");
 		doublebaroption.setSize(175, 70);
 		doublebaroption.setLocation(0,407);
 		doublebaroption.setBackground(MyColor.deepblue);
@@ -103,9 +105,9 @@ public class BARoptionsPanel extends MenuPanel{
 				GraphicController.changeToPanel(new DoubleBARPanel("DoubleBAR"));
 			}
 		});
-		this.add(doublebaroption);
+		this.add(doublebaroption);*/
 		
-		
+		/*
 		multileveloption = new JButton("<html>多次触及<br/>障碍水平期权</html>");
 		multileveloption.setSize(175, 70);
 		multileveloption.setLocation(0,477);
@@ -119,7 +121,7 @@ public class BARoptionsPanel extends MenuPanel{
 				GraphicController.changeToPanel(new MultiLevelPanel("MultiLevel"));
 			}
 		});
-		this.add(multileveloption);
+		this.add(multileveloption);*/
 	}
 	
 }

@@ -105,6 +105,10 @@ public class StorePanel extends JPanel implements ActionListener{
 		buttonStore.setBounds(220,30, 110,45);
 		buttonStore.setForeground(MyColor.white);
 		buttonStore.setBackground(MyColor.deepblue);
+		/**
+		 * 
+		 */
+		buttonStore.setBackground(MyColor.deepblue2);
 		buttonStore.setFocusPainted(false);
 		buttonStore.setBorderPainted(false);
 		buttonStore.setFont(font);

@@ -50,6 +50,9 @@ public class MultiLevelPanel extends BARoptionsPanel{
 		super("MultiLevel");
 
 		super.tag.setVisible(false);;
+
+		super.multileveloption.setBackground(MyColor.deepblue2);
+		super.multileveloption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,15);
 		
 	    tag = new JLabel("<html>多次触及<br/>障碍水平期权</html>");

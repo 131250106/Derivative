@@ -105,6 +105,10 @@ public class ViewPanel extends JPanel implements ActionListener{
 		buttonView.setBounds(110,30, 110,45);
 		buttonView.setForeground(MyColor.white);
 		buttonView.setBackground(MyColor.deepblue);
+		/**
+		 * */
+		buttonView.setBackground(MyColor.deepblue2);
+		
 		buttonView.setFocusPainted(false);
 		buttonView.setBorderPainted(false);
 		buttonView.setFont(font);

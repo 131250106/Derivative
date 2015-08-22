@@ -50,6 +50,9 @@ public class DownAndInPanel extends BARoptionsPanel{
 		super("DownAndIn");
 
 		super.tag.setVisible(false);;
+
+		super.downandinoption.setBackground(MyColor.deepblue2);
+		super.downandinoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,15);
 		
 		tag = new JLabel("向下敲入期权");

@@ -13,11 +13,12 @@ import GUI.myswing.MyColor;
 
 public class AsianoptionsPanel extends MenuPanel{
 
-	private JButton avgexcpriceoption,avgpriceoption;
+	protected JButton avgexcpriceoption,avgpriceoption;
 	protected JLabel tag;
 	public AsianoptionsPanel(String name) {
 		super("Asianoptions");
-		
+		super.asianoption.setBackground(MyColor.deepblue3);
+		super.buttonOption.setBackground(MyColor.deepblue2);
 		Font font = new Font("微软雅黑",Font.PLAIN,17);
 		
 

@@ -56,6 +56,8 @@ public class FixedPanel extends LBoptionsPanel{
 	public FixedPanel(String name) {
 		super("Fixed");
 
+		super.fixedoption.setBackground(MyColor.deepblue2);
+		super.fixedoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		pvoption = new JButton("普通期权");

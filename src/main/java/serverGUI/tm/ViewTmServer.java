@@ -10,14 +10,15 @@ public class ViewTmServer extends AbstractTableModel{
 	public ViewTmServer(){
 		columnNames = new Vector();
 		columnNames.add("用户ID");
-		columnNames.add("成交时间");
 		columnNames.add("期权种类");
 		columnNames.add("类型");
-		columnNames.add("买/卖");
+		columnNames.add("成交时间");
 		columnNames.add("期限");
-		columnNames.add("交易价格");
+		columnNames.add("买/卖");
 		columnNames.add("数量");
-		columnNames.add("平仓/加仓");
+		columnNames.add("交易价格");
+		
+		columnNames.add("平仓/开仓");
 		rows = new Vector();
 	}
 	

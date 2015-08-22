@@ -53,6 +53,8 @@ public class AvgPricePanel extends AsianoptionsPanel{
 	private JLabel tag;
 	public AvgPricePanel(String name) {
 		super("AvgPrice");
+		super.avgpriceoption.setBackground(MyColor.deepblue2);
+		super.avgpriceoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		pvoption = new JButton("普通期权");

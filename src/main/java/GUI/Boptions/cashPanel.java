@@ -48,6 +48,9 @@ public class cashPanel extends BoptionsPanel{
 	
 	public cashPanel(String name) {
 		super("cash");
+
+		super.cashoption.setBackground(MyColor.deepblue2);
+		super.cashoption.setForeground(MyColor.white);
 		    Font font = new Font("微软雅黑",Font.PLAIN,15);
 
 			super.tag.setVisible(false);;

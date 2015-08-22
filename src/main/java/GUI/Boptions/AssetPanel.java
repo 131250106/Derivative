@@ -50,6 +50,8 @@ public class AssetPanel extends BoptionsPanel{
 	public AssetPanel(String name){
 		super("asset");
 
+		super.assetoption.setBackground(MyColor.deepblue2);
+		super.assetoption.setForeground(MyColor.white);
 		super.tag.setVisible(false);;
 		    Font font = new Font("微软雅黑",Font.PLAIN,15);
 			

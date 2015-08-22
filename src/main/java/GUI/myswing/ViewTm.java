@@ -9,13 +9,15 @@ public class ViewTm extends AbstractTableModel{
 	public Vector rows;
 	public ViewTm(){
 		columnNames = new Vector();
-		columnNames.add("成交时间");
+
 		columnNames.add("期权种类");
 		columnNames.add("类型");
-		columnNames.add("买/卖");
+		columnNames.add("成交时间");
 		columnNames.add("期限");
-		columnNames.add("交易价格");
+		columnNames.add("买/卖");
 		columnNames.add("数量");
+		columnNames.add("交易价格");
+	
 		rows = new Vector();
 	}
 	

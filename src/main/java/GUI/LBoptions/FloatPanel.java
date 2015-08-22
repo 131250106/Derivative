@@ -55,7 +55,9 @@ public class FloatPanel extends LBoptionsPanel{
 	public FloatPanel(String name) {
 		super("Float");
 		super.tag.setVisible(false);;
-		
+
+		super.floatoption.setBackground(MyColor.deepblue2);
+		super.floatoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		pvoption = new JButton("普通期权");

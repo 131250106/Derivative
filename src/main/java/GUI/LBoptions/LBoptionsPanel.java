@@ -13,14 +13,15 @@ import GUI.myswing.MyColor;
 
 public class LBoptionsPanel extends MenuPanel{
 
-	private JButton fixedoption,floatoption;
+	protected JButton fixedoption,floatoption;
 	protected JLabel tag;
 	public LBoptionsPanel(String name) {
 		super("LBoptions");
-		
+		super.buttonOption.setBackground(MyColor.deepblue2);
+		super.lboption.setBackground(MyColor.deepblue3);
 		Font font = new Font("微软雅黑",Font.PLAIN,17);
 		
-		 tag = new JLabel("亚式期权");
+		 tag = new JLabel("回望期权");
 			tag.setSize(175,70);
 			tag.setLocation(830,127);
 			tag.setFont(font);

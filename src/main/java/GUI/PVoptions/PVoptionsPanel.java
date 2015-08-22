@@ -73,7 +73,8 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	
 	public PVoptionsPanel(String name) {
 		super("PVoptions");
-		
+		super.buttonOption.setBackground(MyColor.deepblue2);
+		super.pvoption.setBackground(MyColor.deepblue3);
 		service = Loader.service;
 		
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
@@ -82,7 +83,15 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		pvoption.setSize(175, 70);
 		pvoption.setLocation(0,127);
 		pvoption.setBackground(MyColor.deepblue);
+		/**
+		 * 
+		 */
+		pvoption.setBackground(MyColor.deepblue2);
 		pvoption.setForeground(MyColor.lightblue);
+		/**
+		 * 
+		 */
+		pvoption.setForeground(MyColor.white);
 		pvoption.setFocusPainted(false);
 		pvoption.setBorderPainted(false);
 		pvoption.setFont(font);

@@ -50,6 +50,9 @@ public class DownAndOutPanel extends BARoptionsPanel{
 		super("DownAndOut");
 
 		super.tag.setVisible(false);;
+
+		super.downandoutoption.setBackground(MyColor.deepblue2);
+		super.downandoutoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,15);
 		
 	    tag = new JLabel("向下敲出期权");

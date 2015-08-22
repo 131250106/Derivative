@@ -12,11 +12,12 @@ public class StoreTmServer extends AbstractTableModel{
 		columnNames.add("用户ID");
 		columnNames.add("期权种类");
 		columnNames.add("类型");
-		columnNames.add("买/卖");
-		columnNames.add("期限");
-		columnNames.add("成本");
-		columnNames.add("数量");
 		columnNames.add("执行价格");
+		columnNames.add("期限");
+
+		columnNames.add("买/卖");
+		columnNames.add("数量");
+		columnNames.add("成本");
 		columnNames.add("当前价格");
 		columnNames.add("alpha");
 		columnNames.add("gamma");

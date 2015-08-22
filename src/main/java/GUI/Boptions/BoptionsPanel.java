@@ -18,12 +18,13 @@ import GUI.myswing.MyColor;
 public class BoptionsPanel extends MenuPanel{
 
 	private JButton boption;
-	private JButton cashoption,assetoption;
+	protected JButton cashoption,assetoption;
 	protected JLabel tag;
 	public BoptionsPanel(String name) {
 		super("Boptions");
-		
-		
+
+		super.buttonOption.setBackground(MyColor.deepblue2);
+		super.boption.setBackground(MyColor.deepblue3);
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		/*boption = new JButton("二元期权");

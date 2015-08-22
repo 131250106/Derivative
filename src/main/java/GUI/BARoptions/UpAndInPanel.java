@@ -49,6 +49,8 @@ public class UpAndInPanel extends BARoptionsPanel{
 	public UpAndInPanel(String name) {
 		super("UpAndIn");
 
+		super.upandinoption.setBackground(MyColor.deepblue2);
+		super.upandinoption.setForeground(MyColor.white);
 		super.tag.setVisible(false);;
 		Font font = new Font("微软雅黑",Font.PLAIN,15);
 		
