@@ -44,7 +44,7 @@ public class StorePanelServer extends MenuPanel{
 		tag.setBackground(MyColor.white);
 		tag.setForeground(MyColor.deepblue);
 		tag.setVisible(true);
-		this.add(tag);
+		//this.add(tag);
 		
 		render = new DefaultTableCellRenderer() {
 			public Component getTableCellRendererComponent(JTable table,

@@ -29,7 +29,7 @@ public class BARoptionsPanel extends MenuPanel{
 					tag.setBackground(MyColor.white);
 					tag.setForeground(MyColor.deepblue);
 					tag.setVisible(true);
-					this.add(tag);
+					//this.add(tag);
 		
 		
 		downandoutoption = new JButton("向下敲出期权");

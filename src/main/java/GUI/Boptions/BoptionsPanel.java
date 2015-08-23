@@ -49,7 +49,7 @@ public class BoptionsPanel extends MenuPanel{
 				tag.setBackground(MyColor.white);
 				tag.setForeground(MyColor.deepblue);
 				tag.setVisible(true);
-				this.add(tag);
+			//	this.add(tag);
 		
 		font = new Font("微软雅黑",Font.PLAIN,17);
 		

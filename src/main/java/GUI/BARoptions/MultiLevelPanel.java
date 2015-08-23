@@ -62,7 +62,7 @@ public class MultiLevelPanel extends BARoptionsPanel{
 				tag.setBackground(MyColor.white);
 				tag.setForeground(MyColor.deepblue);
 				tag.setVisible(true);
-				this.add(tag);
+				//this.add(tag);
 		
 				LookUpAndDown = new ButtonGroup();
 				LookUp = new JRadioButton("看涨");

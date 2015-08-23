@@ -29,7 +29,7 @@ public class AsianoptionsPanel extends MenuPanel{
 			tag.setBackground(MyColor.white);
 			tag.setForeground(MyColor.deepblue);
 			tag.setVisible(true);
-			this.add(tag);
+			//this.add(tag);
 		
 		avgexcpriceoption = new JButton("平均执行价格期权");
 		avgexcpriceoption.setSize(175, 70);

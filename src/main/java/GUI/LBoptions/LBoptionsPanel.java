@@ -28,7 +28,7 @@ public class LBoptionsPanel extends MenuPanel{
 			tag.setBackground(MyColor.white);
 			tag.setForeground(MyColor.deepblue);
 			tag.setVisible(true);
-			this.add(tag);
+			//this.add(tag);
 		
 		fixedoption = new JButton("固定执行价格期权");
 		fixedoption.setSize(175, 70);

@@ -143,7 +143,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 		tag.setBackground(MyColor.white);
 		tag.setForeground(MyColor.deepblue);
 		tag.setVisible(true);
-		this.add(tag);
+		//this.add(tag);
 		//--------------------------------------------------------------------------------------------
 		
 		font = new Font("微软雅黑",Font.PLAIN,20);
