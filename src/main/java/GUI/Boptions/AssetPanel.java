@@ -18,10 +18,20 @@ import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
 import blservice.Service;
 import data.EorA;
+import data.Option;
 import data.upORdown;
 
 public class AssetPanel extends BoptionsPanel{
 	Service service;
+	Option option;
+	EorA eora;
+	upORdown upordown;
+	Date deadline;
+	double executePrice;
+ 	double dealprice;
+ 	boolean isPurchase;
+ 	int number;
+	
 	private JLabel tag;
 	private ButtonGroup LookUpAndDown;
 	private JRadioButton LookUp;
@@ -268,18 +278,18 @@ public class AssetPanel extends BoptionsPanel{
 					}else{
 						//画出显示框
 						warningLabel.setVisible(false);
-						double executePrice = Double.parseDouble(executePriceField.getText());
+						executePrice = Double.parseDouble(executePriceField.getText());
 //						double noRiskRate = Double.parseDouble(noRiskRateField.getText());
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-						Date deadline = null;
+						deadline = null;
 						try {
 							deadline = format.parse(datechooser.getTime());
 							System.out.println(deadline);
 						} catch (Exception e2) {
 							e2.printStackTrace();
 						}
-						EorA eora = Europe.isSelected()?EorA.E:EorA.A;
-						upORdown upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
+						eora = Europe.isSelected()?EorA.E:EorA.A;
+						upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 						
 						try {
 							PurchasePrice = service.getBinaryPurchasePrice1(eora, upordown, executePrice, deadline, "131250131");
@@ -304,6 +314,7 @@ public class AssetPanel extends BoptionsPanel{
 						timer.setVisible(true);
 						TimerThread timerThread = new TimerThread();
 						timerThread.start();
+						submitButton.setEnabled(false);
 					}			
 					System.out.println("submitButton has been clicked!");
 				}
@@ -326,9 +337,27 @@ public class AssetPanel extends BoptionsPanel{
 						System.out.println("没填完");
 					}else{
 						if(timer.getText().equals("(请在0秒内完成操作)")){
+							submitButton.setEnabled(true);
 							timer.setText("操作超时，请重新查询");
+						}else{
+							number = Integer.parseInt(dealNumField.getText());
+							//调用交易接口
+							option =  new Option("二元期权", "资产或无价值期权", eora, upordown);
+							boolean result =false;
+							isPurchase = bidButton.isSelected()?true:false;
+							if(isPurchase){
+								number = number*1;
+							}else{
+								number = number*(-1);
+							}
+							try {
+								result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
+							} catch (RemoteException e1) {
+								e1.printStackTrace();
+							}
+							System.out.println("交易执行结果:"+result);
 						}
-						System.out.println("交易完成");
+		
 					}			
 					System.out.println("submitButton has been clicked!");
 				}
@@ -355,6 +384,4 @@ public class AssetPanel extends BoptionsPanel{
 	            }
 	    	}  	
 	    }
-	    
-		
 }
