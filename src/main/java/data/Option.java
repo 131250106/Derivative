@@ -8,7 +8,7 @@ public class Option implements Serializable { // 期权
 	private String secondClassName; // 第二大分类;
 	private EorA eora; // 欧式或美式
 	private upORdown upordown; // 看涨或看跌
-	private double payOff = -1; // 支付金，只有二元期权会有，其他的情况下值都为-1
+	private double payOff = 1; // 支付金，只有二元期权会有，其他的情况下值都为-1（注：现在又取消了支付金这个东西，我也是醉了）
 	private double ObstacleRate = -1; // 障碍水平，只有障碍期权会有，其他的情况下都为-1
 
 	public Option(String firstClassName, String secondClassName, EorA eora,

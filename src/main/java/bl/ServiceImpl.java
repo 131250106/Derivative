@@ -134,7 +134,7 @@ public class ServiceImpl implements Service {
     public boolean purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
         boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
-        combinationManage.hedging();
+//        combinationManage.hedging();
         return result;
     }
 
@@ -143,7 +143,7 @@ public class ServiceImpl implements Service {
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
     	number = -1 * number;
     	boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
-        combinationManage.hedging();
+//        combinationManage.hedging();
         return result;
     }
 

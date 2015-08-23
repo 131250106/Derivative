@@ -65,7 +65,8 @@ public class CombinationManage {
 				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
 		Object[] result = null;
 		MatlabOption option = null;
-		System.out.println("HERE: "+s+"  "+k+"  "+t+"  "+r+"  "+sg+"  END");
+		System.out.println("HERE: " + s + "  " + k + "  " + t + "  " + r + "  "
+				+ sg + "  END");
 		try {
 			option = new MatlabOption();
 			if (upordown == upORdown.up) {
@@ -94,7 +95,8 @@ public class CombinationManage {
 				option.dispose();
 			}
 		}
-		System.out.println("HERE: "+PurchasePrice+"  "+SellPrice+"   END!!!");
+		System.out.println("HERE: " + PurchasePrice + "  " + SellPrice
+				+ "   END!!!");
 		return new double[] { PurchasePrice, SellPrice, Delta, Gamma, Vega,
 				Theta };
 	}
@@ -380,7 +382,7 @@ public class CombinationManage {
 	}
 
 	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,
-			double executeprice,  Date deadline) {
+			double executeprice, Date deadline) {
 		// TODO Auto-generated method stub
 		double PurchasePrice = 0;
 		double SellPrice = 0;
@@ -693,22 +695,25 @@ public class CombinationManage {
 			}
 		} else if (orders.getOption().getFirstClassName().equals("障碍期权")) {
 			if (orders.getOption().getSecondClassName().equals("向上敲入期权")) {
-				return getObstaclePurchaseupandinPrice(
-						orders.getOption().getEora(), orders.getOption()
-								.getUpordown(), orders.getExecuteprice(),orders.getOption().getObstacleRate(),
-						orders.getDeadline());
-			} else if (orders.getOption().getSecondClassName().equals("向下敲入期权")){
+				return getObstaclePurchaseupandinPrice(orders.getOption()
+						.getEora(), orders.getOption().getUpordown(),
+						orders.getExecuteprice(), orders.getOption()
+								.getObstacleRate(), orders.getDeadline());
+			} else if (orders.getOption().getSecondClassName().equals("向下敲入期权")) {
 				return getObstaclePurchasedownandinPrice(orders.getOption()
 						.getEora(), orders.getOption().getUpordown(),
-						orders.getExecuteprice(),orders.getOption().getObstacleRate(), orders.getDeadline());
-			}else if (orders.getOption().getSecondClassName().equals("向上敲出期权")){
+						orders.getExecuteprice(), orders.getOption()
+								.getObstacleRate(), orders.getDeadline());
+			} else if (orders.getOption().getSecondClassName().equals("向上敲出期权")) {
 				return getObstaclePurchaseupandoutPrice(orders.getOption()
 						.getEora(), orders.getOption().getUpordown(),
-						orders.getExecuteprice(),orders.getOption().getObstacleRate(), orders.getDeadline());
-			}else {
+						orders.getExecuteprice(), orders.getOption()
+								.getObstacleRate(), orders.getDeadline());
+			} else {
 				return getObstaclePurchasedownandoutPrice(orders.getOption()
 						.getEora(), orders.getOption().getUpordown(),
-						orders.getExecuteprice(),orders.getOption().getObstacleRate(), orders.getDeadline());
+						orders.getExecuteprice(), orders.getOption()
+								.getObstacleRate(), orders.getDeadline());
 			}
 		}
 		return null;
@@ -717,15 +722,17 @@ public class CombinationManage {
 	public void hedging() { // 核心对冲算法！！！
 		double w1 = 0, w2 = 0, w3 = 0, d0 = 0, d1 = 0, d2 = 0, g0 = 0, g1 = 0, g2 = 0, v0 = 0, v1 = 0, v2 = 0;
 		OrderOFholdings[] orders = dbtool.getHoldingOrders();
-		for (int i = 0; i < orders.length; i++) {
-			double[] temp = getRiskRate(orders[i]);
-			d0 += orders[i].getNumber() * temp[2];
-			g0 += orders[i].getNumber() * temp[3];
-			v0 += orders[i].getNumber() * temp[4];
+		if (orders != null) {
+			for (int i = 0; i < orders.length; i++) {
+				double[] temp = getRiskRate(orders[i]);
+				d0 += orders[i].getNumber() * temp[2];
+				g0 += orders[i].getNumber() * temp[3];
+				v0 += orders[i].getNumber() * temp[4];
+			}
+			d0 = -1 * d0;
+			g0 = -1 * g0;
+			v0 = -1 * v0;
 		}
-		d0 = -1 * d0;
-		g0 = -1 * g0;
-		v0 = -1 * v0;
 		if (Math.abs((d0 - ServerData.getDelta()) / ServerData.getDelta()) > ServerData
 				.getDelta_change()) { // 一旦Delta波动过大超出设定值
 			// 在期货市场上进行仓位的增减。（自动买入-d0（取整）手期货
