@@ -41,10 +41,10 @@ public interface Service extends Remote {
 			throws RemoteException;
 	
 	/**
-	 * 获取二元期权(现金或无价值期权)买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），salary（支付金），ClientID用户唯一标识符
+	 * 获取二元期权(现金或无价值期权)买卖价,传入参数：executeprice（执行价格），deadline（距离到期日时间），ClientID用户唯一标识符
 	 * 返回值，double数组，第一个为买价，第二个为卖价
 	 * */
-	double[] getBinaryPurchasePrice2(EorA eora, upORdown upordown,double executeprice,  Date deadline,double salary,String ClientID)
+	double[] getBinaryPurchasePrice2(EorA eora, upORdown upordown,double executeprice,  Date deadline,String ClientID)
 			throws RemoteException;
 	
 	/**

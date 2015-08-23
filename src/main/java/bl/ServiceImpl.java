@@ -55,7 +55,7 @@ public class ServiceImpl implements Service {
 	//二元期权(现金或无价值期权)
 	@Override
 	public double[] getBinaryPurchasePrice2(EorA eora, upORdown upordown,double executeprice,
-			Date deadline, double salary, String ClientID)
+			Date deadline, String ClientID)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return combinationManage.getBinaryCONPrice(eora,upordown,executeprice,deadline);
