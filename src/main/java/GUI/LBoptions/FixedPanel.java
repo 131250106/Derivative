@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import GUI.GraphicController;
+import GUI.Loader;
 import GUI.PVoptions.PVoptionsPanel;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
@@ -69,7 +70,7 @@ public class FixedPanel extends LBoptionsPanel{
 
 	public FixedPanel(String name) {
 		super("Fixed");
-
+		service = Loader.service;
 		super.fixedoption.setBackground(MyColor.deepblue2);
 		super.fixedoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,20);

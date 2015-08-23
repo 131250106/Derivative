@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import GUI.Loader;
 import GUI.BARoptions.DownAndInPanel.TimerThread;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
@@ -66,7 +67,7 @@ public class UpAndInPanel extends BARoptionsPanel{
 	
 	public UpAndInPanel(String name) {
 		super("UpAndIn");
-
+		service = Loader.service;
 		super.upandinoption.setBackground(MyColor.deepblue2);
 		super.upandinoption.setForeground(MyColor.white);
 		super.tag.setVisible(false);;

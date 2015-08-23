@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import GUI.Loader;
 import GUI.BARoptions.DownAndInPanel.TimerThread;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
@@ -68,7 +69,7 @@ public class DownAndOutPanel extends BARoptionsPanel{
 		super("DownAndOut");
 
 		super.tag.setVisible(false);;
-
+		service = Loader.service;
 		super.downandoutoption.setBackground(MyColor.deepblue2);
 		super.downandoutoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,15);

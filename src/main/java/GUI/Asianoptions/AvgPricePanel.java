@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import GUI.GraphicController;
+import GUI.Loader;
 import GUI.PVoptions.PVoptionsPanel;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
@@ -68,6 +69,7 @@ public class AvgPricePanel extends AsianoptionsPanel{
 		super("AvgPrice");
 		super.avgpriceoption.setBackground(MyColor.deepblue2);
 		super.avgpriceoption.setForeground(MyColor.white);
+		service = Loader.service;
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		pvoption = new JButton("普通期权");

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import GUI.Loader;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
 import blservice.Service;
@@ -61,7 +62,7 @@ public class AssetPanel extends BoptionsPanel{
 	
 	public AssetPanel(String name){
 		super("asset");
-
+		service = Loader.service;
 		super.assetoption.setBackground(MyColor.deepblue2);
 		super.assetoption.setForeground(MyColor.white);
 		super.tag.setVisible(false);;

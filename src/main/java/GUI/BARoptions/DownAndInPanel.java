@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import GUI.Loader;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
 import blservice.Service;
@@ -70,6 +71,7 @@ public class DownAndInPanel extends BARoptionsPanel{
 
 		super.downandinoption.setBackground(MyColor.deepblue2);
 		super.downandinoption.setForeground(MyColor.white);
+		service = Loader.service;
 		Font font = new Font("微软雅黑",Font.PLAIN,15);
 		
 		tag = new JLabel("向下敲入期权");

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import GUI.Loader;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
 import blservice.Service;
@@ -61,7 +62,7 @@ public class cashPanel extends BoptionsPanel{
 	
 	public cashPanel(String name) {
 		super("cash");
-
+		service = Loader.service;
 		super.cashoption.setBackground(MyColor.deepblue2);
 		super.cashoption.setForeground(MyColor.white);
 		    Font font = new Font("微软雅黑",Font.PLAIN,15);

@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import GUI.GraphicController;
+import GUI.Loader;
 import GUI.PVoptions.PVoptionsPanel;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
@@ -68,7 +69,7 @@ public class FloatPanel extends LBoptionsPanel{
 	public FloatPanel(String name) {
 		super("Float");
 		super.tag.setVisible(false);;
-
+		service = Loader.service;
 		super.floatoption.setBackground(MyColor.deepblue2);
 		super.floatoption.setForeground(MyColor.white);
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
