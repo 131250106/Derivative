@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,12 +14,27 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import GUI.BARoptions.DownAndInPanel.TimerThread;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
+import blservice.Service;
 import data.EorA;
+import data.Option;
 import data.upORdown;
 
 public class UpAndInPanel extends BARoptionsPanel{
+	
+	Service service;
+	Option option;
+	EorA eora;
+	upORdown upordown;
+	Date deadline;
+	double executePrice;
+ 	double dealprice;
+ 	boolean isPurchase;
+ 	double rate;
+ 	int number;
+	
 	private JLabel tag;
 	private ButtonGroup LookUpAndDown;
 	private JRadioButton LookUp;
@@ -45,6 +61,8 @@ public class UpAndInPanel extends BARoptionsPanel{
 	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel,bidPriceLabel,askPriceLabel,dealNumLabel,bidPriceField,askPriceField;
 	JTextField executePriceField,noRiskRateField,deadlineField,dealNumField;
 	JButton submitButton,dealButton;
+	JLabel rateLabel;
+	JTextField rateField;
 	
 	public UpAndInPanel(String name) {
 		super("UpAndIn");
@@ -126,6 +144,18 @@ public class UpAndInPanel extends BARoptionsPanel{
 				executePriceField.setFont(font);
 				this.add(executePriceField);
 				
+				rateLabel = new JLabel("障碍水平");
+				rateLabel.setFont(font);
+				rateLabel.setBounds(213+100, 310+50, LABEL_WIDTH, LABEL_HEIGHT);
+				rateLabel.setVisible(true);
+				this.add(rateLabel);
+				
+				rateField = new JTextField();
+				rateField.setBounds(290+100, 310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+				rateField.setVisible(true);
+				rateField.setFont(font);
+				this.add(rateField);
+				
 //				noRiskRateLabel = new JLabel("无风险利率:");
 //				noRiskRateLabel.setFont(font);
 //				noRiskRateLabel.setBounds(200, 280, LABEL_WIDTH, LABEL_HEIGHT);
@@ -141,13 +171,13 @@ public class UpAndInPanel extends BARoptionsPanel{
 				//需要处理计算一下
 				deadlineLabel = new JLabel("截止日期:");
 				deadlineLabel.setFont(font);
-				deadlineLabel.setBounds(213+100,310+50, LABEL_WIDTH, LABEL_HEIGHT);
+				deadlineLabel.setBounds(213+100,360+50, LABEL_WIDTH, LABEL_HEIGHT);
 				deadlineLabel.setVisible(true);
 				this.add(deadlineLabel);
 				
 				deadlineField = new JTextField();
 				deadlineField.setFont(font);
-				deadlineField.setBounds(100+290+100,310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+				deadlineField.setBounds(100+290+100,360+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 				deadlineField.setVisible(false);
 				this.add(deadlineField);
 				
@@ -156,7 +186,7 @@ public class UpAndInPanel extends BARoptionsPanel{
 				datechooser.setVisible(true);
 				datechooser.setFont(font);
 //				datechooser.setBorder(null);//把边框隐藏
-				datechooser.setBounds(290+100,310+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT+3);
+				datechooser.setBounds(290+100,360+50, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT+3);
 				this.add(datechooser);
 				
 //				hourLabel = new JLabel("时");
@@ -169,7 +199,7 @@ public class UpAndInPanel extends BARoptionsPanel{
 				JLabel warningLabel = new JLabel("(请输入完整信息)");
 				Font font2 = new Font("微软雅黑",Font.PLAIN,12);
 				warningLabel.setFont(font);
-				warningLabel.setBounds(240+100+80+5,380+50,140,25);
+				warningLabel.setBounds(240+100+80+5,430+50,140,25);
 				warningLabel.setForeground(Color.RED);
 				warningLabel.setVisible(false);
 				this.add(warningLabel);
@@ -248,7 +278,7 @@ public class UpAndInPanel extends BARoptionsPanel{
 				submitButton = new JButton("查询");
 				submitButton.setFont(font);
 				submitButton.setSize(80, 30);
-				submitButton.setLocation(240+100,380+50);
+				submitButton.setLocation(240+100,430+50);
 				submitButton.setBackground(MyColor.deepblue);
 				submitButton.setForeground(MyColor.lightblue);
 				submitButton.setFocusPainted(false);
@@ -257,36 +287,36 @@ public class UpAndInPanel extends BARoptionsPanel{
 				submitButton.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
 						//这里显示输出的两个框
-						if(executePriceField.getText().equals("")||
+						if(executePriceField.getText().equals("")||rateField.getText().equals("")||
 								EAndA.getSelection()==null||LookUpAndDown.getSelection()==null){
 							warningLabel.setVisible(true);
 						}else{
 							//画出显示框
 							warningLabel.setVisible(false);
-							double executePrice = Double.parseDouble(executePriceField.getText());
-//							double noRiskRate = Double.parseDouble(noRiskRateField.getText());
+							executePrice = Double.parseDouble(executePriceField.getText());
+							rate =Double.parseDouble(rateField.getText());
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-							Date deadline = null;
+							deadline = null;
 							try {
 								deadline = format.parse(datechooser.getTime());
 								System.out.println(deadline);
 							} catch (Exception e2) {
 								e2.printStackTrace();
 							}
-							EorA eora = Europe.isSelected()?EorA.E:EorA.A;
-							upORdown upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
+							eora = Europe.isSelected()?EorA.E:EorA.A;
+							upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 							
-//							try {
-//								PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
-//							} catch (RemoteException e1) {
-//								e1.printStackTrace();
-//							}
+							try {
+								PurchasePrice = service.getObstaclePurchaseupandinPrice(eora, upordown, executePrice, deadline, rate ,"131250131");
+							} catch (RemoteException e1) {
+								e1.printStackTrace();
+							}
 							System.out.println(executePrice);
 							//这里调用getPurchasePrice
-//							bidPriceField.setText(Double.toString(PurchasePrice[0]));
-//							askPriceField.setText(Double.toString(PurchasePrice[1]));
-							bidPriceField.setText("12.5");
-							askPriceField.setText("12.0");
+							bidPriceField.setText(Double.toString(PurchasePrice[0]));
+							askPriceField.setText(Double.toString(PurchasePrice[1]));
+//							bidPriceField.setText("12.5");
+//							askPriceField.setText("12.0");
 							bidPriceField.setVisible(true);
 							bidPriceLabel.setVisible(true);
 							askPriceLabel.setVisible(true);
@@ -322,8 +352,24 @@ public class UpAndInPanel extends BARoptionsPanel{
 						}else{
 							if(timer.getText().equals("(请在0秒内完成操作)")){
 								timer.setText("操作超时，请重新查询");
+							}else{
+								number = Integer.parseInt(dealNumField.getText());
+								//调用交易接口
+								option =  new Option("障碍期权", "向上敲入期权", eora, upordown);
+								isPurchase = bidButton.isSelected()?true:false;
+								if(isPurchase){
+									number = number*1;
+								}else{
+									number = number*(-1);
+								}
+								boolean result =false;
+								try {
+									result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
+								} catch (RemoteException e1) {
+									e1.printStackTrace();
+								}
+								System.out.println("交易执行结果:"+result);
 							}
-							System.out.println("交易完成");
 						}			
 						System.out.println("submitButton has been clicked!");
 					}

@@ -50,7 +50,8 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	double executePrice;
  	double dealprice;
  	boolean isPurchase;
-	
+ 	int number;
+ 	
 	private JButton pvoption;
 	private JLabel tag;
 	private ButtonGroup LookUpAndDown;
@@ -383,10 +384,16 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 						submitButton.setEnabled(true);
 						timer.setText("操作超时，请重新查询");
 					}else{
-						int number = Integer.parseInt(dealNumField.getText());
+						number = Integer.parseInt(dealNumField.getText());
 						//调用交易接口
 						option =  new Option("普通期权", "普通期权", eora, upordown);
 						boolean result =false;
+						isPurchase = bidButton.isSelected()?true:false;
+						if(isPurchase){
+							number = number*1;
+						}else{
+							number = number*(-1);
+						}
 						try {
 							result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
 						} catch (RemoteException e1) {
