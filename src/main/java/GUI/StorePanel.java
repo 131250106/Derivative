@@ -358,12 +358,12 @@ public class StorePanel extends JPanel implements ActionListener{
 		this.add(table);
 		
 		//orderlist = service.getOrdersByAccount("0");
-//		try {
-//			//orderlist = service.getOrderOFholdingsByAccount("0");
-//		} catch (RemoteException e1) {
-//			System.out.println("NetWork Wrong");
-//			e1.printStackTrace();
-//		}
+		try {
+			orderlist = service.getOrderOFholdingsByAccount("0");
+		} catch (RemoteException e1) {
+			System.out.println("NetWork Wrong");
+			e1.printStackTrace();
+		}
 		filltable(orderlist);
 
 //-----------------------------------------------------------------------------------------------------------
