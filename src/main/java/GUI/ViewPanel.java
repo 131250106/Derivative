@@ -427,17 +427,21 @@ public class ViewPanel extends JPanel implements ActionListener{
 			}
 			for(Order order:list){
 				Vector v = new Vector();
-				v.add(order.getBuyDate());
 				v.add(order.getOption().toString());
 				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				v.add(order.getBuyDate());
+				//v.add(order.getOption().toString());
+				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				
+				v.add(order.getDeadline());
 				if(order.getNumber()>=0){
 					v.add("买");
 				}else{
 					v.add("卖");
 				}
-				v.add(order.getDeadline());
-				v.add(order.getDealprice());
 				v.add(Math.abs(order.getNumber()));
+				v.add(order.getDealprice());
+				
 				tableRow.addRow(v);
 			}
 			/*for(Integer a:list){
@@ -448,7 +452,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 			table.revalidate();
 			table.repaint();
 		}
-			int l =  123;
+			/*int l =  123;
 			Vector v = new Vector();
 			v.add(l);
 			v.add(l);
@@ -457,15 +461,15 @@ public class ViewPanel extends JPanel implements ActionListener{
 			v.add(l);
 			v.add(l);
 			v.add(l);
-			v.add(l);
+			v.add(l);*/
 			/*v.add(l);
 			v.add(l);
 			v.add(l);*/
+			/*tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
 			tableRow.addRow(v);
-			tableRow.addRow(v);
-			tableRow.addRow(v);
+			tableRow.addRow(v);*/
 			
 	}
 	

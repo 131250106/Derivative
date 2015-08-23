@@ -420,13 +420,15 @@ public class StorePanel extends JPanel implements ActionListener{
 				Vector v = new Vector();
 				v.add(order.getOption().toString());
 				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				v.add(order.getExecuteprice());
+				
+				v.add(order.getDeadTime());
+				v.add(order.getCost());
 				if(order.getNumber()>=0){
 					v.add("买");
 				}else{
 					v.add("卖");
 				}
-				v.add(order.getDeadTime());
-				v.add(order.getCost());
 				v.add(Math.abs(order.getNumber()));
 				tableRow.addRow(v);
 			}
@@ -442,7 +444,7 @@ public class StorePanel extends JPanel implements ActionListener{
 		/**
 		 * test
 		 */
-		Vector v = new Vector();
+		/*Vector v = new Vector();
 		int l =  123;
 		v.add(l);
 		v.add(l);
@@ -450,15 +452,15 @@ public class StorePanel extends JPanel implements ActionListener{
 		v.add(l);
 		v.add(l);
 		v.add(l);
-		v.add(l);
+		v.add(l);*/
 		/*v.add(l);
 		v.add(l);
 		v.add(l);*/
+		/*tableRow.addRow(v);
 		tableRow.addRow(v);
 		tableRow.addRow(v);
 		tableRow.addRow(v);
-		tableRow.addRow(v);
-		tableRow.addRow(v);
+		tableRow.addRow(v);*/
 		table.revalidate();
 		table.repaint();
 	}
