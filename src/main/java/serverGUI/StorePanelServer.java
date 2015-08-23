@@ -175,7 +175,7 @@ public class StorePanelServer extends MenuPanel{
 		if(nameF.equals("亚式期权")){
 			if(nameS.equals("平均执行价格期权")){
 				return combinationmanage.getSubtypeAverageStrikePrice(list.getOption().getEora(),
-						list.getOption().getUpordown(), list.getExecuteprice(),list.getOption().getPayOff()
+						list.getOption().getUpordown(), list.getExecuteprice()
 						, list.getDeadline());
 			}
 			if(nameS.equals("平均价格期权")){

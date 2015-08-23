@@ -379,7 +379,7 @@ public class CombinationManage {
 	}
 
 	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,
-			double executeprice, double payOff, Date deadline) {
+			double executeprice,  Date deadline) {
 		// TODO Auto-generated method stub
 		double PurchasePrice = 0;
 		double SellPrice = 0;
@@ -688,7 +688,7 @@ public class CombinationManage {
 			} else {
 				return getSubtypeAverageStrikePrice(orders.getOption()
 						.getEora(), orders.getOption().getUpordown(),
-						orders.getExecuteprice(),orders.getOption().getPayOff(), orders.getDeadline());
+						orders.getExecuteprice(), orders.getDeadline());
 			}
 		} else if (orders.getOption().getFirstClassName().equals("障碍期权")) {
 			if (orders.getOption().getSecondClassName().equals("向上敲入期权")) {

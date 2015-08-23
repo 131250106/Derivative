@@ -87,10 +87,10 @@ public class ServiceImpl implements Service {
 	
 	//亚式期权(平均执行价格期权)
 	@Override
-	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,double executeprice,double payOff,
+	public double[] getSubtypeAverageStrikePrice(EorA eora, upORdown upordown,double executeprice,
 			Date deadline, String ClientID) throws RemoteException {
 		// TODO Auto-generated method stub
-		return combinationManage.getSubtypeAverageStrikePrice(eora,upordown,executeprice,payOff,deadline);
+		return combinationManage.getSubtypeAverageStrikePrice(eora,upordown,executeprice,deadline);
 	}
 
 	//障碍期权（向下敲入）
