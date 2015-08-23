@@ -65,7 +65,7 @@ public class CombinationManage {
 				ServerData.getFluctuation_Rate(), MWClassID.DOUBLE);
 		Object[] result = null;
 		MatlabOption option = null;
-
+		System.out.println("HERE: "+s+"  "+k+"  "+t+"  "+r+"  "+sg+"  END");
 		try {
 			option = new MatlabOption();
 			if (upordown == upORdown.up) {
@@ -94,6 +94,7 @@ public class CombinationManage {
 				option.dispose();
 			}
 		}
+		System.out.println("HERE: "+PurchasePrice+"  "+SellPrice+"   END!!!");
 		return new double[] { PurchasePrice, SellPrice, Delta, Gamma, Vega,
 				Theta };
 	}

@@ -63,6 +63,9 @@ public class ServerData {
 		Date now = new Date();
 		double deadTime =(double)(deadline.getTime() - now.getTime())
 				/ ((24 * 60 * 60 *1000 ))/365;
+		if( deadTime<=0){
+			return 0;
+		}
 		return deadTime;
 	}
 
