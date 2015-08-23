@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,11 +18,14 @@ import GUI.GraphicController;
 import GUI.PVoptions.PVoptionsPanel;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
+import blservice.Service;
 import data.EorA;
 import data.upORdown;
 
 public class AvgPricePanel extends AsianoptionsPanel{
 
+	Service service;
+	
 	private JButton pvoption;
 	private JLabel Name;
 	private ButtonGroup LookUpAndDown;
@@ -299,17 +303,17 @@ public class AvgPricePanel extends AsianoptionsPanel{
 					EorA eora = Europe.isSelected()?EorA.E:EorA.A;
 					upORdown upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 					
-//					try {
-//						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
-//					} catch (RemoteException e1) {
-//						e1.printStackTrace();
-//					}
+					try {
+						PurchasePrice = service.getSubtypeAveragePricePrice(eora, upordown, executePrice, deadline, "131250131");
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
 					System.out.println(executePrice);
 					//这里调用getPurchasePrice
-//					bidPriceField.setText(Double.toString(PurchasePrice[0]));
-//					askPriceField.setText(Double.toString(PurchasePrice[1]));
-					bidPriceField.setText("12.5");
-					askPriceField.setText("12.0");
+					bidPriceField.setText(Double.toString(PurchasePrice[0]));
+					askPriceField.setText(Double.toString(PurchasePrice[1]));
+//					bidPriceField.setText("12.5");
+//					askPriceField.setText("12.0");
 					bidPriceField.setVisible(true);
 					bidPriceLabel.setVisible(true);
 					askPriceLabel.setVisible(true);
