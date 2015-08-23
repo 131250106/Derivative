@@ -42,8 +42,8 @@ public class DownAndInPanel extends BARoptionsPanel{
 	
 	double[] PurchasePrice;
 	
-	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel,bidPriceLabel,askPriceLabel,dealNumLabel,bidPriceField,askPriceField;
-	JTextField executePriceField,noRiskRateField,deadlineField,dealNumField;
+	JLabel executePriceLabel,noRiskRateLabel,deadlineLabel,bidPriceLabel,askPriceLabel,dealNumLabel,bidPriceField,askPriceField,rateLabel;
+	JTextField executePriceField,noRiskRateField,deadlineField,dealNumField,rateField;
 	JButton submitButton,dealButton;
 	
 	public DownAndInPanel(String name) {

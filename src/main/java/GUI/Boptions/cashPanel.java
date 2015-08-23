@@ -165,8 +165,7 @@ public class cashPanel extends BoptionsPanel{
 //			hourLabel.setFont(font);
 //			hourLabel.setBounds(r);
 //			hourLabel.setVisible(true);
-//			this.add(hourLabel);
-			
+//			this.add(hourLabel);			
 			
 			JLabel warningLabel = new JLabel("(请输入完整信息)");
 			Font font2 = new Font("微软雅黑",Font.PLAIN,12);

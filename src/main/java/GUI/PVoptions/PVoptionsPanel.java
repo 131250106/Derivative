@@ -32,6 +32,7 @@ import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
 import blservice.Service;
 import data.EorA;
+import data.Option;
 import data.upORdown;
 
 public class PVoptionsPanel extends MenuPanel implements Runnable{
@@ -42,6 +43,13 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 
 
 	Service service;
+	Option option;
+	EorA eora;
+	upORdown upordown;
+	Date deadline;
+	double executePrice;
+ 	double dealprice;
+ 	boolean isPurchase;
 	
 	private JButton pvoption;
 	private JLabel tag;
@@ -76,7 +84,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		super.buttonOption.setBackground(MyColor.deepblue2);
 		super.pvoption.setBackground(MyColor.deepblue3);
 		service = Loader.service;
-		
+				
 		Font font = new Font("微软雅黑",Font.PLAIN,20);
 		
 		pvoption = new JButton("普通期权");
@@ -313,18 +321,18 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 				}else{
 					//画出显示框
 					warningLabel.setVisible(false);
-					double executePrice = Double.parseDouble(executePriceField.getText());
+					executePrice = Double.parseDouble(executePriceField.getText());
 //					double noRiskRate = Double.parseDouble(noRiskRateField.getText());
 					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-					Date deadline = null;
+					deadline = null;
 					try {
 						deadline = format.parse(datechooser.getTime());
 						System.out.println(deadline);
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
-					EorA eora = Europe.isSelected()?EorA.E:EorA.A;
-					upORdown upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
+					eora = Europe.isSelected()?EorA.E:EorA.A;
+					upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 					
 					try {
 						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
@@ -349,6 +357,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					timer.setVisible(true);
 					TimerThread timerThread = new TimerThread();
 					timerThread.start();
+					submitButton.setEnabled(false);
 				}			
 				System.out.println("submitButton has been clicked!");
 			}
@@ -371,9 +380,21 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					System.out.println("没填完");
 				}else{
 					if(timer.getText().equals("(请在0秒内完成操作)")){
+						submitButton.setEnabled(true);
 						timer.setText("操作超时，请重新查询");
+					}else{
+						int number = Integer.parseInt(dealNumField.getText());
+						//调用交易接口
+						option =  new Option("普通期权", "普通期权", eora, upordown);
+						boolean result =false;
+						try {
+							result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
+						} catch (RemoteException e1) {
+							e1.printStackTrace();
+						}
+						System.out.println("交易执行结果:"+result);
 					}
-					System.out.println("交易完成");
+	
 				}			
 				System.out.println("submitButton has been clicked!");
 			}
