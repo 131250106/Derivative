@@ -3,6 +3,8 @@ package serverGUI;
 import java.awt.Component;
 import java.awt.Font;
 import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -85,7 +87,15 @@ public class ViewPanelServer extends MenuPanel{
 			for(Order order:list){
 				Vector v = new Vector();
 				v.add(order.getClientid());
-				v.add(order.getBuyDate());
+				//v.add(order.getBuyDate());
+				Date date= order.getBuyDate();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH);
+				int day = cal.get(Calendar.DATE);
+				String buydate = ""+year+month+day;
+				v.add(buydate);
 				v.add(order.getOption().toString());
 				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				if(order.getNumber()>=0){
@@ -93,7 +103,15 @@ public class ViewPanelServer extends MenuPanel{
 				}else{
 					v.add("卖");
 				}
-				v.add(order.getDeadline());
+				//v.add(order.getDeadline());
+				Date date2= order.getBuyDate();
+				Calendar cal2 = Calendar.getInstance();
+				cal.setTime(date);
+				int year2 = cal.get(Calendar.YEAR);
+				int month2 = cal.get(Calendar.MONTH);
+				int day2 = cal.get(Calendar.DATE);
+				String deadline = ""+year+month+day;
+				v.add(deadline);
 				v.add(order.getDealprice());
 				v.add(Math.abs(order.getNumber()));
 				if(order.isOpen()){

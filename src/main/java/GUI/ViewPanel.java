@@ -10,6 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -433,11 +435,25 @@ public class ViewPanel extends JPanel implements ActionListener{
 				Vector v = new Vector();
 				v.add(order.getOption().toString());
 				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
-				v.add(order.getBuyDate());
+				Date date= order.getBuyDate();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH);
+				int day = cal.get(Calendar.DATE);
+				String buydate = ""+year+month+day;
+				v.add(buydate);
 				//v.add(order.getOption().toString());
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
-				
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				//v.add(order.getDeadline());
+				Date date2= order.getBuyDate();
+				Calendar cal2 = Calendar.getInstance();
+				cal.setTime(date);
+				int year2 = cal.get(Calendar.YEAR);
+				int month2 = cal.get(Calendar.MONTH);
+				int day2 = cal.get(Calendar.DATE);
+				String deadline = ""+year+month+day;
+				v.add(deadline);
 				if(order.getNumber()>=0){
 					v.add("买");
 				}else{
