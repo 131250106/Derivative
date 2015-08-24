@@ -22,7 +22,9 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import data.EorA;
 import data.Order;
+import data.upORdown;
 import blservice.Service;
 import GUI.Asianoptions.AsianoptionsPanel;
 import GUI.Asianoptions.AvgExcPricePanel;
@@ -438,14 +440,21 @@ public class ViewPanel extends JPanel implements ActionListener{
 				}else{
 					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
 				}
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				EorA eora = order.getOption().getEora();
+				upORdown upordown = order.getOption().getUpordown();
+				if(upordown == upORdown.up){
+						v.add("看涨");
+					}else{
+						v.add("看跌");
+					}
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				Date date= order.getBuyDate();
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(date);
 				int year = cal.get(Calendar.YEAR);
 				int month = cal.get(Calendar.MONTH);
 				int day = cal.get(Calendar.DATE);
-				String buydate = ""+year+month+day;
+				String buydate = ""+year+"-"+month+"-"+day;
 				v.add(buydate);
 				//v.add(order.getOption().toString());
 				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
@@ -456,7 +465,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 				int year2 = cal.get(Calendar.YEAR);
 				int month2 = cal.get(Calendar.MONTH);
 				int day2 = cal.get(Calendar.DATE);
-				String deadline = ""+year+month+day;
+				String deadline = ""+year+"-"+month+"-"+day;
 				v.add(deadline);
 				if(order.getNumber()>=0){
 					v.add("买");

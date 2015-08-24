@@ -14,8 +14,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import serverGUI.tm.ViewTmServer;
 import blservice.Service;
+import data.EorA;
 import data.Order;
 import data.OrderOFholdings;
+import data.upORdown;
 import GUI.myswing.MyColor;
 import GUI.myswing.NTable;
 
@@ -101,8 +103,14 @@ public class ViewPanelServer extends MenuPanel{
 				}else{
 					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
 				}
-					
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				EorA eora = order.getOption().getEora();
+				upORdown upordown = order.getOption().getUpordown();	
+				if(upordown == upORdown.up){
+					v.add("看涨");
+				}else{
+					v.add("看跌");
+				}
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				if(order.getNumber()>=0){
 					v.add("买");
 				}else{

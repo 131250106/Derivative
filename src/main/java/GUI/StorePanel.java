@@ -25,8 +25,10 @@ import GUI.myswing.NTable;
 import GUI.myswing.StoreTm;
 import GUI.myswing.ViewTm;
 import blservice.Service;
+import data.EorA;
 import data.Order;
 import data.OrderOFholdings;
+import data.upORdown;
 
 public class StorePanel extends JPanel implements ActionListener{
 	private JButton buttonOption,buttonView,buttonStore;;
@@ -423,7 +425,14 @@ public class StorePanel extends JPanel implements ActionListener{
 				}else{
 					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
 				}
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				EorA eora = order.getOption().getEora();
+				upORdown upordown = order.getOption().getUpordown();	
+				if(upordown == upORdown.up){
+					v.add("看涨");
+				}else{
+					v.add("看跌");
+				}
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				v.add(order.getExecuteprice());
 				
 				v.add(order.getDeadTime());
