@@ -359,7 +359,7 @@ public class StorePanel extends JPanel implements ActionListener{
 		
 		//orderlist = service.getOrdersByAccount("0");
 		try {
-			orderlist = service.getOrderOFholdingsByAccount("0");
+			orderlist = service.getOrderOFholdingsByAccount("131250131");
 		} catch (RemoteException e1) {
 			System.out.println("NetWork Wrong");
 			e1.printStackTrace();
