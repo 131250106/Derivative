@@ -2,6 +2,7 @@ package serverGUI;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -112,8 +113,12 @@ public class StorePanelServer extends MenuPanel{
 				}else{
 					v.add("卖");
 				}
+				
 				v.add(Math.abs(order.getNumber()));
-				v.add(order.getCost());
+				BigDecimal bigcost = new BigDecimal(order.getCost());
+				double cost = bigcost.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+				v.add(cost);
+				//v.add(order.getCost());
 				double [] arrayOfrate;
 				arrayOfrate = getNowPrice(order);
 				v.add(arrayOfrate[0]);
