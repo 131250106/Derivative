@@ -17,7 +17,7 @@ public class DBTool implements DBService {
 	private String pwd = "";
 	private Connection conn;
 	private static DBTool dbTool;
-	private final static String[] optionNames = { "普通期权", "二元期权 现金或无价值","二元期权 资产或无价值", "回望期权 浮动执行价格期权",
+	private final static String[] optionNames = { "普通期权", "二元期权 现金或无价值期权","二元期权 资产或无价值期权", "回望期权 浮动执行价格期权",
 			"回望期权 固定执行价格期权", "亚式期权 平均价格期权", "亚式期权 平均执行价格期权", "障碍期权 向上敲出期权",
 			"障碍期权 向下敲出期权", "障碍期权 向上敲入期权", "障碍期权 向下敲入期权" };
 
@@ -418,7 +418,7 @@ public class DBTool implements DBService {
 		String firstClassName = null;
 		String secondClassName = null;
 		EorA eora = null;
-		String className = optionNames[type];
+		String className = optionNames[(int)type];
         String[] classNameArray = className.split(" ");
         firstClassName = classNameArray[0];
         if (classNameArray.length == 2)

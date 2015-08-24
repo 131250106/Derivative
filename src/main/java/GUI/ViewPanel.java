@@ -437,7 +437,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 				//v.add(order.getOption().toString());
 				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				
-				v.add(order.getDeadline());
+				//v.add(order.getDeadline());
 				if(order.getNumber()>=0){
 					v.add("买");
 				}else{
