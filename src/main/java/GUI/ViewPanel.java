@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -473,8 +474,10 @@ public class ViewPanel extends JPanel implements ActionListener{
 					v.add("卖");
 				}
 				v.add(Math.abs(order.getNumber()));
-				v.add(order.getDealprice());
-				
+				BigDecimal dealpriceBigDecimal = new BigDecimal(order.getDealprice());
+				double dealprice = dealpriceBigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+				//v.add(order.getDealprice());
+				v.add(dealprice);
 				tableRow.addRow(v);
 			}
 			/*for(Integer a:list){

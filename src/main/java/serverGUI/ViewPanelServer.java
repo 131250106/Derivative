@@ -2,6 +2,7 @@ package serverGUI;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
@@ -125,7 +126,11 @@ public class ViewPanelServer extends MenuPanel{
 				int day2 = cal.get(Calendar.DATE);
 				String deadline = ""+year+"-"+month+"-"+day;
 				v.add(deadline);
-				v.add(order.getDealprice());
+				BigDecimal dealpriceBigDecimal = new BigDecimal(order.getDealprice());
+				double dealprice = dealpriceBigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+				//v.add(order.getDealprice());
+				v.add(dealprice);
+				//v.add(order.getDealprice());
 				v.add(Math.abs(order.getNumber()));
 				if(order.isOpen()){
 					v.add("开仓");
