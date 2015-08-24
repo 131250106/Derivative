@@ -94,9 +94,14 @@ public class ViewPanelServer extends MenuPanel{
 				int year = cal.get(Calendar.YEAR);
 				int month = cal.get(Calendar.MONTH);
 				int day = cal.get(Calendar.DATE);
-				String buydate = ""+year+month+day;
+				String buydate = ""+year+"-"+month+"-"+day;
 				v.add(buydate);
-				v.add(order.getOption().toString());
+				if(order.getOption().getFirstClassName().equals("普通期权")){
+					v.add(order.getOption().getFirstClassName());	
+				}else{
+					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
+				}
+					
 				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				if(order.getNumber()>=0){
 					v.add("买");
@@ -110,7 +115,7 @@ public class ViewPanelServer extends MenuPanel{
 				int year2 = cal.get(Calendar.YEAR);
 				int month2 = cal.get(Calendar.MONTH);
 				int day2 = cal.get(Calendar.DATE);
-				String deadline = ""+year+month+day;
+				String deadline = ""+year+"-"+month+"-"+day;
 				v.add(deadline);
 				v.add(order.getDealprice());
 				v.add(Math.abs(order.getNumber()));

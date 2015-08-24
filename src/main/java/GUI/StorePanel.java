@@ -418,7 +418,11 @@ public class StorePanel extends JPanel implements ActionListener{
 			
 			for(OrderOFholdings order:list){
 				Vector v = new Vector();
-				v.add(order.getOption().toString());
+				if(order.getOption().getFirstClassName().equals("普通期权")){
+					v.add(order.getOption().getFirstClassName());	
+				}else{
+					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
+				}
 				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				v.add(order.getExecuteprice());
 				
