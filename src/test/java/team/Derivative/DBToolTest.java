@@ -76,7 +76,7 @@ public class DBToolTest {
 	@Test
 	public void testAddOrder() {
 //		fail("Not yet implemented");
-		Option option = new Option("普通期权", null, EorA.A, upORdown.down);
+		Option option = new Option("二元期权", "资产或无价值期权", EorA.A, upORdown.down);
 		Order order = new Order("dingfeng",  option, new Date(), 1, 2, 3,true);
 		dbTool.addOrder(order);
 	}
