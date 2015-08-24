@@ -389,13 +389,15 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					}else{
 						number = Integer.parseInt(dealNumField.getText());
 						//调用交易接口
-						option =  new Option("普通期权", "普通期权", eora, upordown);
+						option =  new Option("普通期权",null, eora, upordown);
 						boolean result =false;
 						isPurchase = bidButton.isSelected()?true:false;
 						if(isPurchase){
 							number = number*1;
+							dealprice = PurchasePrice[0];
 						}else{
 							number = number*(-1);
+							dealprice = PurchasePrice[1];
 						}
 						try {
 							result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);

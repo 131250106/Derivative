@@ -2,6 +2,7 @@ package serverGUI;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -12,8 +13,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import serverGUI.tm.StoreTmServer;
 import bl.CombinationManage;
 import bl.OrderManage;
+import data.EorA;
 import data.Order;
 import data.OrderOFholdings;
+import data.upORdown;
 import GUI.myswing.MyColor;
 import GUI.myswing.NTable;
 
@@ -90,8 +93,19 @@ public class StorePanelServer extends MenuPanel{
 			for(OrderOFholdings order:list){
 				Vector v = new Vector();
 				v.add(order.getAccount());
-				v.add(order.getOption().toString());
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				if(order.getOption().getFirstClassName().equals("普通期权")){
+					v.add(order.getOption().getFirstClassName());	
+				}else{
+					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
+				}
+				EorA eora = order.getOption().getEora();
+				upORdown upordown = order.getOption().getUpordown();	
+				if(upordown == upORdown.up){
+					v.add("看涨");
+				}else{
+					v.add("看跌");
+				}
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				v.add(order.getExecuteprice());
 				v.add(order.getDeadline());
 				if(order.getNumber()>=0){
@@ -99,8 +113,12 @@ public class StorePanelServer extends MenuPanel{
 				}else{
 					v.add("卖");
 				}
+				
 				v.add(Math.abs(order.getNumber()));
-				v.add(order.getCost());
+				BigDecimal bigcost = new BigDecimal(order.getCost());
+				double cost = bigcost.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+				v.add(cost);
+				//v.add(order.getCost());
 				double [] arrayOfrate;
 				arrayOfrate = getNowPrice(order);
 				v.add(arrayOfrate[0]);

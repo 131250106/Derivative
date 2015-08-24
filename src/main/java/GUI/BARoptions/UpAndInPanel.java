@@ -360,8 +360,10 @@ public class UpAndInPanel extends BARoptionsPanel{
 								isPurchase = bidButton.isSelected()?true:false;
 								if(isPurchase){
 									number = number*1;
+									dealprice = PurchasePrice[0];
 								}else{
 									number = number*(-1);
+									dealprice = PurchasePrice[1];
 								}
 								boolean result =false;
 								try {

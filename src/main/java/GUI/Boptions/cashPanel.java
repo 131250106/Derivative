@@ -348,8 +348,10 @@ public class cashPanel extends BoptionsPanel{
 							isPurchase = bidButton.isSelected()?true:false;
 							if(isPurchase){
 								number = number*1;
+								dealprice = PurchasePrice[0];
 							}else{
 								number = number*(-1);
+								dealprice = PurchasePrice[1];
 							}
 							try {
 								result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);

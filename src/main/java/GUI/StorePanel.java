@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.Vector;
 
@@ -25,8 +26,10 @@ import GUI.myswing.NTable;
 import GUI.myswing.StoreTm;
 import GUI.myswing.ViewTm;
 import blservice.Service;
+import data.EorA;
 import data.Order;
 import data.OrderOFholdings;
+import data.upORdown;
 
 public class StorePanel extends JPanel implements ActionListener{
 	private JButton buttonOption,buttonView,buttonStore;;
@@ -418,12 +421,26 @@ public class StorePanel extends JPanel implements ActionListener{
 			
 			for(OrderOFholdings order:list){
 				Vector v = new Vector();
-				v.add(order.getOption().toString());
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				if(order.getOption().getFirstClassName().equals("普通期权")){
+					v.add(order.getOption().getFirstClassName());	
+				}else{
+					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
+				}
+				EorA eora = order.getOption().getEora();
+				upORdown upordown = order.getOption().getUpordown();	
+				if(upordown == upORdown.up){
+					v.add("看涨");
+				}else{
+					v.add("看跌");
+				}
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				v.add(order.getExecuteprice());
 				
 				v.add(order.getDeadTime());
-				v.add(order.getCost());
+				BigDecimal bigcost = new BigDecimal(order.getCost());
+				double cost = bigcost.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+				v.add(cost);
+				//v.add(order.getCost());
 				if(order.getNumber()>=0){
 					v.add("买");
 				}else{

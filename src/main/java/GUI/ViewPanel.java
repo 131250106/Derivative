@@ -8,8 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -20,7 +23,9 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import data.EorA;
 import data.Order;
+import data.upORdown;
 import blservice.Service;
 import GUI.Asianoptions.AsianoptionsPanel;
 import GUI.Asianoptions.AvgExcPricePanel;
@@ -431,21 +436,48 @@ public class ViewPanel extends JPanel implements ActionListener{
 			}
 			for(Order order:list){
 				Vector v = new Vector();
-				v.add(order.getOption().toString());
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
-				v.add(order.getBuyDate());
+				if(order.getOption().getFirstClassName().equals("普通期权")){
+					v.add(order.getOption().getFirstClassName());	
+				}else{
+					v.add(order.getOption().getFirstClassName()+order.getOption().getSecondClassName());
+				}
+				EorA eora = order.getOption().getEora();
+				upORdown upordown = order.getOption().getUpordown();
+				if(upordown == upORdown.up){
+						v.add("看涨");
+					}else{
+						v.add("看跌");
+					}
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
+				Date date= order.getBuyDate();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH);
+				int day = cal.get(Calendar.DATE);
+				String buydate = ""+year+"-"+month+"-"+day;
+				v.add(buydate);
 				//v.add(order.getOption().toString());
-				v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
-				
+				//v.add(order.getOption().getEora().toString()+order.getOption().getEora().toString());
 				//v.add(order.getDeadline());
+				Date date2= order.getBuyDate();
+				Calendar cal2 = Calendar.getInstance();
+				cal.setTime(date);
+				int year2 = cal.get(Calendar.YEAR);
+				int month2 = cal.get(Calendar.MONTH);
+				int day2 = cal.get(Calendar.DATE);
+				String deadline = ""+year+"-"+month+"-"+day;
+				v.add(deadline);
 				if(order.getNumber()>=0){
 					v.add("买");
 				}else{
 					v.add("卖");
 				}
 				v.add(Math.abs(order.getNumber()));
-				v.add(order.getDealprice());
-				
+				BigDecimal dealpriceBigDecimal = new BigDecimal(order.getDealprice());
+				double dealprice = dealpriceBigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+				//v.add(order.getDealprice());
+				v.add(dealprice);
 				tableRow.addRow(v);
 			}
 			/*for(Integer a:list){
