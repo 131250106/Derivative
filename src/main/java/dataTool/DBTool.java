@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class DBTool implements DBService {
 	private String url = "jdbc:mysql://127.0.0.1:3306/derivative?useUnicode=true&characterEncoding=utf8";
@@ -17,17 +16,15 @@ public class DBTool implements DBService {
 	private String user = "root";
 	private String pwd = "";
 	private Connection conn;
-	private static AtomicInteger id;
 	private static DBTool dbTool;
-	private final static String[] optionNames = { "普通期权", "二元期权", "回望期权 浮动执行价格期权",
+	private final static String[] optionNames = { "普通期权", "二元期权 现金或无价值","二元期权 资产或无价值", "回望期权 浮动执行价格期权",
 			"回望期权 固定执行价格期权", "亚式期权 平均价格期权", "亚式期权 平均执行价格期权", "障碍期权 向上敲出期权",
-			"障碍期权 向下敲出期权", "障碍期权 向上敲入期权", "障碍期权 向下敲入期权", "障碍期权 双重障碍期权","障碍期权 多次触及障碍水平期权" };
+			"障碍期权 向下敲出期权", "障碍期权 向上敲入期权", "障碍期权 向下敲入期权" };
 
 	private DBTool() throws ClassNotFoundException, SQLException,
 			ParseException {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, user, pwd);
-		initId();
 		dbTool = this;
 	}
 
@@ -42,28 +39,6 @@ public class DBTool implements DBService {
 		return dbTool;
 	}
 
-	private void initId() throws ParseException {
-		Date date = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		String currentDateStr = format.format(date);
-		String start = currentDateStr + " 000000";
-		String end = currentDateStr + " 240000";
-		SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMdd hhmmss");
-		Date date_start = format2.parse(start);
-		Date date_end = format2.parse(end);
-		String sql = "select count(*) from `order` where date >= ? and date < ?";
-		try {
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setLong(1, date_start.getTime());
-			statement.setLong(2, date_end.getTime());
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				id = new AtomicInteger(resultSet.getInt(1) + 1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public boolean hasUser(String account, String password) {
 		String sql = "select * from user where account = ? and password = ?";
@@ -106,7 +81,7 @@ public class DBTool implements DBService {
 	public User findUser(String account) {
 		String sql = "select * from user where account = ?";
 		User user = null;
-		try (PreparedStatement statement = conn.prepareStatement(sql)) {
+		try (PreparedStatement statement = conn.prepareStatement(sql)){
 			statement.setString(1, account);
 			ResultSet userInfo = statement.executeQuery();
 			if (userInfo.next()) {
@@ -149,10 +124,10 @@ public class DBTool implements DBService {
 	public boolean addOrder(Order order) {
 		boolean result = false;
 		Option option = order.getOption();
-		String order_id = this.generateOrderId();
 		String client_account = order.getClientid();
-		long deadLine = order.getDeadline().getTime();
-		long date = new Date().getTime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		String deadLine = format.format(order.getDeadline());
+		String date = format.format(new Date());
 		double dealPrice = order.getDealprice();
 		double executePrice = order.getExecuteprice();
 		byte updown = (byte) (option.getUpordown() == upORdown.down ? 0 : 1);
@@ -172,16 +147,15 @@ public class DBTool implements DBService {
         }
 		
 		int num = order.getNumber();
-		String sql = "insert into `order` (order_id,client_account,deadLine,dealPrice,date,executePrice,updown,area,"
+		String sql = "insert into `order` (client_account,deadLine,dealPrice,date,executePrice,updown,area,"
 				+ "type,num,payOff,obstacleRate,open)"
-				+ " values (?,?,?,?,? ,?,?,?,?,?,?,?,?)";
+				+ " values (?,?,?,?,? ,?,?,?,?,?,?,?)";
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			int index = 1;
-			statement.setString(index++, order_id);
 			statement.setString(index++, client_account);
-			statement.setLong(index++, deadLine);
+			statement.setString(index++, deadLine);
 			statement.setDouble(index++, dealPrice);
-			statement.setLong(index++, date);
+			statement.setString(index++, date);
 			statement.setDouble(index++, executePrice);
 			statement.setByte(index++, updown);
 			statement.setByte(index++, area);
@@ -223,16 +197,18 @@ public class DBTool implements DBService {
 			sql += sql3;
 		}
 
-		try (PreparedStatement statement = conn.prepareStatement(sql)) {
+		try  {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 			int index = 1;
 			if (account != null) {
 				statement.setString(index++, account);
 			}
 			if (date != null) {
-				statement.setDate(index++, convertDate(date));
+				statement.setString(index++, format.format(date));
 			}
 			if (ddl != null) {
-				statement.setDate(index++, convertDate(ddl));
+				statement.setString(index++, format.format(ddl));
 			}
 			ResultSet results = statement.executeQuery();
 			ArrayList<Order> list = new ArrayList<Order>();
@@ -250,18 +226,16 @@ public class DBTool implements DBService {
 		return orders;
 	}
 
-	private java.sql.Date convertDate(Date date) {
-		return new java.sql.Date(date.getTime());
-	}
 
 	private Order toOrder(ResultSet results) {
 		Order order = null;
 		try {
 			String order_id = results.getString("order_id");
 			String client_account = results.getString("client_account");
-			Date deadLine = new Date(results.getLong("deadLine"));
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+			Date deadLine = format.parse(results.getString("deadLine"));
 			double dealPrice = results.getDouble("dealPrice");
-			Date date = new Date(results.getLong("date"));
+			Date date = format.parse(results.getString("date"));
 			double executePrice = results.getDouble("executePrice");
 			int num = results.getInt("num");
 			double payOff = results.getDouble("payOff");
@@ -278,16 +252,6 @@ public class DBTool implements DBService {
 			e.printStackTrace();
 		}
 		return order;
-	}
-
-	private String generateOrderId() {
-
-		String orderId = null;
-		Date utilDate = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-");
-		String dateStr = format.format(utilDate);
-		orderId = dateStr + id.incrementAndGet();
-		return orderId;
 	}
 
 	@Override
@@ -409,7 +373,7 @@ public class DBTool implements DBService {
 	
 
 	public OrderOFholdings[] getHoldingOrdersByClientId(String account) {
-		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost, executePrice from `order` where client_account = ? group by `type`,updown,area,deadLine,executePrice;";
+		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost, executePrice,obstacleRate from `order` where client_account = ? group by `type`,updown,area,deadLine,executePrice,obstacleRate;";
 		OrderOFholdings[] holdingOrders = null;
 		try
 		{
@@ -450,6 +414,7 @@ public class DBTool implements DBService {
 		byte updown = results.getByte("updown");
 		byte area = results.getByte("area");
 		byte type = results.getByte("type");
+		double obstacleRate = results.getDouble("obstacleRate");
 		String firstClassName = null;
 		String secondClassName = null;
 		EorA eora = null;
@@ -464,12 +429,14 @@ public class DBTool implements DBService {
 		upORdown[] upORdowns = { upORdown.down, upORdown.up };
 		eora = eoras[area];
 		upORdown upordown = upORdowns[updown];
-		return new Option(firstClassName, secondClassName, eora,
+		Option option = new Option(firstClassName, secondClassName, eora,
 				upordown);
+		option.setObstacleRate(obstacleRate);
+		return option;
 	}
 
 	public OrderOFholdings[] getHoldingOrders() {
-		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost from `order`  group by `type`,updown,area,deadLine,client_account;";
+		String sql = "select client_account,type,updown,area,deadLine,sum(num) as total,sum(num*dealPrice)/sum(num* dealPrice/abs(dealPrice)) as cost , executePrice, obstacleRate from `order`  group by `type`,updown,area,deadLine,client_account,executePrice,obstacleRate;";
 		OrderOFholdings[] holdingOrders = null;
 		try
 		{
