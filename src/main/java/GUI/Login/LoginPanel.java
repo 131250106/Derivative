@@ -11,7 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class LoginPanel extends JPanel implements ActionListener{
+public class LoginPanel extends JPanel{
 	
 	//背景
 	private JLabel bg=new JLabel();
@@ -33,13 +33,13 @@ public LoginPanel(){
 		
 
 		//背景
-		bg.setIcon(new ImageIcon("src/image/loginBackgroud.png"));
+		bg.setIcon(new ImageIcon("image/background_name_changed.jpg"));
 		bg.setBounds(0, -20, 960, 600);
 		
 
 		//按钮
 		signIn.setSize(129, 48);
-		signIn.setIcon(new ImageIcon("src/image/sign in.png") );
+		signIn.setIcon(new ImageIcon("image/sign in.png") );
 		signIn.setLocation(350, 470);
 		
 		//文本框
@@ -60,10 +60,6 @@ public LoginPanel(){
 		this.add(bg,3);
 	}
     
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		
-	}
+
 
 }

@@ -50,6 +50,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
  	double dealprice;
  	boolean isPurchase;
  	int number;
+ 	TimerThread timerThread=null;
  	
 	private JButton pvoption;
 	private JLabel tag;
@@ -334,17 +335,17 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					eora = Europe.isSelected()?EorA.E:EorA.A;
 					upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 					
-					try {
-						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
-					}
-					System.out.println(executePrice);
+//					try {
+//						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
+//					} catch (RemoteException e1) {
+//						e1.printStackTrace();
+//					}
+//					System.out.println(executePrice);
 					//这里调用getPurchasePrice
-					bidPriceField.setText(Double.toString(PurchasePrice[0]));
-					askPriceField.setText(Double.toString(PurchasePrice[1]));
-//					bidPriceField.setText("12.5");
-//					askPriceField.setText("12.0");
+//					bidPriceField.setText(Double.toString(PurchasePrice[0]));
+//					askPriceField.setText(Double.toString(PurchasePrice[1]));
+					bidPriceField.setText("12.5");
+					askPriceField.setText("12.0");
 					bidPriceField.setVisible(true);
 					bidPriceLabel.setVisible(true);
 					askPriceLabel.setVisible(true);
@@ -355,8 +356,14 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					dealNumField.setVisible(true);
 					dealButton.setVisible(true);
 					timer.setVisible(true);
-					TimerThread timerThread = new TimerThread();
-					timerThread.start();
+					if(timerThread==null){
+						timerThread = new TimerThread();
+						timerThread.start();
+					}else{
+						timerThread.stop();
+						timerThread = new TimerThread();
+						timerThread.start();
+					}
 					submitButton.setEnabled(false);
 				}			
 				System.out.println("submitButton has been clicked!");
@@ -401,6 +408,12 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 							e1.printStackTrace();
 						}
 						System.out.println("交易执行结果:"+result);
+						if(result){
+							timer.setText("交易成功!");
+						}else{
+							timer.setText("交易失败!请重试");
+						}
+
 					}
 	
 				}			
