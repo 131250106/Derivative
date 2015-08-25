@@ -51,7 +51,9 @@ public class OrderManage { // 所有客户订单的管理
 		OrderOFholdings[] temp = getOrderOFholdingsByAccount(ClientID);
 		if (temp != null) {
 			for (int i = 0; i < temp.length; i++) {
-				if (temp[i].getOption().isequal(option)) {
+				if (temp[i].getOption().isequal(option)
+						&& temp[i].getDeadline() == deadline
+						&& temp[i].getExecuteprice() == executeprice) {
 					if (temp[i].getNumber() * number < 0) { // 若为相反类型操作，则为平仓
 						isOpen = false;
 						break;

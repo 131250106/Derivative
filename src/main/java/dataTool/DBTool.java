@@ -405,7 +405,14 @@ public class DBTool implements DBService {
 		Option option = toOption(result);
 		int sum = result.getInt("total");
 		double cost = result.getDouble("cost");
-		Date deadLine = new Date(result.getLong("deadLine"));
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date deadLine = null;
+		try {
+			deadLine = format.parse(result.getString("deadLine"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new OrderOFholdings(result.getString("client_account"),option,deadLine,sum,cost,result.getDouble("executePrice"));
 	}
 	

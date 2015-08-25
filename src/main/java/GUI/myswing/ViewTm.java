@@ -17,7 +17,7 @@ public class ViewTm extends AbstractTableModel{
 		columnNames.add("买/卖");
 		columnNames.add("数量");
 		columnNames.add("交易价格");
-	
+	    columnNames.add("平仓/开仓");
 		rows = new Vector();
 	}
 	

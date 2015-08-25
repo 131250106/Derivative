@@ -118,13 +118,13 @@ public class ViewPanelServer extends MenuPanel{
 					v.add("卖");
 				}
 				//v.add(order.getDeadline());
-				Date date2= order.getBuyDate();
+				Date date2= order.getDeadline();
 				Calendar cal2 = Calendar.getInstance();
-				cal.setTime(date);
-				int year2 = cal.get(Calendar.YEAR);
-				int month2 = cal.get(Calendar.MONTH);
-				int day2 = cal.get(Calendar.DATE);
-				String deadline = ""+year+"-"+month+"-"+day;
+				cal2.setTime(date2);
+				int year2 = cal2.get(Calendar.YEAR);
+				int month2 = cal2.get(Calendar.MONTH);
+				int day2 = cal2.get(Calendar.DATE);
+				String deadline = ""+year2+"-"+month2+"-"+day2;
 				v.add(deadline);
 				BigDecimal dealpriceBigDecimal = new BigDecimal(order.getDealprice());
 				double dealprice = dealpriceBigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();

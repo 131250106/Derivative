@@ -43,7 +43,7 @@ public class OrderOFholdings implements Serializable{
 	
 	public int getDeadTime() {
 		Date now = new Date();
-		deadTime = (int)((now.getTime() - deadline.getTime())
+		deadTime = (int)((deadline.getTime() - now.getTime())
 				/ (24 * 60 * 60 * 1000));
 		return this.deadTime;
 	}
