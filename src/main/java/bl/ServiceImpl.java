@@ -133,6 +133,7 @@ public class ServiceImpl implements Service {
     @Override
     public boolean purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
+    	System.out.println(ClientID+"  "+option.getFirstClassName()+"   "+option.getSecondClassName()+"  "+dealprice);
         boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
 //        combinationManage.hedging();
         return result;

@@ -1,8 +1,10 @@
 package data;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OrderOFholdings {
+public class OrderOFholdings implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String account;	//用户账号
 	private Option option; // 期权
 	private Date deadline; // 到期时间

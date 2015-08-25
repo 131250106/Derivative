@@ -379,7 +379,7 @@ public class ViewPanel extends JPanel implements ActionListener{
 		this.add(table);
 		
 		try {
-			orderlist = service.getOrdersByAccount("0");
+			orderlist = service.getOrdersByAccount("131250131");
 		} catch (RemoteException e1) {
 			e1.printStackTrace();
 		}
