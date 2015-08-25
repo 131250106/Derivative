@@ -356,11 +356,14 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					dealNumField.setVisible(true);
 					dealButton.setVisible(true);
 					timer.setVisible(true);
-					if(timerThread!=null){
-						
+					if(timerThread==null){
+						timerThread = new TimerThread();
+						timerThread.start();
+					}else{
+						timerThread.stop();
+						timerThread = new TimerThread();
+						timerThread.start();
 					}
-					timerThread = new TimerThread();
-					timerThread.start();
 					submitButton.setEnabled(false);
 				}			
 				System.out.println("submitButton has been clicked!");

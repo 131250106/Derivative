@@ -35,7 +35,7 @@ public class FixedPanel extends LBoptionsPanel{
  	double dealprice;
  	boolean isPurchase;
  	int number;
-	
+ 	TimerThread timerThread=null;
 	
 	private JButton pvoption;
 	private JLabel Name;
@@ -340,8 +340,14 @@ public class FixedPanel extends LBoptionsPanel{
 					dealNumField.setVisible(true);
 					dealButton.setVisible(true);
 					timer.setVisible(true);
-					TimerThread timerThread = new TimerThread();
-					timerThread.start();
+					if(timerThread==null){
+						timerThread = new TimerThread();
+						timerThread.start();
+					}else{
+						timerThread.stop();
+						timerThread = new TimerThread();
+						timerThread.start();
+					}
 					submitButton.setEnabled(false);
 				}			
 				System.out.println("submitButton has been clicked!");
@@ -386,10 +392,16 @@ public class FixedPanel extends LBoptionsPanel{
 							e1.printStackTrace();
 						}
 						System.out.println("交易执行结果:"+result);
+						if(result){
+							timer.setText("交易成功!");
+						}else{
+							timer.setText("交易失败!请重试");
+						}
 					}
 	
 				}			
 				System.out.println("submitButton has been clicked!");
+				
 			}
 		});
 		
