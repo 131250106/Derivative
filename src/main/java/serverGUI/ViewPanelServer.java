@@ -13,8 +13,9 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import bl.OrderManage;
 import serverGUI.tm.ViewTmServer;
-import blservice.Service;
+//import blservice.Service;
 import data.EorA;
 import data.Order;
 import data.OrderOFholdings;
@@ -23,7 +24,8 @@ import GUI.myswing.MyColor;
 import GUI.myswing.NTable;
 
 public class ViewPanelServer extends MenuPanel{
-	private Service service;
+//	private Service service;
+	private OrderManage orderservice;
 	private Order[] orderlist;
 	//ArrayList<Integer> list;
 	DefaultTableCellRenderer render;
@@ -33,6 +35,9 @@ public class ViewPanelServer extends MenuPanel{
 	public ViewPanelServer(String name) {
 		super("View");
 		super.buttonView.setBackground(MyColor.deepblue2);
+		
+		orderservice = serverLoader.orderservice;
+		
 		Font font = new Font("微软雅黑",Font.PLAIN,18);
 		
 		tag = new JLabel("交易记录");
@@ -78,7 +83,7 @@ public class ViewPanelServer extends MenuPanel{
 				//table.repaint();
 				this.add(table);
 				
-				//orderlist = service.getOrdersByAccount("0");
+				orderlist = orderservice.getOrdersByAccount("131250131");
 				filltable(orderlist);
 
 	}
@@ -166,6 +171,7 @@ public class ViewPanelServer extends MenuPanel{
 			tableRow.addRow(v);*/
 		
 	}
+
 	
 	/*public double[] getNowPrice(OrderOFholdings list){
 		String name = list.getOption().getFirstClassName();
