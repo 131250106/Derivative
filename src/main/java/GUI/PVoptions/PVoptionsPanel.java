@@ -335,17 +335,17 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 					eora = Europe.isSelected()?EorA.E:EorA.A;
 					upordown = LookDown.isSelected()?upORdown.down:upORdown.up;
 					
-//					try {
-//						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
-//					} catch (RemoteException e1) {
-//						e1.printStackTrace();
-//					}
-//					System.out.println(executePrice);
+					try {
+						PurchasePrice = service.getCommonPurchasePrice(eora, upordown, executePrice, deadline, "131250131");
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+					System.out.println(executePrice);
 					//这里调用getPurchasePrice
-//					bidPriceField.setText(Double.toString(PurchasePrice[0]));
-//					askPriceField.setText(Double.toString(PurchasePrice[1]));
-					bidPriceField.setText("12.5");
-					askPriceField.setText("12.0");
+					bidPriceField.setText(Double.toString(PurchasePrice[0]));
+					askPriceField.setText(Double.toString(PurchasePrice[1]));
+//					bidPriceField.setText("12.5");
+//					askPriceField.setText("12.0");
 					bidPriceField.setVisible(true);
 					bidPriceLabel.setVisible(true);
 					askPriceLabel.setVisible(true);

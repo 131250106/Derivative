@@ -3,20 +3,29 @@ package GUI.Login;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import GUI.GraphicController;
+import GUI.Loader;
+import GUI.MenuPanel;
+import GUI.PVoptions.PVoptionsPanel;
+
 public class LoginPanel extends JPanel{
 	
 	//背景
 	private JLabel bg=new JLabel();
 	//按钮
-	private JLabel signIn=new JLabel();
+	private JButton signIn=new JButton();
 	private JLabel register=new JLabel();
 	
 	// 用户名输入框
@@ -41,6 +50,12 @@ public LoginPanel(){
 		signIn.setSize(129, 48);
 		signIn.setIcon(new ImageIcon("image/sign in.png") );
 		signIn.setLocation(350, 470);
+		signIn.addMouseListener(new MouseAdapter()  {
+			public void mouseClicked(MouseEvent e) {
+				new Thread(new Load()).start();;
+				new Thread(new GUI()).start();;
+			}
+		});
 		
 		//文本框
 
@@ -54,6 +69,12 @@ public LoginPanel(){
 		passwords.setForeground(Color.white);
 		
 		
+//		pvoption.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent e) {
+//				GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
+//			}
+//		});
+		
 		this.add(signIn,0);
 		this.add(username,1);
 		this.add(passwords,2);
@@ -61,5 +82,21 @@ public LoginPanel(){
 	}
     
 
+	static class Load implements Runnable{
+
+		@Override
+		public void run() {
+			new Loader();
+		}
+	
+	}
+	static class GUI implements Runnable{
+
+		@Override
+		public void run() {
+			GraphicController.changeToPanel(new MenuPanel("MenuPanel"));
+		}
+	
+	}
 
 }
