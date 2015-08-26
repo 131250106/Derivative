@@ -177,7 +177,7 @@ public class DBTool implements DBService {
 	public Order[] findOrder(String account, Date date, Date ddl) {
 		String sql = "select * from `order` where ";
 		String sql1 = " client_account = ? ";
-		String sql2 = " date = ? ";
+		String sql2 = " ?<=date and date<? ";
 		String sql3 = " deadLine = ? ";
 		String join = " and ";
 		Order[] orders = null;
@@ -206,10 +206,15 @@ public class DBTool implements DBService {
 				statement.setString(index++, account);
 			}
 			if (date != null) {
-				statement.setString(index++, format.format(date));
+				String dateStr = format.format(date);
+				SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMdd HHmmss");
+				Date date1 = format2.parse(dateStr+" 000000");
+				Date date2 = format2.parse(String.valueOf(Long.parseLong(dateStr)+1)+" 000000");
+			    statement.setLong(index++, date1.getTime());
+			    statement.setLong(index++, date2.getTime());
 			}
 			if (ddl != null) {
-				statement.setString(index++, format.format(ddl));
+				statement.setLong(index++, this.toDeadlineTime(ddl));
 			}
 			ResultSet results = statement.executeQuery();
 			ArrayList<Order> list = new ArrayList<Order>();
