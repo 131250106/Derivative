@@ -126,7 +126,7 @@ public class DBTool implements DBService {
 		Option option = order.getOption();
 		String client_account = order.getClientid();
 		long deadLine = this.toDeadlineTime(order.getDeadline());
-		long date = new Date().getTime();
+		long date = order.getBuyDate().getTime();
 		double dealPrice = order.getDealprice();
 		double executePrice = order.getExecuteprice();
 		byte updown = (byte) (option.getUpordown() == upORdown.down ? 0 : 1);
