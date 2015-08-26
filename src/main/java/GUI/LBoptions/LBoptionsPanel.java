@@ -1,5 +1,6 @@
 package GUI.LBoptions;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,8 +40,19 @@ public class LBoptionsPanel extends MenuPanel{
 		fixedoption.setBorderPainted(false);
 		fixedoption.setFont(font);
 		fixedoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new FixedPanel("Fixed"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = fixedoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					fixedoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				fixedoption.setBackground(now);
 			}
 		});
 		this.add(fixedoption);
@@ -54,8 +66,19 @@ public class LBoptionsPanel extends MenuPanel{
 		floatoption.setBorderPainted(false);
 		floatoption.setFont(font);
 		floatoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new FloatPanel("Float"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = floatoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					floatoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				floatoption.setBackground(now);
 			}
 		});
 		this.add(floatoption);
