@@ -131,23 +131,35 @@ public class ServiceImpl implements Service {
 
 
     @Override
-    public boolean purchaseOption(Option option, int number, String ClientID,
+    public Order purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
-    	System.out.println(ClientID+"  "+option.getFirstClassName()+"   "+option.getSecondClassName()+"  "+dealprice);
         boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
 //        combinationManage.hedging();
         return result;
     }
 
+    
     @Override
-    public boolean sellOption(Option option, int number, String ClientID,
+    public Order sellOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
     	number = -1 * number;
     	boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
 //        combinationManage.hedging();
         return result;
     }
+    
+	@Override
+	public boolean InsurePurchase(Order order) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
+	@Override
+	public boolean InsureSell(Order order) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+    
     @Override
     public double getPresentPriceByOption(Option option) throws RemoteException {
         return combinationManage.getHuShen300Price();
@@ -166,5 +178,6 @@ public class ServiceImpl implements Service {
 		// TODO Auto-generated method stub
 		return orderManage.getOrderOFholdingsByAccount(account);
 	}
+
 
 }

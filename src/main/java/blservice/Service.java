@@ -106,20 +106,35 @@ public interface Service extends Remote {
 	
 	/**
 	 * 购买期权，参数：option为购买的期权类型，number为购买的数量,ClientID用户唯一标识符，deadline 截止日期，executeprice为执行价格，dealprice为买价
-	 *  返回值，true代表购买成功，false代表失败
+	 *  返回值一张Order订单的所有信息
 	 * */
-	boolean purchaseOption(Option option, int number, String ClientID,
+	Order purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice)
 			throws RemoteException;
 
 	/**
-	 * 卖出期权，参数：option为卖出的期权类型，number为卖出的数量，ClientID用户唯一标识符 ，deadline 截止日期，executeprice为执行价格，dealprice为卖价
-	 * 返回值，true代表卖出成功，false代表失败
+	 * 确认购买期权
+	 * 返回值为true，表明购买成功
 	 * */
-	boolean sellOption(Option option, int number, String ClientID,
+	boolean InsurePurchase(Order order)throws RemoteException;
+	
+	
+	/**
+	 * 卖出期权，参数：option为卖出的期权类型，number为卖出的数量，ClientID用户唯一标识符 ，deadline 截止日期，executeprice为执行价格，dealprice为卖价
+	 * 返回值一张Order订单的所有信息
+	 * */
+	Order sellOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice)
 			throws RemoteException;
 
+	
+	/**
+	 * 确认购卖期权
+	 * 返回值为true，表明卖出成功
+	 * */
+	boolean InsureSell(Order order) throws RemoteException;
+	
+	
 	/**
 	 * 根据期权得到该期权的当前价格(股指)；参数：期权类型,ClientID用户唯一标识符 
 	 * 返回值，该期权当前价格
