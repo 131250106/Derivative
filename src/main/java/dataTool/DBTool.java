@@ -125,9 +125,8 @@ public class DBTool implements DBService {
 		boolean result = false;
 		Option option = order.getOption();
 		String client_account = order.getClientid();
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		String deadLine = format.format(order.getDeadline());
-		String date = format.format(new Date());
+		long deadLine = this.toDeadlineTime(order.getDeadline());
+		long date = new Date().getTime();
 		double dealPrice = order.getDealprice();
 		double executePrice = order.getExecuteprice();
 		byte updown = (byte) (option.getUpordown() == upORdown.down ? 0 : 1);
@@ -155,9 +154,9 @@ public class DBTool implements DBService {
 			int index = 1;
 			statement.setLong(index++, Long.parseLong(orderId));
 			statement.setString(index++, client_account);
-			statement.setString(index++, deadLine);
+			statement.setLong(index++, deadLine);
 			statement.setDouble(index++, dealPrice);
-			statement.setString(index++, date);
+			statement.setLong(index++, date);
 			statement.setDouble(index++, executePrice);
 			statement.setByte(index++, updown);
 			statement.setByte(index++, area);
@@ -482,5 +481,22 @@ public class DBTool implements DBService {
 		}
 		return String.valueOf(id);
 	}
+	
+	   public  long toDeadlineTime(Date date) 
+	   {
+		   try{
+		   SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+		   SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMdd HHmmss");
+		   String dateStr = format1.format(date);
+		   Date newDate;
+		   newDate = format2.parse(String.valueOf(Long.parseLong(dateStr)+1)+" 000000");
+		   System.out.println(format2.format(newDate));
+		   return newDate.getTime();
+		   }catch (Exception e )
+		   {
+			   e.printStackTrace();
+		   }
+		   return -1;
+	   }
 	
 }
