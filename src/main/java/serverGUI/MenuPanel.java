@@ -66,6 +66,15 @@ public class MenuPanel extends JPanel implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 				GraphicControllerServer.changeToPanel(new ArgumentPanel("argument"));
 			}
+			public void mouseEntered(MouseEvent e){
+				buttonOption.setBackground(MyColor.deepblue3);
+			}
+			public void mouseExited(MouseEvent e){
+				buttonOption.setBackground(MyColor.deepblue);
+			}
+		});
+		buttonOption.addMouseMotionListener(new MouseAdapter() {
+			
 		});
 		this.add(buttonOption);
 		
@@ -79,6 +88,12 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonView.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				GraphicControllerServer.changeToPanel(new ViewPanelServer("View"));
+			}
+			public void mouseEntered(MouseEvent e){
+				buttonOption.setBackground(MyColor.deepblue3);
+			}
+			public void mouseExited(MouseEvent e){
+				buttonOption.setBackground(MyColor.deepblue);
 			}
 		});
 		this.add(buttonView);	
@@ -94,6 +109,12 @@ public class MenuPanel extends JPanel implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 
 				GraphicControllerServer.changeToPanel(new StorePanelServer("Store"));
+			}
+			public void mouseEntered(MouseEvent e){
+				buttonOption.setBackground(MyColor.deepblue3);
+			}
+			public void mouseExited(MouseEvent e){
+				buttonOption.setBackground(MyColor.deepblue);
 			}
 		});
 		this.add(buttonStore);

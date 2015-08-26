@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -69,9 +70,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonOption.setBorderPainted(false);
 		buttonOption.setFont(font);
 		buttonOption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
-				buttonOption.setBackground(MyColor.deepblue2);
 				GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = buttonOption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+				buttonOption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+					buttonOption.setBackground(now);
 			}
 		});
 		this.add(buttonOption);
@@ -84,8 +95,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonView.setBorderPainted(false);
 		buttonView.setFont(font);
 		buttonView.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new ViewPanel());
+			}
+			public void mouseEntered(MouseEvent e){
+				now = buttonView.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+				buttonView.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+					buttonView.setBackground(now);
 			}
 		});
 		this.add(buttonView);
@@ -98,8 +120,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonStore.setBorderPainted(false);
 		buttonStore.setFont(font);
 		buttonStore.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new StorePanel());
+			}
+			public void mouseEntered(MouseEvent e){
+				now = buttonStore.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					buttonStore.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				buttonStore.setBackground(now);
 			}
 		});
 		this.add(buttonStore);
