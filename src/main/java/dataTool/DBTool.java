@@ -138,6 +138,7 @@ public class DBTool implements DBService {
 		String second = option.getSecondClassName();
 		double payOff = option.getPayOff();
 		double obstacleRate = option.getObstacleRate();
+		String orderId = order.getOrderId();
 		String temp = second == null ? first : first + " "+second;
         for (String s : optionNames)		
         {
@@ -147,11 +148,12 @@ public class DBTool implements DBService {
         }
 		
 		int num = order.getNumber();
-		String sql = "insert into `order` (client_account,deadLine,dealPrice,date,executePrice,updown,area,"
+		String sql = "insert into `order` (order_id,client_account,deadLine,dealPrice,date,executePrice,updown,area,"
 				+ "type,num,payOff,obstacleRate,open)"
-				+ " values (?,?,?,?,? ,?,?,?,?,?,?,?)";
+				+ " values (?,?,?,?,?,? ,?,?,?,?,?,?,?)";
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			int index = 1;
+			statement.setLong(index++, Long.parseLong(orderId));
 			statement.setString(index++, client_account);
 			statement.setString(index++, deadLine);
 			statement.setDouble(index++, dealPrice);
@@ -230,7 +232,7 @@ public class DBTool implements DBService {
 	private Order toOrder(ResultSet results) {
 		Order order = null;
 		try {
-			String order_id = results.getString("order_id");
+			Long order_id = results.getLong("order_id");
 			String client_account = results.getString("client_account");
 			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 			Date deadLine = format.parse(results.getString("deadLine"));
@@ -244,7 +246,7 @@ public class DBTool implements DBService {
 			Option option = toOption(results);
 			option.setPayOff(payOff);
 			option.setObstacleRate(obstacleRate);
-			order = new Order(order_id,client_account, option, deadLine, executePrice,
+			order = new Order(String.valueOf(order_id),client_account, option, deadLine, executePrice,
 					dealPrice, num, isOpen == 0 ? false : true);
 			order.setBuyDate(date);
 		} catch (Exception e) {
@@ -404,14 +406,7 @@ public class DBTool implements DBService {
 		Option option = toOption(result);
 		int sum = result.getInt("total");
 		double cost = result.getDouble("cost");
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		Date deadLine = null;
-		try {
-			deadLine = format.parse(result.getString("deadLine"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Date deadLine = new Date(result.getLong("deadLine"));
 		return new OrderOFholdings(result.getString("client_account"),option,deadLine,sum,cost,result.getDouble("executePrice"));
 	}
 	
@@ -466,4 +461,26 @@ public class DBTool implements DBService {
 		
 		return  holdingOrders;
 	}
+
+	public  synchronized String getOneOrderId() {
+		String updateSql = "update order_id_store set id = id + 1";
+		String selectSql =  "select id from order_id_store";
+		long id = -1;
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(updateSql);
+			ResultSet results = statement.executeQuery(selectSql);
+			if (results.next())
+			{
+				id = results.getLong("id");
+			}
+			statement.execute();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return String.valueOf(id);
+	}
+	
 }

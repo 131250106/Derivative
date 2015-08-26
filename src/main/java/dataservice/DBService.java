@@ -30,4 +30,8 @@ public interface DBService {
        public OrderOFholdings[] getHoldingOrdersByClientId(String account);
        //获得所有用户的持仓记录
        public OrderOFholdings[] getHoldingOrders();
+       //获得订单号
+       public String getOneOrderId();
+       
+       
 }

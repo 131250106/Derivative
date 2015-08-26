@@ -76,8 +76,8 @@ public class DBToolTest {
 	@Test
 	public void testAddOrder() {
 //		fail("Not yet implemented");
-		Option option = new Option("二元期权", "资产或无价值期权", EorA.A, upORdown.down);
-		Order order = new Order("dingfeng",  option, new Date(), 1, 2, 3,true);
+		Option option = new Option("普通期权", null, EorA.A, upORdown.down);
+		Order order = new Order("100","dingfeng",  option, new Date(), 1, 2, 3,true);
 		dbTool.addOrder(order);
 	}
 
@@ -131,5 +131,10 @@ public class DBToolTest {
 	{
 		System.out.println("all orders : ");
 		System.out.println(Arrays.toString(dbTool.getHoldingOrders()));
+	}
+	@Test 
+	public void testAlldHoldings()
+	{
+		dbTool.findOrder("131250131", null, null);
 	}
 }
