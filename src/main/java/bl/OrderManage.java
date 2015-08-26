@@ -43,10 +43,10 @@ public class OrderManage { // 所有客户订单的管理
 		return dbtool.getHoldingOrdersByClientId(account);
 	}
 
-	public boolean addOrder(Option option, int number, String ClientID,
+	public Order requestOrder(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) {// 参数：option为卖出的期权类型，number为卖出的数量，ClientID用户唯一标识符
-																	// ，deadline
-																	// 截止日期，executeprice为执行价格，dealprice为买卖价
+		// ，deadline
+		// 截止日期，executeprice为执行价格，dealprice为买卖价
 		boolean isOpen = true;
 		OrderOFholdings[] temp = getOrderOFholdingsByAccount(ClientID);
 		if (temp != null) {
@@ -61,8 +61,14 @@ public class OrderManage { // 所有客户订单的管理
 				}
 			}
 		}
-		Order order = new Order(ClientID, option, deadline, executeprice,
+		String orderId = "OD000001";
+		Order order = new Order(orderId,ClientID, option, deadline, executeprice,
 				dealprice, number, isOpen);
+		
+		return order;
+	}
+
+	public boolean addOrder(Order order) {
 		return dbtool.addOrder(order);
 	}
 

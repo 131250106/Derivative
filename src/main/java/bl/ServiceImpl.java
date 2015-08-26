@@ -133,7 +133,7 @@ public class ServiceImpl implements Service {
     @Override
     public Order purchaseOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
-        boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+        Order result =  orderManage.requestOrder(option, number, ClientID, deadline, executeprice, dealprice);
 //        combinationManage.hedging();
         return result;
     }
@@ -143,7 +143,7 @@ public class ServiceImpl implements Service {
     public Order sellOption(Option option, int number, String ClientID,
 			Date deadline, double executeprice, double dealprice) throws RemoteException {
     	number = -1 * number;
-    	boolean result =  orderManage.addOrder(option, number, ClientID, deadline, executeprice, dealprice);
+    	Order result =  orderManage.requestOrder(option, number, ClientID, deadline, executeprice, dealprice);
 //        combinationManage.hedging();
         return result;
     }
@@ -151,13 +151,13 @@ public class ServiceImpl implements Service {
 	@Override
 	public boolean InsurePurchase(Order order) throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
+		return orderManage.addOrder(order);
 	}
 
 	@Override
 	public boolean InsureSell(Order order) throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
+		return orderManage.addOrder(order);
 	}
     
     @Override

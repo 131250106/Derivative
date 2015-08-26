@@ -18,10 +18,11 @@ public class Order implements Serializable {
 	private double vega;
 	private boolean isOpen;				//如果为true，则为开仓，否则为平仓；注：如果以前有这个期权，做相反操作为平仓，否则为开仓
 	private int deadTime; // 距离到期时间
-	private String id;
+	private String orderId;
 
-	public Order(String clientid, Option option, Date deadline,
+	public Order(String orderId,String clientid, Option option, Date deadline,
 			double executeprice, double dealprice, int number,boolean isOpen) {
+		this.orderId = orderId;
 		Clientid = clientid;
 		this.option = option;
 		this.deadline = deadline;
@@ -39,12 +40,9 @@ public class Order implements Serializable {
 		return this.buyDate;
 	}
 
-	public void setOrderId(String id) {
-		this.id = id;
-	}
 
 	public String getOrderId() {
-		return id;
+		return orderId;
 	}
 
 	public String getClientid() {
