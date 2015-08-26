@@ -244,9 +244,8 @@ public class DBTool implements DBService {
 			Option option = toOption(results);
 			option.setPayOff(payOff);
 			option.setObstacleRate(obstacleRate);
-			order = new Order(client_account, option, deadLine, executePrice,
+			order = new Order(order_id,client_account, option, deadLine, executePrice,
 					dealPrice, num, isOpen == 0 ? false : true);
-			order.setOrderId(order_id);
 			order.setBuyDate(date);
 		} catch (Exception e) {
 			e.printStackTrace();
