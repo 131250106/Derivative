@@ -341,7 +341,8 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 						e1.printStackTrace();
 					}
 					System.out.println(executePrice);
-//					这里调用getPurchasePrice
+
+					//这里调用getPurchasePrice
 					bidPriceField.setText(Double.toString(PurchasePrice[0]));
 					askPriceField.setText(Double.toString(PurchasePrice[1]));
 //					bidPriceField.setText("12.5");
