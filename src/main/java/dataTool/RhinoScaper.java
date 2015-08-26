@@ -34,8 +34,8 @@ public class RhinoScaper {
 		cx.setLanguageVersion(Context.VERSION_1_5);
 		String[] file = {"G:/chromeDownload/env-js-master/src/env.js","G:/chromeDownload/env-js-master/test/jquery.js" };
 	    evaluateJs(file[0]);
-	    String s =  cx.evaluateString(scope, "window.location='http://www.cngold.org/qihuo/hushen.html'", "windowLocation", 1, null).toString();
-	    System.out.println(cx.evaluateString(scope, "typeof QuotList", "sdfsdf", 1, null));
+//	    String s =  cx.evaluateString(scope, "window.location='http://www.cngold.org/qihuo/hushen.html'", "windowLocation", 1, null).toString();
+//	    System.out.println(cx.evaluateString(scope, "typeof QuotList", "sdfsdf", 1, null));
 	    evaluateJs(file[1]);
 	}
 	protected void evaluateJs(String f) {
