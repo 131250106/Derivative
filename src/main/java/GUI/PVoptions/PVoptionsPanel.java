@@ -24,6 +24,7 @@ import org.junit.experimental.theories.Theories;
 import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import GUI.GraphicController;
+import GUI.InsurePanel;
 import GUI.Loader;
 import GUI.MenuPanel;
 import GUI.myswing.CommonTextPanel;
@@ -32,9 +33,13 @@ import GUI.myswing.MyColor;
 import blservice.Service;
 import data.EorA;
 import data.Option;
+import data.Order;
 import data.upORdown;
 
 public class PVoptionsPanel extends MenuPanel implements Runnable{
+	
+	boolean result;
+	Order tempOrder;
 	
 	public void run() {
 
@@ -394,7 +399,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 						number = Integer.parseInt(dealNumField.getText());
 						//调用交易接口
 						option =  new Option("普通期权",null, eora, upordown);
-						boolean result =false;
+						
 						isPurchase = bidButton.isSelected()?true:false;
 						if(isPurchase){
 							number = number*1;
@@ -403,11 +408,27 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 							number = number*(-1);
 							dealprice = PurchasePrice[1];
 						}
+						
+
 						try {
-							result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
-						} catch (RemoteException e1) {
-							e1.printStackTrace();
+							tempOrder = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
+						} catch (RemoteException e2) {
+							timer.setText("网络问题");
+							e2.printStackTrace();
 						}
+						InsurePanel ensure = new InsurePanel(tempOrder);
+						addensure(ensure);
+
+						ensure.addMouseListener(new MouseAdapter() {
+							public void mouseClicked(MouseEvent e){
+								try {
+									result = service.InsurePurchase(tempOrder);
+								} catch (RemoteException e1) {
+									e1.printStackTrace();
+								}
+								removeensure(ensure);
+							}
+						});
 						System.out.println("交易执行结果:"+result);
 						if(result){
 							timer.setText("交易成功!");
@@ -427,7 +448,14 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 
 	}
 	
+    void addensure(InsurePanel panel){
+    	this.add(panel);
+    }
     
+    void removeensure(InsurePanel panel){
+    	this.remove(panel);
+    }
+	
     class TimerThread extends Thread{
     	public void run(){
       	  long time = 1 * 30 ;// 自定义倒计时时间

@@ -16,6 +16,10 @@ public class InsurePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
+	public JButton ensure;
+	public JButton cancel;
+	
 	public InsurePanel( Order order) {
 		Option option = order.getOption();
 		
@@ -164,12 +168,12 @@ public class InsurePanel extends JPanel {
 		label_24.setBounds(183, 500+delta, 54, 15);
 		add(label_24);
 		
-		JButton button = new JButton("确认");
-		button.setBounds(40, 538+delta, 93, 23);
-		add(button);
+		ensure = new JButton("确认");
+		ensure.setBounds(40, 538+delta, 93, 23);
+		add(ensure);
 		
-		JButton button_1 = new JButton("取消");
-		button_1.setBounds(183, 538+delta, 93, 23);
-		add(button_1);
+		cancel = new JButton("取消");
+		cancel.setBounds(183, 538+delta, 93, 23);
+		add(cancel);
 	}
 }
