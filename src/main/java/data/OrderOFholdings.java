@@ -1,6 +1,8 @@
 package data;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class OrderOFholdings implements Serializable{
@@ -43,6 +45,15 @@ public class OrderOFholdings implements Serializable{
 	
 	public int getDeadTime() {
 		Date now = new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
+		java.util.Date date=new java.util.Date();  
+		String str=sdf.format(date);  
+		try {
+			now = sdf.parse(str);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		deadTime = (int)((deadline.getTime() - now.getTime())
 				/ (24 * 60 * 60 * 1000));
 		return this.deadTime;
