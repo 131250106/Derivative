@@ -458,14 +458,17 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	
     void addensure(InsurePanel panel){
     	panel.setLocation(300,80);
+    	this.repaint();
+    	this.updateUI();
     	this.add(panel);
     	this.repaint();
-    	
+    	this.updateUI();
     }
     
     void removeensure(InsurePanel panel){
     	this.remove(panel);
     	this.repaint();
+    	this.updateUI();
     }
 	
     class TimerThread extends Thread{
