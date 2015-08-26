@@ -460,7 +460,9 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
     	panel.setLocation(300,80);
     	this.repaint();
     	this.updateUI();
+    	this.setFocusable(false);
     	this.add(panel);
+    	
     	this.repaint();
     	this.updateUI();
     }
