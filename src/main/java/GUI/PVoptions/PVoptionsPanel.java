@@ -14,6 +14,7 @@ import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -40,6 +41,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	
 	boolean result;
 	Order tempOrder;
+	JFrame ensureFrame;
 	
 	public void run() {
 
@@ -177,6 +179,10 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 		Europe.setVisible(true);
 		this.add(Europe);
 		this.add(America);
+		
+		America.setSelected(true);
+		LookDown.setSelected(true);
+		
 		
 		executePriceLabel = new JLabel("执行价格:");
 		executePriceLabel.setFont(font);
@@ -416,6 +422,10 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 							timer.setText("网络问题");
 							e2.printStackTrace();
 						}
+						ensureFrame = new JFrame("确认界面");
+						ensureFrame.setAlwaysOnTop(true);
+						ensureFrame.setLocation(300,80);
+						ensureFrame.setSize(300,580);
 						InsurePanel ensure = new InsurePanel(tempOrder);
 						addensure(ensure);
 
@@ -457,18 +467,14 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 	}
 	
     void addensure(InsurePanel panel){
-    	panel.setLocation(300,80);
-    	this.repaint();
-    	this.updateUI();
-    	this.setFocusable(false);
-    	this.add(panel);
-    	
+    	this.ensureFrame.add(panel);
+    	this.ensureFrame.setVisible(true);
     	this.repaint();
     	this.updateUI();
     }
     
     void removeensure(InsurePanel panel){
-    	this.remove(panel);
+    	this.ensureFrame.setVisible(false);
     	this.repaint();
     	this.updateUI();
     }

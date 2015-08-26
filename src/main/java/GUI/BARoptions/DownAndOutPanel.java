@@ -135,6 +135,10 @@ public class DownAndOutPanel extends BARoptionsPanel{
 				this.add(Europe);
 				this.add(America);
 				
+				America.setSelected(true);
+				LookDown.setSelected(true);
+				
+				
 				executePriceLabel = new JLabel("执行价格:");
 				executePriceLabel.setFont(font);
 				executePriceLabel.setBounds(213+100, 260+50, LABEL_WIDTH, LABEL_HEIGHT);
