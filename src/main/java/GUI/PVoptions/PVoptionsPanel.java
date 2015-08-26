@@ -419,7 +419,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 						InsurePanel ensure = new InsurePanel(tempOrder);
 						addensure(ensure);
 
-						ensure.addMouseListener(new MouseAdapter() {
+						ensure.ensure.addMouseListener(new MouseAdapter() {
 							public void mouseClicked(MouseEvent e){
 								try {
 									result = service.InsurePurchase(tempOrder);
@@ -429,6 +429,14 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 								removeensure(ensure);
 							}
 						});
+						
+						ensure.cancel.addMouseListener(new MouseAdapter() {
+							public void mouseClicked(MouseEvent e){
+								removeensure(ensure);
+							}
+						});
+						
+						
 						System.out.println("交易执行结果:"+result);
 						if(result){
 							timer.setText("交易成功!");
