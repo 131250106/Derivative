@@ -14,4 +14,5 @@ public class MyColor {
 	public static Color lightblue = new Color(138,171,202);
 	public static Color white = new Color(255,255,255);
 	public static Color black = new Color(0,0,0);
+	public static Color success = new Color(0,170,0);
 }
