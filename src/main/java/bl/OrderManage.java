@@ -52,8 +52,9 @@ public class OrderManage { // 所有客户订单的管理
 		if (temp != null) {
 			for (int i = 0; i < temp.length; i++) {
 				if (temp[i].getOption().isequal(option)
-						&& temp[i].getDeadline() == deadline
+						&& (temp[i].getDeadline().compareTo(deadline) == 0)
 						&& temp[i].getExecuteprice() == executeprice) {
+					System.out.println("HERE HERE!!!");
 					if (temp[i].getNumber() * number < 0) { // 若为相反类型操作，则为平仓
 						isOpen = false;
 						break;
@@ -62,8 +63,8 @@ public class OrderManage { // 所有客户订单的管理
 			}
 		}
 		String orderId = dbtool.getOneOrderId();
-		Order order = new Order(orderId,ClientID, option, deadline, executeprice,
-				dealprice, number, isOpen);
+		Order order = new Order(orderId, ClientID, option, deadline,
+				executeprice, dealprice, number, isOpen);
 		order.setBuyDate(new Date());
 		return order;
 	}

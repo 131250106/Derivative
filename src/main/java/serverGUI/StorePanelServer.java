@@ -166,59 +166,59 @@ public class StorePanelServer extends MenuPanel{
 		String nameF = list.getOption().getFirstClassName();
 		String nameS = list.getOption().getSecondClassName();
 		if(nameF.equals("普通期权")){
-			return combinationmanage.getCommonPurchasePrice(list.getOption().getEora(),
+			return combinationmanage.getCommonPurchaseValue(list.getOption().getEora(),
 					list.getOption().getUpordown(), list.getExecuteprice(), list.getDeadline());
 		}
 		if(nameF.equals("二元期权")){
 			if(nameS.equals("资产或无价值期权")){
-				return combinationmanage.getBinaryAONPrice(list.getOption().getEora(),
+				return combinationmanage.getBinaryAONValue(list.getOption().getEora(),
 						list.getOption().getUpordown(), list.getExecuteprice(),list.getDeadline());
 			}
 			if(nameS.equals("现金或无价值期权")){
-				return combinationmanage.getBinaryCONPrice(list.getOption().getEora()
+				return combinationmanage.getBinaryCONValue(list.getOption().getEora()
 						,list.getOption().getUpordown(),list.getExecuteprice(),list.getDeadline());
 			}
 		}
 		if(nameF.equals("回望期权")){
 			if(nameS.equals("固定执行价格期权")){
-				return combinationmanage.getlookbackfixedPrice(list.getOption().getEora(),
+				return combinationmanage.getlookbackfixedValue(list.getOption().getEora(),
 						list.getOption().getUpordown(),list.getExecuteprice(), list.getDeadline());
 			}
 			if(nameS.equals("浮动执行价格期权")){
-				return combinationmanage.getlookbackfloatPrice(list.getOption().getEora(), 
+				return combinationmanage.getlookbackfloatValue(list.getOption().getEora(), 
 						list.getOption().getUpordown(), list.getExecuteprice(),list.getDeadline());
 				
 			}
 		}
 		if(nameF.equals("亚式期权")){
 			if(nameS.equals("平均执行价格期权")){
-				return combinationmanage.getSubtypeAverageStrikePrice(list.getOption().getEora(),
+				return combinationmanage.getSubtypeAverageStrikeValue(list.getOption().getEora(),
 						list.getOption().getUpordown(), list.getExecuteprice()
 						, list.getDeadline());
 			}
 			if(nameS.equals("平均价格期权")){
-				return combinationmanage.getSubtypeAveragePricePrice(list.getOption().getEora(), 
+				return combinationmanage.getSubtypeAveragePriceValue(list.getOption().getEora(), 
 						list.getOption().getUpordown(), list.getExecuteprice(),list.getDeadline());
 			}
 		}
 		if(nameF.equals("障碍期权")){
 			if(nameS.equals("向上敲入期权")){
-				return combinationmanage.getObstaclePurchaseupandinPrice(list.getOption().getEora(),
+				return combinationmanage.getObstaclePurchaseupandinValue(list.getOption().getEora(),
 						list.getOption().getUpordown(),list.getExecuteprice(),list.getOption().getObstacleRate(), 
 						list.getDeadline());
 			}
 			if(nameS.equals("向上敲出期权")){
-				return combinationmanage.getObstaclePurchaseupandoutPrice(list.getOption().getEora(),
+				return combinationmanage.getObstaclePurchaseupandoutValue(list.getOption().getEora(),
 						list.getOption().getUpordown(),list.getExecuteprice(),list.getOption().getObstacleRate(), 
 						list.getDeadline());
 			}
 			if(nameS.equals("向下敲入期权")){
-				return combinationmanage.getObstaclePurchasedownandinPrice(list.getOption().getEora(),
+				return combinationmanage.getObstaclePurchasedownandinValue(list.getOption().getEora(),
 						list.getOption().getUpordown(),list.getExecuteprice(),list.getOption().getObstacleRate(), 
 						list.getDeadline());
 			}
 			if(nameS.equals("向下敲出期权")){
-				return combinationmanage.getObstaclePurchasedownandoutPrice(list.getOption().getEora(),
+				return combinationmanage.getObstaclePurchasedownandoutValue(list.getOption().getEora(),
 						list.getOption().getUpordown(),list.getExecuteprice(),list.getOption().getObstacleRate(), 
 						list.getDeadline());
 			}

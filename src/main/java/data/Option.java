@@ -64,8 +64,10 @@ public class Option implements Serializable { // 期权
 				&& this.firstClassName.equals(option.getFirstClassName())
 				&& (this.secondClassName != null && this.secondClassName
 						.equals(option.getSecondClassName()))
-				|| (this.secondClassName == null && option.getSecondClassName() == null) && option.getObstacleRate() == this.getObstacleRate())
+				|| (this.secondClassName == null && option.getSecondClassName() == null)
+				&& option.getObstacleRate() == this.getObstacleRate()) {
 			return true;
+		}
 		return false;
 	}
 }
