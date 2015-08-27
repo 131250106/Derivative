@@ -128,7 +128,7 @@ public class InsurePanel extends JPanel {
 		lblid.setFont(font);
 		add(lblid);
 
-		JLabel lblOd = new JLabel("" + order.getOrderId());
+		JLabel lblOd = new JLabel("OD000"+ order.getOrderId());
 		lblOd.setBounds(183, 80, 120, 30);
 		lblOd.setFont(font);
 		add(lblOd);

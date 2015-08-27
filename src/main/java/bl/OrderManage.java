@@ -61,7 +61,7 @@ public class OrderManage { // 所有客户订单的管理
 				}
 			}
 		}
-		String orderId = "OD000"+dbtool.getOneOrderId();
+		String orderId = dbtool.getOneOrderId();
 		Order order = new Order(orderId,ClientID, option, deadline, executeprice,
 				dealprice, number, isOpen);
 		order.setBuyDate(new Date());

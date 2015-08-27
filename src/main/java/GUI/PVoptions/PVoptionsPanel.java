@@ -425,7 +425,7 @@ public class PVoptionsPanel extends MenuPanel implements Runnable{
 						ensureFrame = new JFrame("确认界面");
 						ensureFrame.setAlwaysOnTop(true);
 						ensureFrame.setUndecorated(true);
-						ensureFrame.setLocation(550,80);
+						ensureFrame.setLocation(530,60);
 						ensureFrame.setSize(400,620);
 						InsurePanel ensure = new InsurePanel(tempOrder);
 						addensure(ensure);
