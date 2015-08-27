@@ -19,6 +19,7 @@ public class ArgumentPanel extends MenuPanel{
 	private JTextField rateField;
 	private JTextField noRiskRateField;
 	private JButton changeArgument;
+	JLabel successLabel;
 	private JLabel tag;
 	public ArgumentPanel(String name) {
 		super("argument");
@@ -68,6 +69,13 @@ public class ArgumentPanel extends MenuPanel{
 		warningLabel.setVisible(false);
 		this.add(warningLabel);
 		
+		successLabel = new JLabel("修改成功!");
+		successLabel.setFont(font);
+		successLabel.setForeground(MyColor.success);
+		successLabel.setBounds(100,360,150,40);
+		successLabel.setVisible(false);
+		this.add(successLabel);
+		
 		changeArgument = new JButton("确认更改");
 		changeArgument.setSize(175, 70);
 		changeArgument.setLocation(100,400);
@@ -83,10 +91,26 @@ public class ArgumentPanel extends MenuPanel{
 				}else{
 					ServerData.setFluctuation_Rate(Double.parseDouble(rateField.getText()));
 					ServerData.setRisk_free_Rate(Double.parseDouble(noRiskRateField.getText()));
+					successLabel.setVisible(true);
+					
 				}
 			}
 		});
 		this.add(changeArgument);
 	}
-	
+
+	 class TimerThread extends Thread{
+	    	public void run(){
+	      	  long time = 1 * 5 ;// 自定义倒计时时间
+	      	  while (time >= 0){
+	              try {
+	                	this.sleep(1000);
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+	                time--;
+	            }
+	      	  successLabel.setVisible(false);
+	    	}  	
+	    }
 }
