@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -69,9 +70,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonOption.setBorderPainted(false);
 		buttonOption.setFont(font);
 		buttonOption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
-				buttonOption.setBackground(MyColor.deepblue2);
 				GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = buttonOption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+				buttonOption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+					buttonOption.setBackground(now);
 			}
 		});
 		this.add(buttonOption);
@@ -84,8 +95,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonView.setBorderPainted(false);
 		buttonView.setFont(font);
 		buttonView.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new ViewPanel());
+			}
+			public void mouseEntered(MouseEvent e){
+				now = buttonView.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+				buttonView.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+					buttonView.setBackground(now);
 			}
 		});
 		this.add(buttonView);
@@ -98,8 +120,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		buttonStore.setBorderPainted(false);
 		buttonStore.setFont(font);
 		buttonStore.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new StorePanel());
+			}
+			public void mouseEntered(MouseEvent e){
+				now = buttonStore.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					buttonStore.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				buttonStore.setBackground(now);
 			}
 		});
 		this.add(buttonStore);
@@ -115,9 +148,21 @@ public class MenuPanel extends JPanel implements ActionListener{
 		pvoption.setBorderPainted(false);
 		pvoption.setFont(font);
 		pvoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new PVoptionsPanel("PVoptions"));
 			}
+			public void mouseEntered(MouseEvent e){
+				now = pvoption.getBackground();
+				if(now.equals(MyColor.deepblue3)){
+				}else{
+					pvoption.setBackground(MyColor.deepblue4);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				pvoption.setBackground(now);
+			}
+			
 		});
 		this.add(pvoption);
 		
@@ -130,8 +175,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		lboption.setBorderPainted(false);
 		lboption.setFont(font);
 		lboption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new LBoptionsPanel("LBoptions"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = lboption.getBackground();
+				if(now.equals(MyColor.deepblue3)){
+				}else{
+					lboption.setBackground(MyColor.deepblue4);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				lboption.setBackground(now);
 			}
 		});
 		this.add(lboption);
@@ -145,8 +201,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		boption.setBorderPainted(false);
 		boption.setFont(font);
 		boption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new BoptionsPanel("Boptions"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = boption.getBackground();
+				if(now.equals(MyColor.deepblue3)){
+				}else{
+					boption.setBackground(MyColor.deepblue4);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				boption.setBackground(now);
 			}
 		});
 		this.add(boption);
@@ -161,8 +228,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		asianoption.setBorderPainted(false);
 		asianoption.setFont(font);
 		asianoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new AsianoptionsPanel("Asianoptions"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = asianoption.getBackground();
+				if(now.equals(MyColor.deepblue3)){
+				}else{
+					asianoption.setBackground(MyColor.deepblue4);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				asianoption.setBackground(now);
 			}
 		});
 		this.add(asianoption);
@@ -176,8 +254,19 @@ public class MenuPanel extends JPanel implements ActionListener{
 		baroption.setBorderPainted(false);
 		baroption.setFont(font);
 		baroption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new BARoptionsPanel("BARoptions"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = baroption.getBackground();
+				if(now.equals(MyColor.deepblue3)){
+				}else{
+					baroption.setBackground(MyColor.deepblue4);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				baroption.setBackground(now);
 			}
 		});
 		

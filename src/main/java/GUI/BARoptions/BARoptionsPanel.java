@@ -1,5 +1,6 @@
 package GUI.BARoptions;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -41,8 +42,19 @@ public class BARoptionsPanel extends MenuPanel{
 		downandoutoption.setBorderPainted(false);
 		downandoutoption.setFont(font);
 		downandoutoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new DownAndOutPanel("DownAndOut"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = downandoutoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					downandoutoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				downandoutoption.setBackground(now);
 			}
 		});
 		this.add(downandoutoption);
@@ -56,8 +68,19 @@ public class BARoptionsPanel extends MenuPanel{
 		downandinoption.setBorderPainted(false);
 		downandinoption.setFont(font);
 		downandinoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new DownAndInPanel("DownAndIn"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = downandinoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					downandinoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				downandinoption.setBackground(now);
 			}
 		});
 		this.add(downandinoption);
@@ -71,8 +94,19 @@ public class BARoptionsPanel extends MenuPanel{
 		upandoutoption.setBorderPainted(false);
 		upandoutoption.setFont(font);
 		upandoutoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new UpAndOutPanel("UpAndOut"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = upandoutoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					upandoutoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				upandoutoption.setBackground(now);
 			}
 		});
 		this.add(upandoutoption);
@@ -86,8 +120,19 @@ public class BARoptionsPanel extends MenuPanel{
 		upandinoption.setBorderPainted(false);
 		upandinoption.setFont(font);
 		upandinoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new UpAndInPanel("UpAndIn"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = upandinoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					upandinoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				upandinoption.setBackground(now);
 			}
 		});
 		this.add(upandinoption);

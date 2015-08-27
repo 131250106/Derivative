@@ -1,5 +1,6 @@
 package GUI.Boptions;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -62,10 +63,22 @@ public class BoptionsPanel extends MenuPanel{
 		cashoption.setBorderPainted(false);
 		cashoption.setFont(font);
 		cashoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				tag.setVisible(false);
 				GraphicController.changeToPanel(new cashPanel("cash"));
 			}
+			public void mouseEntered(MouseEvent e){
+				now =  cashoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					cashoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				cashoption.setBackground(now);
+			}
+			
 		});
 		this.add(cashoption);
 		
@@ -79,8 +92,19 @@ public class BoptionsPanel extends MenuPanel{
 		assetoption.setBorderPainted(false);
 		assetoption.setFont(font);
 		assetoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new AssetPanel("asset"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = assetoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					assetoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				assetoption.setBackground(now);
 			}
 		});
 		this.add(assetoption);

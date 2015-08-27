@@ -1,5 +1,6 @@
 package GUI.Asianoptions;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -40,8 +41,19 @@ public class AsianoptionsPanel extends MenuPanel{
 		avgexcpriceoption.setBorderPainted(false);
 		avgexcpriceoption.setFont(font);
 		avgexcpriceoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new AvgExcPricePanel("AvgExcPrice"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = avgexcpriceoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					avgexcpriceoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				avgexcpriceoption.setBackground(now);
 			}
 		});
 		this.add(avgexcpriceoption);
@@ -57,8 +69,19 @@ public class AsianoptionsPanel extends MenuPanel{
 		avgpriceoption.setBorderPainted(false);
 		avgpriceoption.setFont(font);
 		avgpriceoption.addMouseListener(new MouseAdapter() {
+			Color now;
 			public void mouseClicked(MouseEvent e) {
 				GraphicController.changeToPanel(new AvgPricePanel("AvgPrice"));
+			}
+			public void mouseEntered(MouseEvent e){
+				now = avgpriceoption.getBackground();
+				if(now.equals(MyColor.deepblue2)){
+				}else{
+					avgpriceoption.setBackground(MyColor.deepblue3);
+				}
+			}
+			public void mouseExited(MouseEvent e){				
+				avgpriceoption.setBackground(now);
 			}
 		});
 		this.add(avgpriceoption);
