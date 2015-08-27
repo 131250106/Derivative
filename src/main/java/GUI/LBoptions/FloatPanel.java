@@ -155,8 +155,8 @@ public class FloatPanel extends LBoptionsPanel{
 		this.add(Europe);
 		this.add(America);
 		
-		America.setSelected(true);
-		LookDown.setSelected(true);
+		Europe.setSelected(true);
+		LookUp.setSelected(true);
 		
 		
 		executePriceLabel = new JLabel("执行价格:");
