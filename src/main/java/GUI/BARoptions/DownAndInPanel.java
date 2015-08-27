@@ -10,16 +10,19 @@ import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import GUI.InsurePanel;
 import GUI.Loader;
 import GUI.myswing.DateChooser;
 import GUI.myswing.MyColor;
 import blservice.Service;
 import data.EorA;
 import data.Option;
+import data.Order;
 import data.upORdown;
 
 public class DownAndInPanel extends BARoptionsPanel{
@@ -35,7 +38,11 @@ public class DownAndInPanel extends BARoptionsPanel{
  	double rate;
  	int number; 	
  	TimerThread timerThread=null;
-	
+	boolean result;
+	Order tempOrder;
+	JFrame ensureFrame;
+
+ 	
 	private JLabel tag;
 	private ButtonGroup LookUpAndDown;
 	private JRadioButton LookUp;
@@ -135,8 +142,8 @@ public class DownAndInPanel extends BARoptionsPanel{
 		this.add(Europe);
 		this.add(America);
 		
-		America.setSelected(true);
-		LookDown.setSelected(true);
+		Europe.setSelected(true);
+		LookUp.setSelected(true);
 		
 		
 		executePriceLabel = new JLabel("执行价格:");
@@ -369,7 +376,6 @@ public class DownAndInPanel extends BARoptionsPanel{
 						number = Integer.parseInt(dealNumField.getText());
 						//调用交易接口
 						option =  new Option("障碍期权", "向下敲入期权", eora, upordown);
-						boolean result =false;
 						isPurchase = bidButton.isSelected()?true:false;
 						if(isPurchase){
 							number = number*1;
@@ -378,11 +384,41 @@ public class DownAndInPanel extends BARoptionsPanel{
 							number = number*(-1);
 							dealprice = PurchasePrice[1];
 						}
+//						try {
+//							result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
+//						} catch (RemoteException e1) {
+//							e1.printStackTrace();
+//						}
 						try {
-							result = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
-						} catch (RemoteException e1) {
-							e1.printStackTrace();
+							tempOrder = service.purchaseOption(option, number, "131250131", deadline, executePrice, dealprice);
+						} catch (RemoteException e2) {
+							timer.setText("网络问题");
+							e2.printStackTrace();
 						}
+						ensureFrame = new JFrame("确认界面");
+						ensureFrame.setAlwaysOnTop(true);
+						ensureFrame.setUndecorated(true);
+						ensureFrame.setLocation(550,80);
+						ensureFrame.setSize(400,620);
+						InsurePanel ensure = new InsurePanel(tempOrder);
+						addensure(ensure);
+
+						ensure.ensure.addMouseListener(new MouseAdapter() {
+							public void mouseClicked(MouseEvent e){
+								try {
+									result = service.InsurePurchase(tempOrder);
+								} catch (RemoteException e1) {
+									e1.printStackTrace();
+								}
+								removeensure(ensure);
+							}
+						});
+						
+						ensure.cancel.addMouseListener(new MouseAdapter() {
+							public void mouseClicked(MouseEvent e){
+								removeensure(ensure);
+							}
+						});
 						System.out.println("交易执行结果:"+result);
 						if(result){
 							timer.setText("交易成功!");
@@ -399,7 +435,19 @@ public class DownAndInPanel extends BARoptionsPanel{
 		
 
 	}
-	
+	  void addensure(InsurePanel panel){
+	    	this.ensureFrame.add(panel);
+	    	this.ensureFrame.setVisible(true);
+	    	this.repaint();
+	    	this.updateUI();
+	    }
+	    
+	    void removeensure(InsurePanel panel){
+	    	this.ensureFrame.setVisible(false);
+	    	this.repaint();
+	    	this.updateUI();
+	    }
+	    
     
     class TimerThread extends Thread{
     	public void run(){
